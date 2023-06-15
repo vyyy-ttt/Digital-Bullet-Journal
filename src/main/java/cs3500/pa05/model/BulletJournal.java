@@ -2,15 +2,20 @@ package cs3500.pa05.model;
 
 import cs3500.pa05.model.Json.EventJson;
 import cs3500.pa05.model.Json.TaskJson;
+import cs3500.pa05.model.Json.WeekJson;
 import java.nio.file.Path;
+import java.util.List;
 
 /**
  * Represents a bullet journal.
  */
 public class BulletJournal implements IBulletJournal{
-  Path bujoFile;
-  FileReader fileReader;
-  FileWriter fileWriter;
+  private final Path bujoFile;
+  private final FileReader fileReader;
+  private final FileWriter fileWriter;
+  private List<TaskJson> tasks;
+  private List<EventJson> events;
+  private WeekJson week;
 
   public BulletJournal(Path file, FileReader fileReader, FileWriter fileWriter){
     bujoFile = file;
