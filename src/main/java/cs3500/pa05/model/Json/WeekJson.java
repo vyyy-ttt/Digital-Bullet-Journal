@@ -6,16 +6,10 @@ import cs3500.pa05.model.Theme;
 import cs3500.pa05.model.ThemeType;
 
 /**
- * JSON format of this record:
- * <p>
- * <code>
- * {
- * "week": "week",
- * }
- * </code>
- * </p>
  *
- * @param week DayJson[] of the week
+ * @param week an array of the days of the week
+ * @param limits the limits for events and tasks per day
+ * @param theme the theme for the bullet journal
  */
 public record WeekJson(
     @JsonProperty("week") DayJson[] week,
