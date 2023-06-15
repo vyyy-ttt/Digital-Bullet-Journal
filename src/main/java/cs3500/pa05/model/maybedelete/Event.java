@@ -1,4 +1,4 @@
-package cs3500.pa05.model;
+package cs3500.pa05.model.maybedelete;
 
 /**
  * Represents an event.
