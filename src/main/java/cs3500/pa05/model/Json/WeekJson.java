@@ -1,6 +1,7 @@
-package cs3500.pa05.model;
+package cs3500.pa05.model.Json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import cs3500.pa05.model.Json.DayJson;
 
 /**
  * JSON format of this record:

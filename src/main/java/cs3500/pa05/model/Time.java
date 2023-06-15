@@ -1,4 +1,4 @@
 package cs3500.pa05.model;
 
-public record LimitJson() {
+public class Time {
 }
