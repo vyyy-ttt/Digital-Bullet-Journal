@@ -44,16 +44,14 @@ public class BulletJournal implements IBulletJournal{
   }
   @Override
   public void addEvent(EventJson event) {
-    //check to see if the max num of events is exceeded
-    if (events.size() + 1 <= limits.maxEvents()) {
+    if (!checkLimitViolation(false)) {
       events.add(event);
     }
   }
 
   @Override
   public void addTask(TaskJson task) {
-    //check if the max num of tasks is exceeded
-    if (tasks.size() + 1 <= limits.maxTasks()) {
+    if (!checkLimitViolation(true)) {
       tasks.add(task);
     }
   }
