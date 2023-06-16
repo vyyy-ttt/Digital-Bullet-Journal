@@ -34,10 +34,15 @@ public class BulletJournal implements IBulletJournal{
     tasks = fileReader.getTasks();
     events = fileReader.getEvents();
     limits = week.limits();
+
+    //TODO: create a new .bujo file for the first time that the user uses the application. Already edited the readFile method
   }
   @Override
   public void addEvent(EventJson event) {
     //check to see if the max num of events is exceeded
+    if(events.size()+1 <= limits.maxEvents()){
+
+    }
 
   }
 

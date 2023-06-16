@@ -22,15 +22,17 @@ public class FileReader implements BujoReader{
   /**
    * Reads the file and parses the week from the file.
    *
-   * @param file the file to be read.
+   * @param file file to be read.
+   * @return true if the file can be read, false otherwise
    */
-  public void readFile(Path file) {
+  public boolean readFile(Path file) {
     try {
       JsonParser parser = this.mapper.getFactory().createParser(file.toFile());
       week = parser.readValueAs(WeekJson.class);
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      return false;
     }
+    return true;
   }
   @Override
   public WeekJson getWeek() {
