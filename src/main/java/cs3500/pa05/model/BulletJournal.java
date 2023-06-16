@@ -36,6 +36,7 @@ public class BulletJournal implements IBulletJournal{
     limits = week.limits();
 
     //TODO: create a new .bujo file for the first time that the user uses the application. Already edited the readFile method
+
   }
   @Override
   public void addEvent(EventJson event) {
@@ -54,12 +55,20 @@ public class BulletJournal implements IBulletJournal{
 
   @Override
   public void setTaskLimit(int newLimit) {
-    limits = new LimitJson(limits.maxEvents(), newLimit);
+    if(limits == null){
+      limits = new LimitJson(-1, newLimit);
+    } else{
+      limits = new LimitJson(limits.maxEvents(), newLimit);
+    }
   }
 
   @Override
   public void setEventLimit(int newLimit) {
-    limits = new LimitJson(newLimit, limits.maxTasks());
+    if(limits == null){
+      limits = new LimitJson(newLimit, -1);
+    } else{
+      limits = new LimitJson(newLimit, limits.maxTasks());
+    }
   }
 
   @Override
