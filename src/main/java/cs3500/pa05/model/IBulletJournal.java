@@ -58,6 +58,8 @@ public interface IBulletJournal {
 
   /**
    * Retrieves the week.
+   *
+   * @return the week
    */
   WeekJson getWeek();
 }
