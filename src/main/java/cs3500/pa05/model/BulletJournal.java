@@ -17,6 +17,13 @@ public class BulletJournal implements IBulletJournal{
   private List<EventJson> events;
   private WeekJson week;
 
+  /**
+   * Instantiates a new bullet journal.
+   *
+   * @param file the file to save the bullet journal on
+   * @param fileReader the file reader to read the file
+   * @param fileWriter the file writer to write to the file
+   */
   public BulletJournal(Path file, FileReader fileReader, FileWriter fileWriter){
     bujoFile = file;
     this.fileReader = fileReader;

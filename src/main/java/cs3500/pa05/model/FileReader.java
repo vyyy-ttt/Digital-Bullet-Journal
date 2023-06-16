@@ -10,7 +10,6 @@ import cs3500.pa05.model.Json.WeekJson;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
