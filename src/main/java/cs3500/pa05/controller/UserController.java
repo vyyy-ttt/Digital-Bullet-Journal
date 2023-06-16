@@ -23,12 +23,12 @@ public class UserController {
   }
   protected boolean handleEvent(EventJson event){
     bujo.addEvent(event);
-    return false;
+    return bujo.checkLimitViolation(false);
   }
 
   protected boolean handleTask(TaskJson task) {
     bujo.addTask(task);
-    return false;
+    return bujo.checkLimitViolation(true);
   }
 
   protected void handleLimit(int limit, boolean isTaskLimit){
@@ -37,6 +37,14 @@ public class UserController {
     } else{
       bujo.setEventLimit(limit);
     }
+  }
+
+  protected void handleRemoveTask(TaskJson task){
+
+  }
+
+  protected void handleRemoveEvent(EventJson event){
+
   }
 
   protected void handleTheme(ThemeType theme){
@@ -48,6 +56,6 @@ public class UserController {
   }
 
   protected List<TaskJson> getTaskQueue(){
-    return null;
+    return bujo.sortTasks();
   }
 }

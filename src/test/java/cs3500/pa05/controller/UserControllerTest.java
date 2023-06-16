@@ -1,5 +1,10 @@
 package cs3500.pa05.controller;
 
-class UserControllerTest {
+import org.junit.jupiter.api.Test;
 
+class UserControllerTest {
+  @Test
+  public void handlePathTest() {
+
+  }
 }
