@@ -22,6 +22,13 @@ public interface IBulletJournal {
   void addTask(TaskJson task);
 
   /**
+   * Checks whether the limit will be surpassed and violated.
+   *
+   * @return true if the limit will be surpassed
+   */
+  boolean checkLimitViolation(int limit);
+
+  /**
    * Sets the limit to the number of tasks per day.
    *
    * @param limit the limit

@@ -55,6 +55,12 @@ public class BulletJournal implements IBulletJournal{
   }
 
   @Override
+  public boolean checkLimitViolation(int limit) {
+    // TODO: implement - determines if the given limit will be surpassed
+    return false;
+  }
+
+  @Override
   public void setTaskLimit(int newLimit) {
     if (limits == null) {
       limits = new LimitJson(-1, newLimit);
