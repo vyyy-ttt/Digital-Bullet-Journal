@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Scene xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <AnchorPane prefHeight="480.0" prefWidth="640.0">
+      <children>
+         <HBox alignment="TOP_CENTER" prefHeight="480.0" prefWidth="640.0">
+            <children>
+               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="480.0" stroke="WHITE" strokeType="INSIDE" width="640.0" />
+            </children>
+         </HBox>
+         <BorderPane prefHeight="480.0" prefWidth="640.0">
+            <center>
+               <Pane prefHeight="270.0" prefWidth="404.0" BorderPane.alignment="CENTER">
+                  <children>
+                     <HBox alignment="BOTTOM_LEFT" prefHeight="45.0" prefWidth="380.0">
+                        <children>
+                           <Label contentDisplay="CENTER" text="Week name" textFill="#a1b58a">
+                              <font>
+                                 <Font name="BM JUA OTF" size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </HBox>
+                     <HBox alignment="CENTER" layoutY="53.0" prefHeight="224.0" prefWidth="399.0">
+                        <children>
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="221.0" stroke="#d9baab" strokeType="INSIDE" width="57.0" />
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="221.0" stroke="#d9baab" strokeType="INSIDE" width="57.0" />
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="221.0" stroke="#d9baab" strokeType="INSIDE" width="57.0" />
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="221.0" stroke="#d9baab" strokeType="INSIDE" width="57.0" />
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="221.0" stroke="#d9baab" strokeType="INSIDE" width="57.0" />
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="221.0" stroke="#d9baab" strokeType="INSIDE" width="57.0" />
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="221.0" stroke="#d9baab" strokeType="INSIDE" width="57.0" />
+                        </children>
+                     </HBox>
+                     <HBox layoutY="53.0" prefHeight="219.0" prefWidth="420.0">
+                        <children>
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="35.0" stroke="#d9baab" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" width="399.0" />
+                        </children>
+                     </HBox>
+                     <HBox layoutY="52.0" prefHeight="220.0" prefWidth="397.0">
+                        <children>
+                           <GridPane prefHeight="220.0" prefWidth="400.0">
+                             <columnConstraints>
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                             </columnConstraints>
+                             <rowConstraints>
+                               <RowConstraints maxHeight="133.89675903320312" minHeight="10.0" prefHeight="34.619384765625" vgrow="SOMETIMES" />
+                               <RowConstraints maxHeight="248.45098876953125" minHeight="10.0" prefHeight="185.380615234375" vgrow="SOMETIMES" />
+                             </rowConstraints>
+                              <children>
+                                 <Label text="SUN" textFill="#977959" GridPane.halignment="CENTER">
+                                    <font>
+                                       <Font name="BM JUA OTF" size="13.0" />
+                                    </font>
+                                 </Label>
+                                 <Label text="MON" textFill="#977959" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                                    <font>
+                                       <Font name="BM JUA OTF" size="13.0" />
+                                    </font>
+                                 </Label>
+                                 <Label text="TUE" textFill="#977959" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                                    <font>
+                                       <Font name="BM JUA OTF" size="13.0" />
+                                    </font>
+                                 </Label>
+                                 <Label text="WED" textFill="#977959" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                                    <font>
+                                       <Font name="BM JUA OTF" size="13.0" />
+                                    </font>
+                                 </Label>
+                                 <Label text="THU" textFill="#977959" GridPane.columnIndex="4" GridPane.halignment="CENTER">
+                                    <font>
+                                       <Font name="BM JUA OTF" size="13.0" />
+                                    </font>
+                                 </Label>
+                                 <Label text="FRI" textFill="#977959" GridPane.columnIndex="5" GridPane.halignment="CENTER">
+                                    <font>
+                                       <Font name="BM JUA OTF" size="13.0" />
+                                    </font>
+                                 </Label>
+                                 <Label text="SAT" textFill="#977959" GridPane.columnIndex="6" GridPane.halignment="CENTER">
+                                    <font>
+                                       <Font name="BM JUA OTF" size="13.0" />
+                                    </font>
+                                 </Label>
+                                 <TextArea prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.rowIndex="1" />
+                                 <TextArea prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                 <TextArea prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                 <TextArea prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                 <TextArea prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                 <TextArea prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                                 <TextArea prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                              </children>
+                           </GridPane>
+                        </children>
+                     </HBox>
+                     <HBox alignment="BOTTOM_RIGHT" prefHeight="50.0" prefWidth="399.0">
+                        <children>
+                           <Button alignment="BOTTOM_RIGHT" blendMode="HARD_LIGHT" mnemonicParsing="false" text="add task" textFill="#5a654a">
+                              <font>
+                                 <Font name="BM JUA OTF" size="13.0" />
+                              </font>
+                           </Button>
+                           <Button alignment="BOTTOM_RIGHT" blendMode="HARD_LIGHT" mnemonicParsing="false" text="add event" textFill="#5a654a">
+                              <font>
+                                 <Font name="BM JUA OTF" size="13.0" />
+                              </font>
+                           </Button>
+                           <Button alignment="BOTTOM_RIGHT" blendMode="HARD_LIGHT" mnemonicParsing="false" text="save" textFill="#5a654a">
+                              <font>
+                                 <Font name="BM JUA OTF" size="13.0" />
+                              </font>
+                           </Button>
+                        </children>
+                     </HBox>
+                  </children>
+               </Pane>
+            </center>
+            <top>
+               <Pane prefHeight="137.0" prefWidth="640.0" style="-fx-background-color: #97a67b;" BorderPane.alignment="CENTER">
+                  <children>
+                     <ImageView fitHeight="139.0" fitWidth="640.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@Downloads/Untitled_Artwork%2019.png" />
+                        </image>
+                     </ImageView>
+                     <HBox alignment="CENTER" prefHeight="139.0" prefWidth="640.0">
+                        <children>
+                           <Label alignment="TOP_CENTER" text="&lt;3 deeveebee hq &lt;3" textFill="#b3c69c">
+                              <font>
+                                 <Font name="BM JUA OTF" size="28.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </HBox>
+                  </children>
+               </Pane>
+            </top>
+            <left>
+               <Pane prefHeight="273.0" prefWidth="144.0" BorderPane.alignment="CENTER">
+                  <children>
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="224.0" layoutX="30.0" layoutY="54.0" stroke="#d9baab" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" width="91.0" />
+                     <Text fill="#977959" layoutX="42.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="..." wrappingWidth="80.65445327758789" />
+                     <Label layoutX="30.0" layoutY="31.0" text="Task Queue" textFill="#a1b58a">
+                        <font>
+                           <Font name="BM JUA OTF" size="13.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </Pane>
+            </left>
+            <right>
+               <Pane prefHeight="405.0" prefWidth="130.0" BorderPane.alignment="CENTER" />
+            </right>
+            <bottom>
+               <Pane prefHeight="73.0" prefWidth="640.0" BorderPane.alignment="CENTER" />
+            </bottom>
+         </BorderPane>
+      </children></AnchorPane>
+</Scene>

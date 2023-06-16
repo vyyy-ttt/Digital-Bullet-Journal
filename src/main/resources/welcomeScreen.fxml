@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<Scene xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <AnchorPane prefHeight="200" prefWidth="200">
+      <children>
+         <HBox prefHeight="100.0" prefWidth="200.0">
+            <children>
+               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="480.0" stroke="#ffffff00" strokeType="INSIDE" width="640.0" />
+            </children>
+         </HBox>
+         <HBox prefHeight="480.0" prefWidth="640.0">
+            <children>
+               <GridPane prefHeight="480.0" prefWidth="640.0">
+                 <columnConstraints>
+                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                 </columnConstraints>
+                 <rowConstraints>
+                   <RowConstraints maxHeight="236.2268524169922" minHeight="10.0" prefHeight="118.57408142089844" vgrow="SOMETIMES" />
+                   <RowConstraints maxHeight="377.56949615478516" minHeight="10.0" prefHeight="361.42591857910156" vgrow="SOMETIMES" />
+                 </rowConstraints>
+                  <children>
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d7e4c7" height="120.0" stroke="#ffffff00" strokeType="INSIDE" width="641.0" />
+                  </children>
+               </GridPane>
+            </children>
+         </HBox>
+         <HBox prefHeight="480.0" prefWidth="640.0">
+            <children>
+               <GridPane prefHeight="480.0" prefWidth="640.0">
+                 <columnConstraints>
+                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                 </columnConstraints>
+                 <rowConstraints>
+                   <RowConstraints maxHeight="233.46385192871094" minHeight="10.0" prefHeight="124.30268096923828" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="264.8975296020508" minHeight="10.0" prefHeight="93.20344543457031" vgrow="SOMETIMES" />
+                   <RowConstraints maxHeight="391.9654541015625" minHeight="10.0" prefHeight="52.29655456542969" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="391.9654541015625" minHeight="10.0" prefHeight="215.3990936279297" vgrow="SOMETIMES" />
+                 </rowConstraints>
+                  <children>
+                     <Label text="Welcome to DeeveebeeLand!" GridPane.halignment="CENTER">
+                        <font>
+                           <Font name="BM JUA OTF" size="24.0" />
+                        </font>
+                     </Label>
+                     <HBox alignment="CENTER" prefHeight="212.0" prefWidth="640.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <children>
+                           <PasswordField alignment="TOP_CENTER" prefHeight="20.0" prefWidth="469.0" />
+                        </children>
+                     </HBox>
+                     <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+                        <children>
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfeec1" height="31.0" stroke="#78836c" strokeType="INSIDE" width="41.0" />
+                        </children>
+                     </HBox>
+                     <Button alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: transparant;" text="go!" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                        <font>
+                           <Font name="BM JUA OTF" size="13.0" />
+                        </font>
+                     </Button>
+                     <HBox alignment="BOTTOM_CENTER" prefHeight="88.0" prefWidth="640.0" GridPane.rowIndex="1">
+                        <children>
+                           <Label text="enter bujo file to begin">
+                              <font>
+                                 <Font name="BM JUA OTF" size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </HBox>
+                  </children>
+               </GridPane>
+            </children>
+         </HBox>
+      </children></AnchorPane>
+</Scene>
