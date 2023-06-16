@@ -2,6 +2,7 @@ package cs3500.pa05.model;
 
 import cs3500.pa05.model.Json.EventJson;
 import cs3500.pa05.model.Json.TaskJson;
+import cs3500.pa05.model.Json.WeekJson;
 
 /**
  * Represents the functionality needed for a bullet journal.
@@ -22,11 +23,12 @@ public interface IBulletJournal {
   void addTask(TaskJson task);
 
   /**
-   * Checks whether the limit will be surpassed and violated.
+   * Returns whether the task or event limit will be exceeded after adding another task or event.
    *
-   * @return true if the limit will be surpassed
+   * @param isTask if the task limit is being checked, otherwise the event limit will be checked
+   * @return if the limit will be violated
    */
-  boolean checkLimitViolation(int limit);
+  boolean checkLimitViolation(boolean isTask);
 
   /**
    * Sets the limit to the number of tasks per day.
@@ -53,4 +55,9 @@ public interface IBulletJournal {
    * Saves the bullet journal to a .bujo file.
    */
   void saveBulletJournal();
+
+  /**
+   * Retrieves the week.
+   */
+  WeekJson getWeek();
 }

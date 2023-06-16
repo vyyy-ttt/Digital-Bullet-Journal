@@ -59,9 +59,12 @@ public class BulletJournal implements IBulletJournal{
   }
 
   @Override
-  public boolean checkLimitViolation(int limit) {
-    // TODO: implement - determines if the given limit will be surpassed
-    return false;
+  public boolean checkLimitViolation(boolean isTask) {
+    if (isTask) {
+      return tasks.size() + 1 >= limits.maxTasks();
+    } else {
+      return events.size() + 1 >= limits.maxEvents();
+    }
   }
 
   @Override
@@ -90,5 +93,10 @@ public class BulletJournal implements IBulletJournal{
   @Override
   public void saveBulletJournal() {
 
+  }
+
+  @Override
+  public WeekJson getWeek() {
+    return week;
   }
 }
