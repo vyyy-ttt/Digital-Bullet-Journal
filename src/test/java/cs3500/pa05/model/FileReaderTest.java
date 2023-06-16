@@ -2,17 +2,11 @@ package cs3500.pa05.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import cs3500.pa05.model.Day;
-import cs3500.pa05.model.FileReader;
 import cs3500.pa05.model.Json.DayJson;
 import cs3500.pa05.model.Json.EventJson;
 import cs3500.pa05.model.Json.JsonUtils;
-import cs3500.pa05.model.Json.LimitJson;
 import cs3500.pa05.model.Json.TaskJson;
-import cs3500.pa05.model.Json.WeekJson;
-import cs3500.pa05.model.Status;
-import cs3500.pa05.model.ThemeType;
-import cs3500.pa05.model.Time;
+import cs3500.pa05.model.Json.BujoJson;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +22,7 @@ public class FileReaderTest {
   DayJson[] days = new DayJson[] {day, day, day, day, day, new DayJson(tasks, new EventJson[3]),
       new DayJson(new TaskJson[1], events)};
 
-  WeekJson test = new WeekJson(days, null, ThemeType.CLASSIC);
+  BujoJson test = new BujoJson(days, null, ThemeType.CLASSIC);
   FileReader reader;
 
   @BeforeEach
@@ -39,7 +33,7 @@ public class FileReaderTest {
 
   @Test
   public void getWeekTest() {
-    assertEquals(JsonUtils.serializeRecord(reader.getWeek()), JsonUtils.serializeRecord(test));
+    assertEquals(JsonUtils.serializeRecord(reader.getBujo()), JsonUtils.serializeRecord(test));
   }
 
   @Test

@@ -4,7 +4,7 @@ import cs3500.pa05.model.Json.DayJson;
 import cs3500.pa05.model.Json.EventJson;
 import cs3500.pa05.model.Json.LimitJson;
 import cs3500.pa05.model.Json.TaskJson;
-import cs3500.pa05.model.Json.WeekJson;
+import cs3500.pa05.model.Json.BujoJson;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class BulletJournal implements IBulletJournal{
   private ArrayList<TaskJson> tasks;
   private ArrayList<EventJson> events;
   private LimitJson limits;
-  private WeekJson week;
+  private BujoJson week;
 
   /**
    * Instantiates a new bullet journal.
@@ -32,11 +32,11 @@ public class BulletJournal implements IBulletJournal{
     this.fileWriter = fileWriter;
 
     if(fileReader.readFile(file)){
-      week = fileReader.getWeek();
+      week = fileReader.getBujo();
       tasks = fileReader.getTasks();
       events = fileReader.getEvents();
     } else{
-      week = new WeekJson(new DayJson[7],null,ThemeType.CLASSIC);
+      week = new BujoJson(new DayJson[7],null,ThemeType.CLASSIC);
       tasks = new ArrayList<>();
       events = new ArrayList<>();
     }
@@ -107,7 +107,7 @@ public class BulletJournal implements IBulletJournal{
   }
 
   @Override
-  public WeekJson getWeek() {
+  public BujoJson getWeek() {
     return week;
   }
 }

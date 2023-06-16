@@ -6,20 +6,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import cs3500.pa05.model.Json.DayJson;
 import cs3500.pa05.model.Json.EventJson;
 import cs3500.pa05.model.Json.TaskJson;
-import cs3500.pa05.model.Json.WeekJson;
-import java.io.File;
+import cs3500.pa05.model.Json.BujoJson;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents a file reader.
  */
 public class FileReader implements BujoReader{
   private final ObjectMapper mapper = new ObjectMapper();
-  private WeekJson week;
+  private BujoJson week;
 
   /**
    * Reads the file and parses the week from the file.
@@ -31,7 +29,7 @@ public class FileReader implements BujoReader{
     if(Files.exists(file)){
       try {
         JsonParser parser = this.mapper.getFactory().createParser(file.toFile());
-        week = parser.readValueAs(WeekJson.class);
+        week = parser.readValueAs(BujoJson.class);
         return true;
       } catch (IOException e) {
         return false;
@@ -40,7 +38,7 @@ public class FileReader implements BujoReader{
     return false;
   }
   @Override
-  public WeekJson getWeek() {
+  public BujoJson getBujo() {
     return week;
   }
 

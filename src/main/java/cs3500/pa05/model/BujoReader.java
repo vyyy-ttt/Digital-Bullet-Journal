@@ -2,7 +2,7 @@ package cs3500.pa05.model;
 
 import cs3500.pa05.model.Json.EventJson;
 import cs3500.pa05.model.Json.TaskJson;
-import cs3500.pa05.model.Json.WeekJson;
+import cs3500.pa05.model.Json.BujoJson;
 import java.util.List;
 
 /**
@@ -10,11 +10,11 @@ import java.util.List;
  */
 public interface BujoReader {
   /**
-   * Gets the week stored in the file.
+   * Gets the bullet journal stored in the file.
    *
    * @return the week
    */
-  WeekJson getWeek();
+  BujoJson getBujo();
 
   /**
    * Gets the events stored in the file.
