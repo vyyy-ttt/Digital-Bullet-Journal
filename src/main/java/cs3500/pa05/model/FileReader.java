@@ -7,7 +7,9 @@ import cs3500.pa05.model.Json.DayJson;
 import cs3500.pa05.model.Json.EventJson;
 import cs3500.pa05.model.Json.TaskJson;
 import cs3500.pa05.model.Json.WeekJson;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +28,16 @@ public class FileReader implements BujoReader{
    * @return true if the file can be read, false otherwise
    */
   public boolean readFile(Path file) {
-    try {
-      JsonParser parser = this.mapper.getFactory().createParser(file.toFile());
-      week = parser.readValueAs(WeekJson.class);
-    } catch (IOException e) {
-      return false;
+    if(Files.exists(file)){
+      try {
+        JsonParser parser = this.mapper.getFactory().createParser(file.toFile());
+        week = parser.readValueAs(WeekJson.class);
+        return true;
+      } catch (IOException e) {
+        return false;
+      }
     }
-    return true;
+    return false;
   }
   @Override
   public WeekJson getWeek() {
@@ -40,8 +45,8 @@ public class FileReader implements BujoReader{
   }
 
   @Override
-  public List<EventJson> getEvents() {
-    List<EventJson> events = new ArrayList<>();
+  public ArrayList<EventJson> getEvents() {
+    ArrayList<EventJson> events = new ArrayList<>();
     for(DayJson day : week.week()){
       for(EventJson event : day.events()){
         if(event != null){
@@ -53,8 +58,8 @@ public class FileReader implements BujoReader{
   }
 
   @Override
-  public List<TaskJson> getTasks() {
-    List<TaskJson> tasks = new ArrayList<>();
+  public ArrayList<TaskJson> getTasks() {
+    ArrayList<TaskJson> tasks = new ArrayList<>();
     for(DayJson day : week.week()){
       for(TaskJson task : day.tasks()){
         if(task != null){

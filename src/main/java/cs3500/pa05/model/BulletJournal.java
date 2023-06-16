@@ -1,10 +1,12 @@
 package cs3500.pa05.model;
 
+import cs3500.pa05.model.Json.DayJson;
 import cs3500.pa05.model.Json.EventJson;
 import cs3500.pa05.model.Json.LimitJson;
 import cs3500.pa05.model.Json.TaskJson;
 import cs3500.pa05.model.Json.WeekJson;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,8 +15,8 @@ import java.util.List;
 public class BulletJournal implements IBulletJournal{
   private final Path bujoFile;
   private final FileWriter fileWriter;
-  private List<TaskJson> tasks;
-  private List<EventJson> events;
+  private ArrayList<TaskJson> tasks;
+  private ArrayList<EventJson> events;
   private LimitJson limits;
   private WeekJson week;
 
@@ -29,14 +31,16 @@ public class BulletJournal implements IBulletJournal{
     bujoFile = file;
     this.fileWriter = fileWriter;
 
-    fileReader.readFile(file);
-    week = fileReader.getWeek();
-    tasks = fileReader.getTasks();
-    events = fileReader.getEvents();
+    if(fileReader.readFile(file)){
+      week = fileReader.getWeek();
+      tasks = fileReader.getTasks();
+      events = fileReader.getEvents();
+    } else{
+      week = new WeekJson(new DayJson[7],null,ThemeType.CLASSIC);
+      tasks = new ArrayList<>();
+      events = new ArrayList<>();
+    }
     limits = week.limits();
-
-    //TODO: create a new .bujo file for the first time that the user uses the application. Already edited the readFile method
-
   }
   @Override
   public void addEvent(EventJson event) {
