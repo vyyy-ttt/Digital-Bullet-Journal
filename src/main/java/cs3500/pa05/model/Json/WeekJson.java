@@ -16,4 +16,5 @@ public record WeekJson(
     @JsonProperty("limits") LimitJson limits,
     @JsonProperty("theme") ThemeType theme
     ) {
+
 }

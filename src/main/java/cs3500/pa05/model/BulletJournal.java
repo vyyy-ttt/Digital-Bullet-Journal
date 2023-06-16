@@ -1,6 +1,7 @@
 package cs3500.pa05.model;
 
 import cs3500.pa05.model.Json.EventJson;
+import cs3500.pa05.model.Json.LimitJson;
 import cs3500.pa05.model.Json.TaskJson;
 import cs3500.pa05.model.Json.WeekJson;
 import java.nio.file.Path;
@@ -11,10 +12,10 @@ import java.util.List;
  */
 public class BulletJournal implements IBulletJournal{
   private final Path bujoFile;
-  private final FileReader fileReader;
   private final FileWriter fileWriter;
   private List<TaskJson> tasks;
   private List<EventJson> events;
+  private LimitJson limits;
   private WeekJson week;
 
   /**
@@ -26,27 +27,34 @@ public class BulletJournal implements IBulletJournal{
    */
   public BulletJournal(Path file, FileReader fileReader, FileWriter fileWriter){
     bujoFile = file;
-    this.fileReader = fileReader;
     this.fileWriter = fileWriter;
+
+    fileReader.readFile(file);
+    week = fileReader.getWeek();
+    tasks = fileReader.getTasks();
+    events = fileReader.getEvents();
+    limits = week.limits();
   }
   @Override
   public void addEvent(EventJson event) {
+    //check to see if the max num of events is exceeded
 
   }
 
   @Override
   public void addTask(TaskJson task) {
+    //check if the max num of tasks is exceeded
 
   }
 
   @Override
-  public void setTaskLimit(int limit) {
-
+  public void setTaskLimit(int newLimit) {
+    limits = new LimitJson(limits.maxEvents(), newLimit);
   }
 
   @Override
-  public void setEventLimit(int limit) {
-
+  public void setEventLimit(int newLimit) {
+    limits = new LimitJson(newLimit, limits.maxTasks());
   }
 
   @Override

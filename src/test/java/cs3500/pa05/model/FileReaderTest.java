@@ -28,7 +28,7 @@ public class FileReaderTest {
   DayJson[] days = new DayJson[] {day, day, day, day, day, new DayJson(tasks, new EventJson[3]),
       new DayJson(new TaskJson[1], events)};
 
-  WeekJson test = new WeekJson(days, new LimitJson(0, 0), ThemeType.CLASSIC);
+  WeekJson test = new WeekJson(days, null, ThemeType.CLASSIC);
   FileReader reader;
 
   @BeforeEach
