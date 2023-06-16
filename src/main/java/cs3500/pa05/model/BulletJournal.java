@@ -57,6 +57,19 @@ public class BulletJournal implements IBulletJournal{
   }
 
   @Override
+  public List<TaskJson> sortTasks() {
+    ArrayList<TaskJson> sortedTasks = new ArrayList<>();
+    for (Day d : Day.values()) {
+      for (TaskJson currTask : tasks) {
+        if (currTask.day().equals(d)) {
+          sortedTasks.add(currTask);
+        }
+      }
+    }
+    return sortedTasks;
+  }
+
+  @Override
   public boolean checkLimitViolation(boolean isTask) {
     if (isTask) {
       return tasks.size() + 1 >= limits.maxTasks();

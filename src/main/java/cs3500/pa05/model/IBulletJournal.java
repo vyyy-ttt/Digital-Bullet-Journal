@@ -3,6 +3,7 @@ package cs3500.pa05.model;
 import cs3500.pa05.model.Json.EventJson;
 import cs3500.pa05.model.Json.TaskJson;
 import cs3500.pa05.model.Json.WeekJson;
+import java.util.List;
 
 /**
  * Represents the functionality needed for a bullet journal.
@@ -21,6 +22,13 @@ public interface IBulletJournal {
    * @param task the task
    */
   void addTask(TaskJson task);
+
+  /**
+   * Sorts all tasks by their priority deadline.
+   *
+   * @return a list of all tasks sorted from the closest upcoming date to the furthest date
+   */
+  List<TaskJson> sortTasks();
 
   /**
    * Returns whether the task or event limit will be exceeded after adding another task or event.
