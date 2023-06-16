@@ -5,7 +5,8 @@
 - Persistence
 
 ## Section 2: Headlining Features
-
+- Task Queue
+- Themes
 
 ## Section 3: Power Ups
 
