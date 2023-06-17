@@ -3,9 +3,9 @@ package cs3500.pa05.controller;
 import cs3500.pa05.model.BulletJournal;
 import cs3500.pa05.model.FileReader;
 import cs3500.pa05.model.FileWriter;
+import cs3500.pa05.model.Json.BujoJson;
 import cs3500.pa05.model.Json.EventJson;
 import cs3500.pa05.model.Json.TaskJson;
-import cs3500.pa05.model.Json.BujoJson;
 import cs3500.pa05.model.ThemeType;
 import java.io.File;
 import java.nio.file.Path;
@@ -24,7 +24,7 @@ public class UserController {
    * @param file the file that the user enters.
    * @return the loaded bujo information.
    */
-  protected BujoJson handlePath(String file){
+  protected BujoJson handlePath(String file) {
     File f = Path.of(file).toFile();
     this.bujo = new BulletJournal(f.toPath(), new FileReader(), new FileWriter(f));
     return bujo.getWeek();
@@ -36,7 +36,7 @@ public class UserController {
    * @param event the event that the user entered.
    * @return true if the user has exceeded their limits, false otherwise
    */
-  protected boolean handleEvent(EventJson event){
+  protected boolean handleEvent(EventJson event) {
     bujo.addEvent(event);
     return bujo.checkLimitViolation(false);
   }
@@ -55,13 +55,13 @@ public class UserController {
   /**
    * Handles when the user enters a new limit.
    *
-   * @param limit maximum number of events or tasks
+   * @param limit       maximum number of events or tasks
    * @param isTaskLimit true if the limit is for tasks, false if the limit is for events.
    */
-  protected void handleLimit(int limit, boolean isTaskLimit){
-    if(isTaskLimit){
+  protected void handleLimit(int limit, boolean isTaskLimit) {
+    if (isTaskLimit) {
       bujo.setTaskLimit(limit);
-    } else{
+    } else {
       bujo.setEventLimit(limit);
     }
   }
@@ -71,7 +71,7 @@ public class UserController {
    *
    * @param task the task to be removed
    */
-  protected void handleRemoveTask(TaskJson task){
+  protected void handleRemoveTask(TaskJson task) {
 
   }
 
@@ -80,7 +80,7 @@ public class UserController {
    *
    * @param event the event to be removed
    */
-  protected void handleRemoveEvent(EventJson event){
+  protected void handleRemoveEvent(EventJson event) {
 
   }
 
@@ -89,14 +89,14 @@ public class UserController {
    *
    * @param theme the new theme for the bullet journal
    */
-  protected void handleTheme(ThemeType theme){
+  protected void handleTheme(ThemeType theme) {
     bujo.chooseTheme(theme);
   }
 
   /**
    * Handles when the user wants to save the bullet journal to a file.
    */
-  protected void handleSave(){
+  protected void handleSave() {
     bujo.saveBulletJournal();
   }
 
@@ -105,7 +105,7 @@ public class UserController {
    *
    * @return a sorted list of tasks sorted by urgency
    */
-  protected List<TaskJson> getTaskQueue(){
+  protected List<TaskJson> getTaskQueue() {
     return bujo.sortTasks();
   }
 }

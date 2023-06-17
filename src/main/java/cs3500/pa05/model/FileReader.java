@@ -3,10 +3,10 @@ package cs3500.pa05.model;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import cs3500.pa05.model.Json.BujoJson;
 import cs3500.pa05.model.Json.DayJson;
 import cs3500.pa05.model.Json.EventJson;
 import cs3500.pa05.model.Json.TaskJson;
-import cs3500.pa05.model.Json.BujoJson;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 /**
  * Represents a file reader.
  */
-public class FileReader implements BujoReader{
+public class FileReader implements BujoReader {
   private final ObjectMapper mapper = new ObjectMapper();
   private BujoJson week;
 
@@ -26,7 +26,7 @@ public class FileReader implements BujoReader{
    * @return true if the file can be read, false otherwise
    */
   public boolean readFile(Path file) {
-    if(Files.exists(file)){
+    if (Files.exists(file)) {
       try {
         JsonParser parser = this.mapper.getFactory().createParser(file.toFile());
         week = parser.readValueAs(BujoJson.class);
@@ -37,6 +37,7 @@ public class FileReader implements BujoReader{
     }
     return false;
   }
+
   @Override
   public BujoJson getBujo() {
     return week;
@@ -45,9 +46,9 @@ public class FileReader implements BujoReader{
   @Override
   public ArrayList<EventJson> getEvents() {
     ArrayList<EventJson> events = new ArrayList<>();
-    for(DayJson day : week.week()){
-      for(EventJson event : day.events()){
-        if(event != null){
+    for (DayJson day : week.week()) {
+      for (EventJson event : day.events()) {
+        if (event != null) {
           events.add(event);
         }
       }
@@ -58,9 +59,9 @@ public class FileReader implements BujoReader{
   @Override
   public ArrayList<TaskJson> getTasks() {
     ArrayList<TaskJson> tasks = new ArrayList<>();
-    for(DayJson day : week.week()){
-      for(TaskJson task : day.tasks()){
-        if(task != null){
+    for (DayJson day : week.week()) {
+      for (TaskJson task : day.tasks()) {
+        if (task != null) {
           tasks.add(task);
         }
       }

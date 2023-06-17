@@ -16,16 +16,16 @@ class TimeTest {
   }
 
   @Test
-  public void regularTimeTest(){
+  public void regularTimeTest() {
     assertThrows(IllegalArgumentException.class, () -> new Time(13, 0, TimeMarkers.PM));
     assertThrows(IllegalArgumentException.class, () -> new Time(0, 0, TimeMarkers.AM));
   }
 
   @Test
-  public void toStringTest(){
-    assertEquals("00:00", new Time(0,0).toString());
-    assertEquals("10:10", new Time(10,10).toString());
-    assertEquals("1:00 am", new Time(1,0, TimeMarkers.AM).toString());
-    assertEquals("2:35 pm", new Time(2,35, TimeMarkers.PM).toString());
+  public void toStringTest() {
+    assertEquals("00:00", new Time(0, 0).toString());
+    assertEquals("10:10", new Time(10, 10).toString());
+    assertEquals("1:00 am", new Time(1, 0, TimeMarkers.AM).toString());
+    assertEquals("2:35 pm", new Time(2, 35, TimeMarkers.PM).toString());
   }
 }

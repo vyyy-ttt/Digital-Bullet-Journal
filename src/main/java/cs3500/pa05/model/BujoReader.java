@@ -1,8 +1,8 @@
 package cs3500.pa05.model;
 
+import cs3500.pa05.model.Json.BujoJson;
 import cs3500.pa05.model.Json.EventJson;
 import cs3500.pa05.model.Json.TaskJson;
-import cs3500.pa05.model.Json.BujoJson;
 import java.util.List;
 
 /**
