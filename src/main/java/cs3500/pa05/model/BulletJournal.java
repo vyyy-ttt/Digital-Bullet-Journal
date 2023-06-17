@@ -34,7 +34,7 @@ public class BulletJournal implements IBulletJournal{
     bujoFile = file;
     this.fileWriter = fileWriter;
 
-    if(fileReader.readFile(file)){
+    if (fileReader.readFile(file)) {
       week = fileReader.getBujo();
       tasks = fileReader.getTasks();
       events = fileReader.getEvents();
