@@ -42,7 +42,23 @@ public interface IBulletJournal {
    *
    * @return a list of all tasks sorted from the closest upcoming date to the furthest date
    */
-  List<TaskJson> sortTasks();
+  List<TaskJson> sortTasksPriority();
+
+  /**
+   * Sorts all tasks by their name or duration.
+   *
+   * @param byName if wanting to sort by name, otherwise will be sorted by duration
+   * @return a list of TaskJsons sorted by the given flag
+   */
+  List<TaskJson> sortTasksNameDuration(boolean byName);
+
+  /**
+   * Sorts all events by their name or duration.
+   *
+   * @param byName if wanting to sort by name, otherwise will be sorted by duration
+   * @return a list of EventJsons sorted by the given flag
+   */
+  List<EventJson> sortEventsNameDuration(boolean byName);
 
   /**
    * Returns whether the task or event limit will be exceeded after adding another task or event.

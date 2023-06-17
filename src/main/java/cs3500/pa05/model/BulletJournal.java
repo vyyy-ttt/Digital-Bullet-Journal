@@ -73,7 +73,7 @@ public class BulletJournal implements IBulletJournal {
   }
 
   @Override
-  public List<TaskJson> sortTasks() {
+  public List<TaskJson> sortTasksPriority() {
     ArrayList<TaskJson> sortedTasks = new ArrayList<>();
     for (Day d : Day.values()) {
       for (TaskJson currTask : tasks) {
@@ -83,6 +83,32 @@ public class BulletJournal implements IBulletJournal {
       }
     }
     return sortedTasks;
+  }
+
+  @Override
+  public List<TaskJson> sortTasksNameDuration(boolean isName) {
+    ArrayList<TaskJson> sortedTasks = new ArrayList<>();
+    for (TaskJson currTask : tasks) {
+      if (sortedTasks.isEmpty()) {
+        sortedTasks.add(currTask);
+      } else {
+        // TODO
+      }
+    }
+    return sortedTasks;
+  }
+
+  @Override
+  public List<EventJson> sortEventsNameDuration(boolean isName) {
+    ArrayList<EventJson> sortedEvents = new ArrayList<>();
+    for (EventJson currEvent : events) {
+      if (sortedEvents.isEmpty()) {
+        sortedEvents.add(currEvent);
+      } else {
+        // TODO
+      }
+    }
+    return sortedEvents;
   }
 
   @Override
