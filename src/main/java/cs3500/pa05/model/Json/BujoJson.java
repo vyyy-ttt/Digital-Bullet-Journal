@@ -17,4 +17,3 @@ public record BujoJson(
     ) {
 
 }
-//TODO: rename as BUJOJson

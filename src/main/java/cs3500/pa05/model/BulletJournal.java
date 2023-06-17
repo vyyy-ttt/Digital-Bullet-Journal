@@ -22,6 +22,7 @@ public class BulletJournal implements IBulletJournal{
   private LimitJson limits;
   private BujoJson week;
   private ThemeType theme;
+  private String note;
 
   /**
    * Instantiates a new bullet journal.
@@ -39,7 +40,7 @@ public class BulletJournal implements IBulletJournal{
       tasks = fileReader.getTasks();
       events = fileReader.getEvents();
     } else{
-      week = new BujoJson(new DayJson[7],null,ThemeType.CLASSIC);
+      week = new BujoJson(new DayJson[7],null,ThemeType.CLASSIC, "");
       tasks = new ArrayList<>();
       events = new ArrayList<>();
       this.theme = ThemeType.CLASSIC;
@@ -108,7 +109,7 @@ public class BulletJournal implements IBulletJournal{
 
   @Override
   public void saveBulletJournal() {
-    BujoJson updatedBujo = new BujoJson(getUpdatedDays(), limits, theme);
+    BujoJson updatedBujo = new BujoJson(getUpdatedDays(), limits, theme, note);
     try {
       fileWriter.writeToFile(JsonUtils.serializeRecord(updatedBujo).toString());
     } catch (IOException e) {
