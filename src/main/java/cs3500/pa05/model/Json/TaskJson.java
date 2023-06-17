@@ -15,6 +15,7 @@ import cs3500.pa05.model.Status;
 public record TaskJson(@JsonProperty("name") String name,
                        @JsonProperty("description") String description,
                        @JsonProperty("day") Day day,
-                       @JsonProperty("completion")Status status) {
+                       @JsonProperty("completion")Status status,
+                       @JsonProperty("duration") String duration) {
   //TODO: New Tasks should be marked as not complete by default. Descriptions are optional.
 }
