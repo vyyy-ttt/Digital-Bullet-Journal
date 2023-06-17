@@ -3,6 +3,7 @@ package cs3500.pa05.controller;
 import cs3500.pa05.view.BujoView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -11,6 +12,8 @@ import javafx.stage.Stage;
 public class GuiController {
   @FXML
   private Button goButton;
+  @FXML
+  private TextField bujoFileField;
   @FXML
   private Stage stage;
   private BujoView bujoView = new BujoView();
@@ -27,6 +30,9 @@ public class GuiController {
     this.stage.setScene(bujoView.bujoLoad());
   }
 
+  private void handleBujoField() {
+    //TODO verify the bujo field here
+  }
   /**
    *
    */

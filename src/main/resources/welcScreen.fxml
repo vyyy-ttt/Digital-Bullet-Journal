@@ -56,7 +56,7 @@
                      </Label>
                      <HBox alignment="CENTER" prefHeight="212.0" prefWidth="640.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                         <children>
-                           <TextField />
+                           <TextField fx:id="bujoFileField" />
                         </children>
                      </HBox>
                      <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
