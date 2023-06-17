@@ -64,7 +64,7 @@
                            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfeec1" height="31.0" stroke="#78836c" strokeType="INSIDE" width="41.0" />
                         </children>
                      </HBox>
-                     <Button fx:id="goButton" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: transparant;" text="go!" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                     <Button fx:id="goButton" alignment="TOP_CENTER" blendMode="HARD_LIGHT" contentDisplay="CENTER" mnemonicParsing="false" text="go!" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
                         <font>
                            <Font name="BM JUA OTF" size="13.0" />
                         </font>

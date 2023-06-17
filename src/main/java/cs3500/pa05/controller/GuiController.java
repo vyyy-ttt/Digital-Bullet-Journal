@@ -1,4 +1,38 @@
 package cs3500.pa05.controller;
 
+import cs3500.pa05.view.BujoView;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
+
+/**
+ * Represents the controller of a bullet journal's GUI.
+ */
 public class GuiController {
+  @FXML
+  private Button goButton;
+  @FXML
+  private Stage stage;
+  private BujoView bujoView = new BujoView();
+  public GuiController(Stage stage) {
+    goButton = new Button();
+    this.stage = stage;
+  }
+
+  /**
+   * handles the button that commences into a bullet journal scene.
+   */
+  private void handleGoButton() {
+    this.stage.setScene(bujoView.bujoLoad());
+  }
+
+  /**
+   *
+   */
+  public void run() {
+    goButton.setOnAction(event -> handleGoButton());
+
+  }
 }
