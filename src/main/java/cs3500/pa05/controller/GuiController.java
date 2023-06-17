@@ -24,17 +24,21 @@ public class GuiController {
   }
 
   /**
-   * handles the button that commences into a bullet journal scene.
+   * Handles the button that commences into a bullet journal scene.
    */
   private void handleGoButton() {
     this.stage.setScene(bujoView.bujoLoad());
   }
 
+  /**
+   * Hanldes the user input in the textField for the bujo file path.
+   */
   private void handleBujoField() {
     //TODO verify the bujo field here
   }
+
   /**
-   *
+   * Initializes the event handlers for controls of the Gui.
    */
   public void run() {
     goButton.setOnAction(event -> handleGoButton());
