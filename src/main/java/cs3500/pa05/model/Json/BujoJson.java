@@ -12,7 +12,8 @@ import cs3500.pa05.model.ThemeType;
 public record BujoJson(
     @JsonProperty("week") DayJson[] week,
     @JsonProperty("limits") LimitJson limits,
-    @JsonProperty("theme") ThemeType theme
+    @JsonProperty("theme") ThemeType theme,
+    @JsonProperty("note") String note
     ) {
 
 }
