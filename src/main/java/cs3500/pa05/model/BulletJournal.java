@@ -63,6 +63,16 @@ public class BulletJournal implements IBulletJournal{
   }
 
   @Override
+  public void removeEvent(EventJson event) {
+    events.removeIf(currEvent -> currEvent.equals(event));
+  }
+
+  @Override
+  public void removeTask(TaskJson task) {
+    tasks.removeIf(currTask -> currTask.equals(task));
+  }
+
+  @Override
   public List<TaskJson> sortTasks() {
     ArrayList<TaskJson> sortedTasks = new ArrayList<>();
     for (Day d : Day.values()) {

@@ -24,6 +24,20 @@ public interface IBulletJournal {
   void addTask(TaskJson task);
 
   /**
+   * Removes an event from the bullet journal.
+   *
+   * @param event the event to be removed
+   */
+  void removeEvent(EventJson event);
+
+  /**
+   * Removes a task from the bullet journal.
+   *
+   * @param task the task to be removed
+   */
+  void removeTask(TaskJson task);
+
+  /**
    * Sorts all tasks by their priority deadline.
    *
    * @return a list of all tasks sorted from the closest upcoming date to the furthest date
