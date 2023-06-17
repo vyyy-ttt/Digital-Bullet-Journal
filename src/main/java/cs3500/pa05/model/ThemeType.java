@@ -5,5 +5,6 @@ package cs3500.pa05.model;
  * bullet journal display.
  */
 public enum ThemeType {
-CLASSIC
+  CLASSIC,
+  CUTE
 }
