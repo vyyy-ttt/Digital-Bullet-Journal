@@ -5,16 +5,29 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 
+/**
+ * Represents the welcome page GUI.
+ */
 public class WelcomeView {
 
   private final FXMLLoader loader;
 
+  /**
+   * Constructs a Welcome View.
+   *
+   * @param controller a GuiController
+   */
   public WelcomeView(GuiController controller) {
     this.loader = new FXMLLoader();
     this.loader.setLocation(getClass().getClassLoader().getResource("welcScreen.fxml"));
     this.loader.setController(controller);
   }
 
+  /**
+   * Loads the bullet journal's welcome page's scene.
+   *
+   * @return the welcome page scene
+   */
   public Scene load() {
     try {
       return this.loader.load();
