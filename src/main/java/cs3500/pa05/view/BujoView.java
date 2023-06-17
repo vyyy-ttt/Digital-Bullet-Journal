@@ -1,5 +1,6 @@
 package cs3500.pa05.view;
 
+import cs3500.pa05.controller.GuiController;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

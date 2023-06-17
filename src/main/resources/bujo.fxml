@@ -128,17 +128,17 @@
                      </HBox>
                      <HBox alignment="BOTTOM_RIGHT" prefHeight="50.0" prefWidth="399.0">
                         <children>
-                           <Button alignment="BOTTOM_RIGHT" blendMode="HARD_LIGHT" mnemonicParsing="false" style="-fx-background-color: transparent;" text="add task" textFill="#4a3c2f">
+                           <Button fx:id="addTask" alignment="BOTTOM_RIGHT" blendMode="HARD_LIGHT" mnemonicParsing="false" style="-fx-background-color: transparent;" text="add task" textFill="#4a3c2f">
                               <font>
                                  <Font name="BM JUA OTF" size="11.0" />
                               </font>
                            </Button>
-                           <Button alignment="BOTTOM_RIGHT" blendMode="HARD_LIGHT" mnemonicParsing="false" style="-fx-background-color: transparent;" text="add event" textFill="#4a3c2f">
+                           <Button fx:id="addEvent" alignment="BOTTOM_RIGHT" blendMode="HARD_LIGHT" mnemonicParsing="false" style="-fx-background-color: transparent;" text="add event" textFill="#4a3c2f">
                               <font>
                                  <Font name="BM JUA OTF" size="11.0" />
                               </font>
                            </Button>
-                           <Button alignment="BOTTOM_RIGHT" blendMode="HARD_LIGHT" mnemonicParsing="false" style="-fx-background-color: transparent;" text="save" textFill="#4a3c2f">
+                           <Button fx:id="save" alignment="BOTTOM_RIGHT" blendMode="HARD_LIGHT" mnemonicParsing="false" style="-fx-background-color: transparent;" text="save" textFill="#4a3c2f">
                               <font>
                                  <Font name="BM JUA OTF" size="11.0" />
                               </font>
