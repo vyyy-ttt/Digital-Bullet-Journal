@@ -12,14 +12,14 @@ public interface IBulletJournal {
   /**
    * Adds an event to the bullet journal.
    *
-   * @param event the event
+   * @param event the event to be added
    */
   void addEvent(EventJson event);
 
   /**
    * Adds a task to the bullet journal.
    *
-   * @param task the task
+   * @param task the task to be added
    */
   void addTask(TaskJson task);
 
