@@ -106,6 +106,6 @@ public class UserController {
    * @return a sorted list of tasks sorted by urgency
    */
   protected List<TaskJson> getTaskQueue() {
-    return bujo.sortTasks();
+    return bujo.sortTasksPriority();
   }
 }
