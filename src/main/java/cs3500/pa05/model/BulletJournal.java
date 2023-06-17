@@ -108,7 +108,7 @@ public class BulletJournal implements IBulletJournal{
 
   @Override
   public void saveBulletJournal() {
-    BujoJson updatedBujo = new BujoJson(getUpdatedDays(), week.limits(), theme);
+    BujoJson updatedBujo = new BujoJson(getUpdatedDays(), limits, theme);
     try {
       fileWriter.writeToFile(JsonUtils.serializeRecord(updatedBujo).toString());
     } catch (IOException e) {
