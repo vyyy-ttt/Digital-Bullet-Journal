@@ -2,8 +2,6 @@ package cs3500.pa05.controller;
 
 import cs3500.pa05.view.BujoView;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
@@ -16,6 +14,7 @@ public class GuiController {
   @FXML
   private Stage stage;
   private BujoView bujoView = new BujoView();
+
   public GuiController(Stage stage) {
     goButton = new Button();
     this.stage = stage;
