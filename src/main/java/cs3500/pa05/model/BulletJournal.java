@@ -2,9 +2,11 @@ package cs3500.pa05.model;
 
 import cs3500.pa05.model.Json.DayJson;
 import cs3500.pa05.model.Json.EventJson;
+import cs3500.pa05.model.Json.JsonUtils;
 import cs3500.pa05.model.Json.LimitJson;
 import cs3500.pa05.model.Json.TaskJson;
 import cs3500.pa05.model.Json.BujoJson;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,7 @@ public class BulletJournal implements IBulletJournal{
   private ArrayList<EventJson> events;
   private LimitJson limits;
   private BujoJson week;
+  private ThemeType theme;
 
   /**
    * Instantiates a new bullet journal.
@@ -39,9 +42,11 @@ public class BulletJournal implements IBulletJournal{
       week = new BujoJson(new DayJson[7],null,ThemeType.CLASSIC);
       tasks = new ArrayList<>();
       events = new ArrayList<>();
+      this.theme = ThemeType.CLASSIC;
     }
     limits = week.limits();
   }
+
   @Override
   public void addEvent(EventJson event) {
     if (!checkLimitViolation(false)) {
@@ -89,7 +94,7 @@ public class BulletJournal implements IBulletJournal{
 
   @Override
   public void setEventLimit(int newLimit) {
-    if(limits == null){
+    if (limits == null) {
       limits = new LimitJson(newLimit, -1);
     } else{
       limits = new LimitJson(newLimit, limits.maxTasks());
@@ -98,12 +103,64 @@ public class BulletJournal implements IBulletJournal{
 
   @Override
   public void chooseTheme(ThemeType theme) {
-
+    this.theme = theme;
   }
 
   @Override
   public void saveBulletJournal() {
+    BujoJson updatedBujo = new BujoJson(getUpdatedDays(), week.limits(), theme);
+    try {
+      fileWriter.writeToFile(JsonUtils.serializeRecord(updatedBujo).toString());
+    } catch (IOException e) {
+      throw new RuntimeException("Changes could not be saved.");
+    }
+  }
 
+  /**
+   * Retrieves the updated tasks and events for each day of the week.
+   *
+   * @return an array of each updated DayJson
+   */
+  private DayJson[] getUpdatedDays() {
+    Day[] daysOfTheWeek = Day.values();
+    DayJson[] newDays = new DayJson[7];
+    int daysIndex = 0;
+    while (daysIndex < newDays.length) {
+      // Finds tasks scheduled for the given day
+      ArrayList<TaskJson> tasksOfTheDayList = new ArrayList<>();
+      for (TaskJson currTask : tasks) {
+        if (currTask.day().equals(daysOfTheWeek[daysIndex])) {
+          tasksOfTheDayList.add(currTask);
+        }
+      }
+      // Converts the list of tasks into an array
+      TaskJson[] tasksOfTheDayArray = new TaskJson[tasksOfTheDayList.size()];
+      int index = 0;
+      for (TaskJson t : tasksOfTheDayList) {
+        tasksOfTheDayArray[index] = t;
+        index++;
+      }
+
+      // Finds events scheduled for the given day
+      ArrayList<EventJson> eventsOfTheDayList = new ArrayList<>();
+      for (EventJson currEvent : events) {
+        if (currEvent.day().equals(daysOfTheWeek[daysIndex])) {
+          eventsOfTheDayList.add(currEvent);
+        }
+      }
+      // Converts the list of tasks into an array
+      EventJson[] eventsOfTheDayArray = new EventJson[eventsOfTheDayList.size()];
+      index = 0;
+      for (EventJson e : eventsOfTheDayList) {
+        eventsOfTheDayArray[index] = e;
+        index++;
+      }
+
+      // Creates a new day with the events and the tasks for that day, and updates newDays
+      newDays[daysIndex] = new DayJson(tasksOfTheDayArray, eventsOfTheDayArray);
+      daysIndex++;
+    }
+    return newDays;
   }
 
   @Override
