@@ -14,7 +14,6 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 public class BujoController {
-
   @FXML
   private TextField taskName;
   @FXML
@@ -35,7 +34,8 @@ public class BujoController {
   private Stage stage;
   @FXML
   private Button sortByName;
-  @FXML Button sortByDuration;
+  @FXML
+  private Button sortByDuration;
   @FXML
   private Button finalizeTask;
   @FXML
@@ -54,6 +54,9 @@ public class BujoController {
     addEvent = new Button();
     save = new Button();
     setLimit = new Button();
+    changeTheme = new Button();
+    sortByName = new Button();
+    sortByDuration = new Button();
     this.stage = stage;
     save = new Button();
     bujoView = new BujoView(this);
@@ -111,6 +114,17 @@ public class BujoController {
   }
 
   /**
+   * Handles button that changes the bullet journal's GUI theme.
+   */
+  private void handleChangeTheme() {
+    //TODO implement
+  }
+
+  private void handleSetLimit() {
+    //TODO implement
+  }
+
+  /**
    * Initializes event handlers for controls of the bujo GUI.
    */
   public void run() {
@@ -119,5 +133,7 @@ public class BujoController {
     addTask.setOnAction(event -> System.out.println("is this working??"));
     sortByName.setOnAction(event -> handleSortByName());
     sortByDuration.setOnAction(event -> handleSortByDuration());
+    changeTheme.setOnAction(event -> handleChangeTheme());
+    setLimit.setOnAction(event -> handleSetLimit());
   }
 }

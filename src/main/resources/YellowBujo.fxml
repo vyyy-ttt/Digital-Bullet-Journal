@@ -175,7 +175,7 @@
                         </HBox>
                         <HBox layoutX="15.0" layoutY="11.0" prefHeight="89.0" prefWidth="185.0">
                            <children>
-                              <Button blendMode="HARD_LIGHT" mnemonicParsing="false" prefHeight="26.0" prefWidth="96.0" style="-fx-background-color: transparent;" text="change theme" textFill="#4a3c2f">
+                              <Button fx:id="changeTheme" blendMode="HARD_LIGHT" mnemonicParsing="false" prefHeight="26.0" prefWidth="96.0" style="-fx-background-color: transparent;" text="change theme" textFill="#4a3c2f">
                                  <font>
                                     <Font name="Avenir Next Bold" size="11.0" />
                                  </font>
