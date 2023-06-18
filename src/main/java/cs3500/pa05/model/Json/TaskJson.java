@@ -17,5 +17,6 @@ public record TaskJson(@JsonProperty("name") String name,
                        @JsonProperty("day") Day day,
                        @JsonProperty("completion")Status status,
                        @JsonProperty("duration") String duration) {
+  // Temporary Note: duration format will be "-h-m", where the - are digits
   //TODO: New Tasks should be marked as not complete by default. Descriptions are optional.
 }

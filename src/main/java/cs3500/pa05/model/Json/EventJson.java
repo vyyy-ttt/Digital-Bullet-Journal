@@ -18,5 +18,6 @@ public record EventJson(@JsonProperty("name") String name,
                         @JsonProperty("day") Day day,
                         @JsonProperty("start_time") String time,
                         @JsonProperty("duration") String duration) {
+  // Temporary Note: duration format will be "-h-m", where the - are digits
   //TODO: description is optional, everything else is mandatory
 }
