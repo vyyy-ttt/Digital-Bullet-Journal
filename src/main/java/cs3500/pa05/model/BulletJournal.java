@@ -92,18 +92,51 @@ public class BulletJournal implements IBulletJournal {
     int indexOfHours = duration.indexOf('h');
     int indexOfMinutes = duration.indexOf('m');
     finalConversion += Integer.parseInt(duration.substring(0, indexOfHours)) * NUM_MINS_IN_HOUR;
-    finalConversion += Integer.parseInt(duration.substring(indexOfHours, indexOfMinutes));
+    finalConversion += Integer.parseInt(duration.substring(indexOfHours + 1, indexOfMinutes));
     return finalConversion;
   }
 
   @Override
   public List<TaskJson> sortTasksNameDuration(boolean isName) {
     ArrayList<TaskJson> sortedTasks = new ArrayList<>();
-    for (TaskJson currTask : tasks) {
-      if (sortedTasks.isEmpty()) {
-        sortedTasks.add(currTask);
-      } else {
-        // TODO
+    if (isName) { // Sorts by name
+      for (TaskJson currTask : tasks) {
+        if (sortedTasks.isEmpty()) {
+          sortedTasks.add(currTask);
+        } else {
+          for (TaskJson currSortedTask : sortedTasks) {
+            // If the current task's name comes alphabetically before or is equal to the current
+            // sorted task's name
+            if (currTask.name().compareTo(currSortedTask.name()) <= 0) {
+              sortedTasks.add(sortedTasks.indexOf(currSortedTask), currTask);
+              break;
+            }
+          }
+          // Adds the current task to sortedTasks if it hasn't been added yet, being that its
+          // name comes alphabetically after every other task's name already sorted
+          if (!sortedTasks.contains(currTask)) {
+            sortedTasks.add(currTask);
+          }
+        }
+      }
+    } else { // Sorts by duration
+      for (TaskJson currTask : tasks) {
+        if (sortedTasks.isEmpty()) {
+          sortedTasks.add(currTask);
+        } else {
+          for (TaskJson currSortedTask : sortedTasks) {
+            if (convertToMinutes(currTask.duration()) <
+                convertToMinutes(currSortedTask.duration())) {
+              sortedTasks.add(sortedTasks.indexOf(currSortedTask), currTask);
+              break;
+            }
+          }
+          // Adds the current task to sortedTasks if it hasn't been added yet, being that its
+          // duration is greater than every other task's duration already sorted
+          if (!sortedTasks.contains(currTask)) {
+            sortedTasks.add(currTask);
+          }
+        }
       }
     }
     return sortedTasks;
@@ -112,11 +145,44 @@ public class BulletJournal implements IBulletJournal {
   @Override
   public List<EventJson> sortEventsNameDuration(boolean isName) {
     ArrayList<EventJson> sortedEvents = new ArrayList<>();
-    for (EventJson currEvent : events) {
-      if (sortedEvents.isEmpty()) {
-        sortedEvents.add(currEvent);
-      } else {
-        // TODO
+    if (isName) { // Sorts by name
+      for (EventJson currEvent : events) {
+        if (sortedEvents.isEmpty()) {
+          sortedEvents.add(currEvent);
+        } else {
+          for (EventJson currSortedEvent : sortedEvents) {
+            // If the current event's name comes alphabetically before or is equal to the current
+            // sorted event's name
+            if (currEvent.name().compareTo(currSortedEvent.name()) <= 0) {
+              sortedEvents.add(sortedEvents.indexOf(currSortedEvent), currEvent);
+              break;
+            }
+          }
+          // Adds the current event to sortedEvents if it hasn't been added yet, being that its
+          // name comes alphabetically after every other event's name already sorted
+          if (!sortedEvents.contains(currEvent)) {
+            sortedEvents.add(currEvent);
+          }
+        }
+      }
+    } else { // Sorts by duration
+      for (EventJson currEvent : events) {
+        if (sortedEvents.isEmpty()) {
+          sortedEvents.add(currEvent);
+        } else {
+          for (EventJson currSortedEvent : sortedEvents) {
+            if (convertToMinutes(currEvent.duration()) <
+                convertToMinutes(currSortedEvent.duration())) {
+              sortedEvents.add(sortedEvents.indexOf(currSortedEvent), currEvent);
+              break;
+            }
+          }
+          // Adds the current event to sortedEvents if it hasn't been added yet, being that its
+          // duration is greater than every other event's duration already sorted
+          if (!sortedEvents.contains(currEvent)) {
+            sortedEvents.add(currEvent);
+          }
+        }
       }
     }
     return sortedEvents;
