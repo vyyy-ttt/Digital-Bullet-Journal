@@ -1,16 +1,15 @@
 package cs3500.pa05.controller;
 
-import cs3500.pa05.model.BulletJournal;
 import cs3500.pa05.model.Json.EventJson;
-import cs3500.pa05.view.BujoView;
+import cs3500.pa05.view.GuiView;
 import java.io.IOException;
-import java.util.Objects;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 /**
@@ -39,24 +38,40 @@ public class GuiController {
   private Button addEvent;
   @FXML
   private Stage stage;
-  private BujoView bujoView = new BujoView();
-  private BulletJournal bulletJournal;
+  @FXML
+  private Button finalizeTask;
+  @FXML
+  private Button cancel;
+  private Popup popup;
+  private GuiView view;
+  private UserController userController = new UserController();
 
   public GuiController(Stage stage) {
     goButton = new Button();
     save = new Button();
     addTask = new Button();
     addEvent = new Button();
+    cancel = new Button();
     bujoFileField = new TextField();
     prompt = new Label();
     this.stage = stage;
+    view = new GuiView(this);
   }
 
   /**
    * Handles the button that commences into a bullet journal scene.
    */
   private void handleGoButton() {
-    this.stage.setScene(bujoView.bujoLoad());
+    System.out.println("HELLP");
+    try {
+//      FXMLLoader loader
+//          = new FXMLLoader(getClass().getClassLoader().getResource("bujo.fxml"));
+//      this.stage.setScene(loader.load());
+      Scene scene = view.changeScene("bujo.fxml");
+      this.stage.setScene(scene);
+    } catch (IOException e) {
+      System.out.println(e.getMessage());
+    }
   }
 
   private void handleSaveButton() {
@@ -67,13 +82,18 @@ public class GuiController {
    * Loads new task popup scene.
    */
   private void handleTaskButton() {
+    System.out.println("HAIUWRHGIUAWHRIGU");
     try {
-      FXMLLoader.load(
-          Objects.requireNonNull(getClass().getClassLoader().getResource("TaskPopup.fxml")));
+      Scene scene = view.changeScene("taskPop.fxml");
+      this.stage.setScene(scene);
     } catch (IOException e) {
       System.out.println("oh no");
     }
   }
+
+//  private void makePopup() {
+//    this.popup.show(this.stage);
+//  }
 
   private void handleEventButton(EventJson event) {
     //TODO implement.
@@ -92,10 +112,14 @@ public class GuiController {
   }
 
   /**
-   * Initializes the event handlers for controls of the Gui.
+   * Initializes the event handlers for controls of the GUI.
    */
   public void run() {
     goButton.setOnAction(event -> handleBujoField());
-    addTask.setOnAction(event -> handleTaskButton());
+    addEvent.setOnAction(event -> System.out.println("HELLPO"));
+    save.setOnAction(event -> System.out.println("iqewarvie"));
+    addTask.setOnAction(event -> System.out.println("hi"));
+    cancel.setOnAction(event -> handleGoButton());
   }
 }
+

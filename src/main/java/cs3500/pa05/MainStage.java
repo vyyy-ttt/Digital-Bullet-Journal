@@ -1,7 +1,7 @@
 package cs3500.pa05;
 
 import cs3500.pa05.controller.GuiController;
-import cs3500.pa05.view.WelcomeView;
+import cs3500.pa05.view.GuiView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -21,12 +21,10 @@ public class MainStage extends Application {
   @Override
   public void start(Stage stage) {
     GuiController guiController = new GuiController(stage);
-    WelcomeView welcomeView = new WelcomeView(guiController);
-
+    GuiView view = new GuiView(guiController);
     try {
-      stage.setScene(welcomeView.load());
+      stage.setScene(view.load());
       stage.setTitle("dvb bujo!");
-      stage.show();
       guiController.run();
       stage.show();
     } catch (IllegalStateException e) {

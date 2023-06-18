@@ -8,21 +8,26 @@ import javafx.scene.Scene;
 /**
  * Represents the welcome page GUI.
  */
-public class WelcomeView {
+public class GuiView {
 
   private final FXMLLoader loader;
+
 
   /**
    * Constructs a Welcome View.
    *
    * @param controller a GuiController
    */
-  public WelcomeView(GuiController controller) {
+  public GuiView(GuiController controller) {
     this.loader = new FXMLLoader();
     this.loader.setLocation(getClass().getClassLoader().getResource("welcScreen.fxml"));
     this.loader.setController(controller);
   }
 
+  public Scene changeScene(String fxmlFile) throws IOException {
+    this.loader.setLocation(getClass().getClassLoader().getResource(fxmlFile));
+    return loader.load();
+  }
   /**
    * Loads the bullet journal's welcome page's scene.
    *

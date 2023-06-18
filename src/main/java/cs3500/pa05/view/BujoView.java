@@ -15,9 +15,10 @@ public class BujoView {
   /**
    * Constructs a BujoView.
    */
-  public BujoView() {
+  public BujoView(GuiController controller) {
     this.loader = new FXMLLoader();
     this.loader.setLocation(getClass().getClassLoader().getResource("bujo.fxml"));
+    this.loader.setController(controller);
   }
 
   /**
