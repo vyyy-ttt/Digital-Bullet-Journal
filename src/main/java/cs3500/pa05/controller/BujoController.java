@@ -6,7 +6,6 @@ import cs3500.pa05.view.BujoView;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -39,7 +38,15 @@ public class BujoController {
   @FXML
   private Button sortByDuration;
   @FXML
+  private TextField startTime;
+  @FXML
+  private TextField duration;
+  @FXML
   private Button finalizeTask;
+  @FXML
+  private Button finalizeEvent;
+  @FXML
+  private Button cancelEvent;
   @FXML
   private Button cancel;
   @FXML
@@ -73,12 +80,11 @@ public class BujoController {
     System.out.println("is this being called?");
     try {
       makePopup();
-      FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("taskPop.fxml"));
+      FXMLLoader loader =
+          new FXMLLoader(getClass().getClassLoader().getResource("taskPopup.fxml"));
       loader.setController(this);
       Scene scene = loader.load();
       popup.getContent().add(scene.getRoot());
-      cancel.setOnAction(event -> popup.hide());
-      popup.getContent().add(cancel);
     } catch (IOException e) {
       System.out.println(e.getMessage());
     }
@@ -89,9 +95,12 @@ public class BujoController {
    */
   private void handleEventButton(EventJson event) {
     try {
-      FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getClassLoader().getResource("EventView.fxml"));
+      makePopup();
+      FXMLLoader loader =
+          new FXMLLoader(getClass().getClassLoader().getResource("EventPopup.fxml"));
+      loader.setController(this);
       Scene scene = loader.load();
+      popup.getContent().add(scene.getRoot());
       this.stage.setScene(scene);
     } catch (IOException e) {
       System.out.println(e.getMessage());
@@ -148,5 +157,6 @@ public class BujoController {
     sortByDuration.setOnAction(event -> handleSortTasksByDuration());
     changeTheme.setOnAction(event -> handleChangeTheme());
     setLimit.setOnAction(event -> handleSetLimit());
+    cancel.setOnAction(event -> popup.hide());
   }
 }
