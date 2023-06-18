@@ -9,7 +9,9 @@
 - Themes
 
 ## Section 3: Power Ups
-
+- Quotes & Notes
+- Takesie-backsies
+- Sort By Name & Duration
 
 ## Section 3: Power Ups
 
