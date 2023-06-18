@@ -32,6 +32,7 @@ public class FileReaderTest {
 
   @BeforeEach
   public void setup() {
+    System.out.println(JsonUtils.serializeRecord(test));
     reader = new FileReader();
     reader.readFile(Path.of("practice.bujo"));
   }
