@@ -34,6 +34,9 @@ public class BujoController {
   @FXML
   private Stage stage;
   @FXML
+  private Button sortByName;
+  @FXML Button sortByDuration;
+  @FXML
   private Button finalizeTask;
   @FXML
   private Button cancel;
@@ -48,6 +51,8 @@ public class BujoController {
   public BujoController(Stage stage) {
     addTask = new Button();
     addEvent = new Button();
+    save = new Button();
+    setLimit = new Button();
     this.stage = stage;
     save = new Button();
     bujoView = new BujoView(this);
