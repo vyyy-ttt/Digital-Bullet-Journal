@@ -47,6 +47,7 @@ public class BujoController {
   @FXML
   private Popup popup;
   private BujoView bujoView;
+  private UserController userController;
 
   public BujoController(Stage stage) {
     addTask = new Button();
@@ -56,6 +57,7 @@ public class BujoController {
     this.stage = stage;
     save = new Button();
     bujoView = new BujoView(this);
+    userController = new UserController();
   }
 
   /**
@@ -95,11 +97,27 @@ public class BujoController {
   }
 
   /**
+   * Handles button that sorts tasks and events by name.
+   */
+  private void handleSortByName() {
+    //TODO implement
+  }
+
+  /**
+   * Handles button that sorts tasks and events by duration.
+   */
+  private void handleSortByDuration() {
+    //TODO implement
+  }
+
+  /**
    * Initializes event handlers for controls of the bujo GUI.
    */
   public void run() {
     addEvent.setOnAction(event -> System.out.println("is this working?"));
     save.setOnAction(event -> System.out.println("is this working??"));
     addTask.setOnAction(event -> System.out.println("is this working??"));
+    sortByName.setOnAction(event -> handleSortByName());
+    sortByDuration.setOnAction(event -> handleSortByDuration());
   }
 }

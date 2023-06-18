@@ -25,7 +25,7 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="905.0" stroke="WHITE" strokeType="INSIDE" width="1292.0" />
                </children>
             </HBox>
-            <BorderPane layoutX="-1.0" prefHeight="804.0" prefWidth="1290.0">
+            <BorderPane layoutX="-1.0" prefHeight="906.0" prefWidth="1290.0">
                <center>
                   <Pane prefHeight="663.0" prefWidth="1439.0" BorderPane.alignment="CENTER">
                      <children>
@@ -119,28 +119,35 @@
                         </HBox>
                         <HBox alignment="BOTTOM_RIGHT" layoutX="40.0" prefHeight="124.0" prefWidth="641.0">
                            <children>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe8bb" height="40.0" stroke="#cfb497" strokeType="INSIDE" width="116.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe8bb" height="30.0" stroke="#cfb497" strokeType="INSIDE" width="81.0" />
                               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe6de00" height="22.0" stroke="#e5c1c100" strokeType="INSIDE" width="8.0" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe8bb" height="40.0" stroke="#cfb497" strokeType="INSIDE" width="127.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe8bb" height="30.0" stroke="#cfb497" strokeType="INSIDE" width="96.0" />
                               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe6de00" height="22.0" stroke="#e5c1c100" strokeType="INSIDE" width="8.0" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe8bb" height="40.0" stroke="#cfb497" strokeType="INSIDE" width="85.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe8bb" height="30.0" stroke="#cfb497" strokeType="INSIDE" width="75.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe6de00" height="22.0" stroke="#e5c1c100" strokeType="INSIDE" width="8.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe8bb" height="30.0" stroke="#cfb497" strokeType="INSIDE" width="61.0" />
                            </children>
                         </HBox>
                         <HBox alignment="BOTTOM_RIGHT" layoutX="40.0" prefHeight="126.0" prefWidth="640.0">
                            <children>
-                              <Button fx:id="addTask" alignment="TOP_CENTER" blendMode="HARD_LIGHT" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="43.0" prefWidth="121.0" style="-fx-background-color: transparent;" text="add task" textFill="#4a3c2f">
+                              <Button fx:id="addTask" alignment="TOP_CENTER" blendMode="HARD_LIGHT" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="21.0" prefWidth="89.0" style="-fx-background-color: transparent;" text="add task" textFill="#4a3c2f">
                                  <font>
-                                    <Font name="Avenir Next Bold" size="20.0" />
+                                    <Font name="Avenir Next Bold" size="16.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="addEvent" alignment="CENTER" blendMode="HARD_LIGHT" mnemonicParsing="false" prefHeight="45.0" prefWidth="137.0" style="-fx-background-color: transparent;" text="add event" textFill="#4a3c2f">
+                              <Button fx:id="addEvent" alignment="CENTER" blendMode="HARD_LIGHT" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="add event" textFill="#4a3c2f">
                                  <font>
-                                    <Font name="Avenir Next Bold" size="20.0" />
+                                    <Font name="Avenir Next Bold" size="16.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="save" alignment="CENTER" blendMode="HARD_LIGHT" mnemonicParsing="false" prefHeight="27.0" prefWidth="85.0" style="-fx-background-color: transparent;" text="save" textFill="#4a3c2f">
+                              <Button fx:id="setLimit" alignment="TOP_CENTER" blendMode="HARD_LIGHT" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="29.0" prefWidth="90.0" style="-fx-background-color: transparent;" text="set limit" textFill="#4a3c2f">
                                  <font>
-                                    <Font name="Avenir Next Bold" size="20.0" />
+                                    <Font name="Avenir Next Bold" size="16.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="save" alignment="CENTER" blendMode="HARD_LIGHT" mnemonicParsing="false" prefHeight="35.0" prefWidth="59.0" style="-fx-background-color: transparent;" text="save" textFill="#4a3c2f">
+                                 <font>
+                                    <Font name="Avenir Next Bold" size="16.0" />
                                  </font>
                               </Button>
                            </children>
@@ -152,13 +159,27 @@
                   <Pane prefHeight="175.0" prefWidth="1920.0" style="-fx-background-color: #97a67b;" BorderPane.alignment="CENTER">
                      <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f7dba1" height="186.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1290.0" />
-                        <HBox alignment="CENTER" layoutX="9.0" prefHeight="174.0" prefWidth="1284.0">
+                        <HBox layoutX="15.0" layoutY="12.0" prefHeight="88.0" prefWidth="185.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffefbd" height="26.0" stroke="#65534b" strokeType="INSIDE" width="99.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="9.0" prefHeight="190.0" prefWidth="1284.0">
                            <children>
                               <Label alignment="TOP_CENTER" text="&lt;3 deeveebee hq &lt;3" textFill="WHITE">
                                  <font>
                                     <Font name="Avenir Next Bold" size="44.0" />
                                  </font>
                               </Label>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="15.0" layoutY="11.0" prefHeight="89.0" prefWidth="185.0">
+                           <children>
+                              <Button blendMode="HARD_LIGHT" mnemonicParsing="false" prefHeight="26.0" prefWidth="96.0" style="-fx-background-color: transparent;" text="change theme" textFill="#4a3c2f">
+                                 <font>
+                                    <Font name="Avenir Next Bold" size="11.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </HBox>
                      </children>
@@ -203,7 +224,32 @@
                   </Pane>
                </right>
                <bottom>
-                  <Pane prefHeight="126.0" prefWidth="1648.0" BorderPane.alignment="CENTER" />
+                  <Pane prefHeight="83.0" prefWidth="1290.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" />
+                        <HBox layoutX="324.0" layoutY="5.0" prefHeight="74.0" prefWidth="320.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe8bb" height="34.0" stroke="#cfb497" strokeType="INSIDE" width="153.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe6de00" height="27.0" stroke="#e5c1c100" strokeType="INSIDE" width="8.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe8bb" height="34.0" stroke="#cfb497" strokeType="INSIDE" width="170.0" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="312.0" layoutY="-1.0" prefHeight="109.0" prefWidth="663.0">
+                           <children>
+                              <Button fx:id="sortByName" blendMode="HARD_LIGHT" mnemonicParsing="false" prefHeight="41.0" prefWidth="167.0" style="-fx-background-color: transparent;" text=" sort by name" textFill="#4a3c2f">
+                                 <font>
+                                    <Font name="Avenir Next Bold" size="20.0" />
+                                 </font>
+                              </Button>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe6de00" height="27.0" stroke="#e5c1c100" strokeType="INSIDE" />
+                              <Button fx:id="sortByDuration" blendMode="HARD_LIGHT" mnemonicParsing="false" style="-fx-background-color: transparent;" text="sort by duration" textFill="#4a3c2f">
+                                 <font>
+                                    <Font name="Avenir Next Bold" size="20.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children></Pane>
                </bottom>
             </BorderPane>
          </children>
