@@ -3,6 +3,7 @@ package cs3500.pa05.view;
 import cs3500.pa05.controller.GuiController;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 /**
@@ -11,6 +12,7 @@ import javafx.scene.Scene;
 public class GuiView {
 
   private final FXMLLoader loader;
+  private Parent root;
 
 
   /**

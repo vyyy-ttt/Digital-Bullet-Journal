@@ -25,7 +25,8 @@ public class MainStage extends Application {
     try {
       stage.setScene(view.load());
       stage.setTitle("dvb bujo!");
-      guiController.run();
+      guiController.sceneOneRun();
+      guiController.sceneTwoRun();
       stage.show();
     } catch (IllegalStateException e) {
       System.err.println("Unable to load, I'm sorry!");

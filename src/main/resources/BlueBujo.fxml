@@ -175,7 +175,7 @@
                         </HBox>
                         <HBox layoutX="25.0" layoutY="18.0" prefHeight="68.0" prefWidth="159.0" style="-fx-background-color: transparent;">
                            <children>
-                              <Button mnemonicParsing="false" style="-fx-background-color: transparent;" text="change theme">
+                              <Button fx:id="changeTheme" mnemonicParsing="false" style="-fx-background-color: transparent;" text="change theme">
                                  <font>
                                     <Font name="Apple Symbols" size="16.0" />
                                  </font>

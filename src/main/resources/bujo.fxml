@@ -159,7 +159,7 @@
                   <children>
                      <HBox layoutX="16.0" layoutY="12.0" prefHeight="88.0" prefWidth="184.0">
                         <children>
-                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#afbc8b" height="29.0" stroke="BLACK" strokeType="INSIDE" width="99.0" />
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#afbc8b" height="29.0" stroke="BLACK" strokeType="INSIDE" width="105.0" />
                         </children>
                      </HBox>
                      <HBox alignment="CENTER" layoutX="9.0" prefHeight="174.0" prefWidth="1284.0">
@@ -173,9 +173,9 @@
                      </HBox>
                      <HBox layoutX="17.0" layoutY="13.0" prefHeight="87.0" prefWidth="183.0">
                         <children>
-                           <Button mnemonicParsing="false" style="-fx-background-color: transparent;" text="change theme" textFill="WHITE">
+                           <Button fx:id="changeTheme" mnemonicParsing="false" style="-fx-background-color: transparent;" text="change theme" textFill="WHITE">
                               <font>
-                                 <Font name="BM JUA OTF" size="13.0" />
+                                 <Font name="BM JUA OTF" size="14.0" />
                               </font>
                            </Button>
                         </children>

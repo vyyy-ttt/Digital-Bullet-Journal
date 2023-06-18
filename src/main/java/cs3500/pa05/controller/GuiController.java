@@ -42,6 +42,11 @@ public class GuiController {
   private Button finalizeTask;
   @FXML
   private Button cancel;
+  @FXML
+  private Button changeTheme;
+  @FXML
+  private Button setLimit;
+  @FXML
   private Popup popup;
   private GuiView view;
   private UserController userController = new UserController();
@@ -111,12 +116,17 @@ public class GuiController {
   /**
    * Initializes the event handlers for controls of the GUI.
    */
-  public void run() {
+  public void sceneOneRun() {
     goButton.setOnAction(event -> handleBujoField());
+
+  }
+
+  public void sceneTwoRun() {
     addEvent.setOnAction(event -> System.out.println("is this working?"));
     save.setOnAction(event -> System.out.println("is this working??"));
     addTask.setOnAction(event -> System.out.println("is this working??"));
-    cancel.setOnAction(event -> handleGoButton());
   }
+
+  // cancel.setOnAction(event -> handleGoButton());
 }
 
