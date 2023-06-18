@@ -23,6 +23,7 @@ public class BulletJournal implements IBulletJournal {
   private BujoJson week;
   private ThemeType theme;
   private String note;
+  static final int NUM_MINS_IN_HOUR = 60;
 
   /**
    * Instantiates a new bullet journal.
@@ -83,6 +84,16 @@ public class BulletJournal implements IBulletJournal {
       }
     }
     return sortedTasks;
+  }
+
+  @Override
+  public int convertToMinutes(String duration) {
+    int finalConversion = 0;
+    int indexOfHours = duration.indexOf('h');
+    int indexOfMinutes = duration.indexOf('m');
+    finalConversion += Integer.parseInt(duration.substring(0, indexOfHours)) * NUM_MINS_IN_HOUR;
+    finalConversion += Integer.parseInt(duration.substring(indexOfHours, indexOfMinutes));
+    return finalConversion;
   }
 
   @Override
