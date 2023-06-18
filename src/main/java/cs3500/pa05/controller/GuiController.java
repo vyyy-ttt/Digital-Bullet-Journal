@@ -62,11 +62,7 @@ public class GuiController {
    * Handles the button that commences into a bullet journal scene.
    */
   private void handleGoButton() {
-    System.out.println("HELLP");
     try {
-//      FXMLLoader loader
-//          = new FXMLLoader(getClass().getClassLoader().getResource("bujo.fxml"));
-//      this.stage.setScene(loader.load());
       Scene scene = view.changeScene("bujo.fxml");
       this.stage.setScene(scene);
     } catch (IOException e) {
@@ -82,12 +78,12 @@ public class GuiController {
    * Loads new task popup scene.
    */
   private void handleTaskButton() {
-    System.out.println("HAIUWRHGIUAWHRIGU");
+    System.out.println("is this being called?");
     try {
       Scene scene = view.changeScene("taskPop.fxml");
       this.stage.setScene(scene);
     } catch (IOException e) {
-      System.out.println("oh no");
+      System.out.println(e.getMessage());
     }
   }
 
@@ -105,6 +101,7 @@ public class GuiController {
   private void handleBujoField() {
     String input = bujoFileField.getText();
     if (input.endsWith(".bujo")) {
+      userController.handlePath(input);
       handleGoButton();
     } else {
       prompt.setText("Oops! That wasn't a valid bujo file, please try again.");
@@ -116,9 +113,9 @@ public class GuiController {
    */
   public void run() {
     goButton.setOnAction(event -> handleBujoField());
-    addEvent.setOnAction(event -> System.out.println("HELLPO"));
-    save.setOnAction(event -> System.out.println("iqewarvie"));
-    addTask.setOnAction(event -> System.out.println("hi"));
+    addEvent.setOnAction(event -> System.out.println("is this working?"));
+    save.setOnAction(event -> System.out.println("is this working??"));
+    addTask.setOnAction(event -> System.out.println("is this working??"));
     cancel.setOnAction(event -> handleGoButton());
   }
 }
