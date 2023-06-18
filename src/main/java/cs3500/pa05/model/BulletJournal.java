@@ -41,10 +41,10 @@ public class BulletJournal implements IBulletJournal {
       tasks = fileReader.getTasks();
       events = fileReader.getEvents();
     } else {
-      week = new BujoJson(new DayJson[7], null, ThemeType.CLASSIC, "");
+      week = new BujoJson(new DayJson[7], null, ThemeType.PINKGREEN, "");
       tasks = new ArrayList<>();
       events = new ArrayList<>();
-      this.theme = ThemeType.CLASSIC;
+      this.theme = ThemeType.PINKGREEN;
     }
     limits = week.limits();
   }

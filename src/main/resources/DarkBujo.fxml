@@ -73,37 +73,37 @@
                                  <children>
                                     <Label text="SUN" textFill="#ded8eb" GridPane.halignment="CENTER">
                                        <font>
-                                          <Font name="Avenir Next Bold" size="26.0" />
+                                          <Font name="BM DoHyeon OTF" size="26.0" />
                                        </font>
                                     </Label>
                                     <Label text="MON" textFill="#ded8eb" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                        <font>
-                                          <Font name="Avenir Next Bold" size="26.0" />
+                                          <Font name="BM DoHyeon OTF" size="26.0" />
                                        </font>
                                     </Label>
                                     <Label text="TUE" textFill="#ded8eb" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                                        <font>
-                                          <Font name="Avenir Next Bold" size="26.0" />
+                                          <Font name="BM DoHyeon OTF" size="26.0" />
                                        </font>
                                     </Label>
                                     <Label text="WED" textFill="#ded8eb" GridPane.columnIndex="3" GridPane.halignment="CENTER">
                                        <font>
-                                          <Font name="Avenir Next Bold" size="26.0" />
+                                          <Font name="BM DoHyeon OTF" size="26.0" />
                                        </font>
                                     </Label>
                                     <Label text="THU" textFill="#ded8eb" GridPane.columnIndex="4" GridPane.halignment="CENTER">
                                        <font>
-                                          <Font name="Avenir Next Bold" size="26.0" />
+                                          <Font name="BM DoHyeon OTF" size="26.0" />
                                        </font>
                                     </Label>
                                     <Label text="FRI" textFill="#ded8eb" GridPane.columnIndex="5" GridPane.halignment="CENTER">
                                        <font>
-                                          <Font name="Avenir Next Bold" size="26.0" />
+                                          <Font name="BM DoHyeon OTF" size="26.0" />
                                        </font>
                                     </Label>
                                     <Label text="SAT" textFill="#ded8eb" GridPane.columnIndex="6" GridPane.halignment="CENTER">
                                        <font>
-                                          <Font name="Avenir Next Bold" size="26.0" />
+                                          <Font name="BM DoHyeon OTF" size="26.0" />
                                        </font>
                                     </Label>
                                     <TextArea prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.rowIndex="1" />

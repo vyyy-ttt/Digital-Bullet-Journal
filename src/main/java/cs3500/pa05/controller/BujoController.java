@@ -1,10 +1,12 @@
 package cs3500.pa05.controller;
 
+import cs3500.pa05.model.BulletJournal;
 import cs3500.pa05.model.Json.EventJson;
 import cs3500.pa05.view.BujoView;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -48,6 +50,7 @@ public class BujoController {
   private Popup popup;
   private BujoView bujoView;
   private UserController userController;
+  private BulletJournal bulletJournal;
 
   public BujoController(Stage stage) {
     addTask = new Button();
@@ -69,10 +72,13 @@ public class BujoController {
   private void handleTaskButton() {
     System.out.println("is this being called?");
     try {
-      FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getClassLoader().getResource("TaskView.fxml"));
+      makePopup();
+      FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("taskPop.fxml"));
+      loader.setController(this);
       Scene scene = loader.load();
-      this.stage.setScene(scene);
+      popup.getContent().add(scene.getRoot());
+      cancel.setOnAction(event -> popup.hide());
+      popup.getContent().add(cancel);
     } catch (IOException e) {
       System.out.println(e.getMessage());
     }
@@ -82,14 +88,21 @@ public class BujoController {
    * Loads new event popup scene.
    */
   private void handleEventButton(EventJson event) {
-    //TODO implement.
+    try {
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getClassLoader().getResource("EventView.fxml"));
+      Scene scene = loader.load();
+      this.stage.setScene(scene);
+    } catch (IOException e) {
+      System.out.println(e.getMessage());
+    }
   }
 
   /**
    * Saves the current bullet jouranl spread.
    */
   private void handleSaveButton() {
-    //TODO implement
+    bulletJournal.saveBulletJournal();
   }
 
   /**
@@ -109,7 +122,7 @@ public class BujoController {
   /**
    * Handles button that sorts tasks and events by duration.
    */
-  private void handleSortByDuration() {
+  private void handleSortTasksByDuration() {
     //TODO implement
   }
 
@@ -130,9 +143,9 @@ public class BujoController {
   public void run() {
     addEvent.setOnAction(event -> System.out.println("is this working?"));
     save.setOnAction(event -> System.out.println("is this working??"));
-    addTask.setOnAction(event -> System.out.println("is this working??"));
+    addTask.setOnAction(event -> handleTaskButton());
     sortByName.setOnAction(event -> handleSortByName());
-    sortByDuration.setOnAction(event -> handleSortByDuration());
+    sortByDuration.setOnAction(event -> handleSortTasksByDuration());
     changeTheme.setOnAction(event -> handleChangeTheme());
     setLimit.setOnAction(event -> handleSetLimit());
   }
