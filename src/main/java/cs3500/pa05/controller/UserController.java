@@ -72,7 +72,7 @@ public class UserController {
    * @param task the task to be removed
    */
   protected void handleRemoveTask(TaskJson task) {
-
+    bujo.removeTask(task);
   }
 
   /**
@@ -81,7 +81,7 @@ public class UserController {
    * @param event the event to be removed
    */
   protected void handleRemoveEvent(EventJson event) {
-
+    bujo.removeEvent(event);
   }
 
   /**
