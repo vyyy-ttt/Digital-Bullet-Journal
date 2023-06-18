@@ -119,28 +119,35 @@
                         </HBox>
                         <HBox alignment="BOTTOM_RIGHT" layoutX="40.0" prefHeight="124.0" prefWidth="641.0">
                            <children>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e6f1fc" height="40.0" stroke="#93a3ab" strokeType="INSIDE" width="116.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e6f1fc" height="32.0" stroke="#93a3ab" strokeType="INSIDE" width="109.0" />
                               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe6de00" height="22.0" stroke="#e5c1c100" strokeType="INSIDE" width="8.0" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e6f1fc" height="40.0" stroke="#93a3ab" strokeType="INSIDE" width="127.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e6f1fc" height="32.0" stroke="#93a3ab" strokeType="INSIDE" width="109.0" />
                               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe6de00" height="22.0" stroke="#e5c1c100" strokeType="INSIDE" width="8.0" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e6f1fc" height="39.0" stroke="#93a3ab" strokeType="INSIDE" width="83.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e6f1fc" height="32.0" stroke="#93a3ab" strokeType="INSIDE" width="85.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe6de00" height="22.0" stroke="#e5c1c100" strokeType="INSIDE" width="8.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e6f1fc" height="32.0" stroke="#93a3ab" strokeType="INSIDE" width="72.0" />
                            </children>
                         </HBox>
                         <HBox alignment="BOTTOM_RIGHT" layoutX="40.0" prefHeight="128.0" prefWidth="640.0">
                            <children>
-                              <Button fx:id="addTask" alignment="BOTTOM_RIGHT" mnemonicParsing="false" prefHeight="46.0" prefWidth="125.0" style="-fx-background-color: transparent;" text="add task" textFill="#484e54">
+                              <Button fx:id="addTask" alignment="BOTTOM_RIGHT" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: transparent;" text="add task" textFill="#484e54">
                                  <font>
-                                    <Font name="Apple Symbols" size="27.0" />
+                                    <Font name="Apple Symbols" size="24.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="addEvent" alignment="BOTTOM_RIGHT" mnemonicParsing="false" prefHeight="32.0" prefWidth="138.0" style="-fx-background-color: transparent;" text="add event" textFill="#484e54">
+                              <Button fx:id="addEvent" alignment="BOTTOM_RIGHT" mnemonicParsing="false" prefHeight="41.0" prefWidth="117.0" style="-fx-background-color: transparent;" text="add event" textFill="#484e54">
                                  <font>
-                                    <Font name="Apple Symbols" size="27.0" />
+                                    <Font name="Apple Symbols" size="24.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="save" alignment="BOTTOM_RIGHT" mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: transparent;" text="save" textFill="#484e54">
+                              <Button fx:id="setLimit" alignment="BOTTOM_RIGHT" mnemonicParsing="false" prefHeight="46.0" prefWidth="101.0" style="-fx-background-color: transparent;" text="set limit" textFill="#484e54">
                                  <font>
-                                    <Font name="Apple Symbols" size="27.0" />
+                                    <Font name="Apple Symbols" size="24.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="save" alignment="BOTTOM_RIGHT" mnemonicParsing="false" prefHeight="41.0" prefWidth="70.0" style="-fx-background-color: transparent;" text="save" textFill="#484e54">
+                                 <font>
+                                    <Font name="Apple Symbols" size="24.0" />
                                  </font>
                               </Button>
                            </children>
@@ -159,6 +166,20 @@
                                     <Font name="Apple Symbols" size="44.0" />
                                  </font>
                               </Label>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="16.0" layoutY="14.0" prefHeight="86.0" prefWidth="184.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e6f3ff" height="37.0" stroke="BLACK" strokeType="INSIDE" width="117.0" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="25.0" layoutY="18.0" prefHeight="68.0" prefWidth="159.0" style="-fx-background-color: transparent;">
+                           <children>
+                              <Button mnemonicParsing="false" style="-fx-background-color: transparent;" text="change theme">
+                                 <font>
+                                    <Font name="Apple Symbols" size="16.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </HBox>
                      </children>
