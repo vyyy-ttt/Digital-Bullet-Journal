@@ -26,17 +26,17 @@ public class BujoController {
   @FXML
   private Label prompt;
   @FXML
-  private Button save;
+  private Button savePG;
   @FXML
-  private Button addTask;
+  private Button addTaskPG;
   @FXML
-  private Button addEvent;
+  private Button addEventPG;
   @FXML
   private Stage stage;
   @FXML
-  private Button sortByName;
+  private Button sortByNamePG;
   @FXML
-  private Button sortByDuration;
+  private Button sortByDurationPG;
   @FXML
   private TextField startTime;
   @FXML
@@ -50,9 +50,9 @@ public class BujoController {
   @FXML
   private Button cancel;
   @FXML
-  private Button changeTheme;
+  private Button changeThemePG;
   @FXML
-  private Button setLimit;
+  private Button setLimitPG;
   @FXML
   private Popup popup;
   private BujoView bujoView;
@@ -60,16 +60,16 @@ public class BujoController {
   private BulletJournal bulletJournal;
 
   public BujoController(Stage stage) {
-    addTask = new Button();
-    addEvent = new Button();
-    save = new Button();
-    setLimit = new Button();
-    changeTheme = new Button();
-    sortByName = new Button();
-    sortByDuration = new Button();
+    addTaskPG = new Button();
+    addEventPG = new Button();
+    savePG = new Button();
+    setLimitPG = new Button();
+    changeThemePG = new Button();
+    sortByNamePG = new Button();
+    sortByDurationPG = new Button();
     cancel = new Button();
     this.stage = stage;
-    save = new Button();
+    savePG = new Button();
     bujoView = new BujoView(this);
     userController = new UserController();
   }
@@ -151,13 +151,13 @@ public class BujoController {
    * Initializes event handlers for controls of the bujo GUI.
    */
   public void run() {
-    addEvent.setOnAction(event -> System.out.println("is this working?"));
-    save.setOnAction(event -> System.out.println("is this working??"));
-    addTask.setOnAction(event -> handleTaskButton());
-    sortByName.setOnAction(event -> handleSortByName());
-    sortByDuration.setOnAction(event -> handleSortTasksByDuration());
-    changeTheme.setOnAction(event -> handleChangeTheme());
-    setLimit.setOnAction(event -> handleSetLimit());
+    addEventPG.setOnAction(event -> System.out.println("is this working?"));
+    savePG.setOnAction(event -> System.out.println("is this working??"));
+    addTaskPG.setOnAction(event -> handleTaskButton());
+    sortByNamePG.setOnAction(event -> handleSortByName());
+    sortByDurationPG.setOnAction(event -> handleSortTasksByDuration());
+    changeThemePG.setOnAction(event -> handleChangeTheme());
+    setLimitPG.setOnAction(event -> handleSetLimit());
     cancel.setOnAction(event -> popup.hide());
   }
 }
