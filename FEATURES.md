@@ -13,9 +13,6 @@
 - Takesie-backsies
 - Sort By Name & Duration
 
-## Section 3: Power Ups
-
-
 ## Section 4: Quality of Life
 
 
