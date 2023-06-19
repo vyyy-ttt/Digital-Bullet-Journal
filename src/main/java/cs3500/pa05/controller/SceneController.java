@@ -11,23 +11,5 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class SceneController {
-//
-//  private Stage stage;
-//  private Scene scene;
-//  private Parent root;
-//
-//  @FXML
-//  private Button goButton;
-//
-//  public void switchToBujo(ActionEvent event) {
-//    try {
-//      root = FXMLLoader.load(getClass().getClassLoader().getResource("bujo.fxml"));
-//      stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//      scene = new Scene(root);
-//      stage.setScene(scene);
-//      stage.show();
-//    } catch (IOException e) {
-//      System.out.println("oh gosh");
-//    }
-//  }
+
 }
