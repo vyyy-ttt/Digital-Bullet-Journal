@@ -4,8 +4,11 @@ import cs3500.pa05.model.Json.EventJson;
 import cs3500.pa05.view.BujoView;
 import cs3500.pa05.view.WelcomeView;
 import java.io.IOException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,9 +27,10 @@ public class WelcomeController {
   private TextField bujoFileField;
   @FXML
   private Label prompt;
-  @FXML
   private Stage stage;
   private Popup popup;
+  private Scene scene;
+  private Parent root;
   private WelcomeView welcomeView;
   private BujoView bujoView;
   private UserController userController = new UserController();
@@ -42,12 +46,18 @@ public class WelcomeController {
   /**
    * Handles the button that commences into a bullet journal scene.
    */
-  private void handleGoButton() {
+  private void handleGoButton(ActionEvent event) {
     try {
+//      root = FXMLLoader.load(getClass().getClassLoader().getResource("bujo.fxml"));
+//      stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//      scene = new Scene(root);
+//      stage.setScene(scene);
+//      stage.show();
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getClassLoader().getResource("bujo.fxml"));
       Scene scene = loader.load();
-      this.stage.setScene(scene);
+      stage.setScene(scene);
+      stage.show();
     } catch (IOException e) {
       System.out.println("oh no");
     }
@@ -56,11 +66,11 @@ public class WelcomeController {
   /**
    * Handles the user input in the textField for the bujo file path.
    */
-  private void handleBujoField() {
+  private void handleBujoField(ActionEvent event) {
     String input = bujoFileField.getText();
     if (input.endsWith(".bujo")) {
       userController.handlePath(input);
-      handleGoButton();
+      handleGoButton(event);
     } else {
       prompt.setText("Oops! That wasn't a valid bujo file, please try again.");
     }
@@ -70,7 +80,7 @@ public class WelcomeController {
    * Initializes the event handlers for controls of the welcome GUI.
    */
   public void run() {
-    goButton.setOnAction(event -> handleBujoField());
+    goButton.setOnAction(event -> handleBujoField(event));
   }
 }
 
