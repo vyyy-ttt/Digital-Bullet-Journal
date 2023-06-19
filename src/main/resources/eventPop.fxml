@@ -2,6 +2,7 @@
 
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -35,32 +36,47 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <TextField fx:id="taskName" promptText="name..." style="-fx-background-color: transparent;">
+                        <TextField fx:id="eventName" promptText="name..." style="-fx-background-color: transparent;">
                            <font>
                               <Font name="Apple Symbols" size="13.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="taskDescrip" alignment="TOP_LEFT" prefHeight="110.0" prefWidth="200.0" promptText="description..." style="-fx-background-color: transparent;" GridPane.rowIndex="1">
+                        <TextField fx:id="eventDescrip" alignment="TOP_LEFT" prefHeight="110.0" prefWidth="200.0" promptText="description..." style="-fx-background-color: transparent;" GridPane.rowIndex="1">
                            <font>
                               <Font name="Apple Symbols" size="13.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="day" prefHeight="51.0" prefWidth="245.0" promptText="day..." style="-fx-background-color: transparent;" GridPane.rowIndex="2">
+                        <TextField fx:id="dayE" prefHeight="51.0" prefWidth="245.0" promptText="day..." style="-fx-background-color: transparent;" GridPane.rowIndex="2">
                            <font>
                               <Font name="Apple Symbols" size="13.0" />
                            </font>
                         </TextField>
                         <HBox alignment="CENTER_LEFT" prefHeight="7.0" prefWidth="200.0" GridPane.rowIndex="4">
                            <children>
-                              <TextField fx:id="day11" prefHeight="41.0" prefWidth="249.0" promptText="duration..." style="-fx-background-color: transparent;">
+                              <TextField fx:id="durationHourE" prefHeight="41.0" prefWidth="37.0" promptText="___" style="-fx-background-color: transparent;">
                                  <font>
                                     <Font name="Apple Symbols" size="13.0" />
                                  </font>
                               </TextField>
+                              <Label prefHeight="17.0" prefWidth="31.0" text="hours">
+                                 <font>
+                                    <Font name="Apple Symbols" size="13.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="durationMinE" prefHeight="41.0" prefWidth="37.0" promptText="___" style="-fx-background-color: transparent;">
+                                 <font>
+                                    <Font name="Apple Symbols" size="13.0" />
+                                 </font>
+                              </TextField>
+                              <Label prefHeight="17.0" prefWidth="41.0" text="minutes">
+                                 <font>
+                                    <Font name="Apple Symbols" size="13.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0" />
-                        <TextField fx:id="day1" prefHeight="51.0" prefWidth="245.0" promptText="start time..." style="-fx-background-color: transparent;" GridPane.rowIndex="3">
+                        <TextField fx:id="startTimeE" prefHeight="51.0" prefWidth="245.0" promptText="start time..." style="-fx-background-color: transparent;" GridPane.rowIndex="3">
                            <font>
                               <Font name="Apple Symbols" size="13.0" />
                            </font>
@@ -68,13 +84,13 @@
                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5">
                            <children>
                               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="26.0" stroke="TRANSPARENT" strokeType="INSIDE" width="9.0" />
-                              <Button fx:id="finalizeTask" mnemonicParsing="false" style="-fx-background-color: transparent;" text="add event">
+                              <Button fx:id="finalizeEvent" mnemonicParsing="false" style="-fx-background-color: transparent;" text="add event">
                                  <font>
                                     <Font name="Apple Symbols" size="13.0" />
                                  </font>
                               </Button>
                               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="26.0" stroke="TRANSPARENT" strokeType="INSIDE" width="9.0" />
-                              <Button fx:id="cancel" mnemonicParsing="false" style="-fx-background-color: transparent;" text="cancel">
+                              <Button fx:id="cancelEvent" mnemonicParsing="false" style="-fx-background-color: transparent;" text="cancel">
                                  <font>
                                     <Font name="Apple Symbols" size="13.0" />
                                  </font>

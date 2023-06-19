@@ -19,6 +19,10 @@ public class GuiController {
   private Button setLimitPG;
   @FXML
   private Button savePG;
+  @FXML
+  private Button cancel;
+  @FXML
+  private Button cancelEvent;
   private Stage stage;
   private Popup popup;
   private BulletJournal bulletJournal;
@@ -28,17 +32,29 @@ public class GuiController {
     this.popup = new Popup();
   }
 
-  public void handleAddTask() {
+  public void handleTaskPopup() {
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getClassLoader().getResource("taskPop.fxml"));
+      Scene scene = loader.load();
+      popup.getContent().add(scene.getRoot());
+      cancel = new Button();
+      cancel.setOnAction(event -> popup.hide());
+    } catch (IOException e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
+  public void handleEventPopup() {
+    try {
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getClassLoader().getResource("eventPop.fxml"));
       Scene scene = loader.load();
       popup.getContent().add(scene.getRoot());
     } catch (IOException e) {
       System.out.println(e.getMessage());
     }
   }
-
   /**
    * Saves the current bullet jouranl spread.
    */
@@ -80,6 +96,10 @@ public class GuiController {
 
   public void run() {
     addTaskPG.setOnAction(event -> makePopup());
-    handleAddTask();
+    handleTaskPopup();
+    addEventPG.setOnAction(event -> makePopup());
+    handleEventPopup();
+    savePG.setOnAction(event -> handleSaveButton());
+    setLimitPG.setOnAction(event -> handleSetLimit());
   }
 }
