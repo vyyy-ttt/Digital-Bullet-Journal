@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Scene xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs3500.pa05.SceneController">
+<Scene xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <AnchorPane prefHeight="200" prefWidth="200">
       <children>
          <HBox prefHeight="100.0" prefWidth="200.0">
@@ -64,7 +64,7 @@
                            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfeec1" height="31.0" stroke="#78836c" strokeType="INSIDE" width="41.0" />
                         </children>
                      </HBox>
-                     <Button fx:id="goButton" alignment="TOP_CENTER" blendMode="HARD_LIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchToBujo" style="-fx-background-color: transparent;" text="go!" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                     <Button fx:id="goButton" alignment="TOP_CENTER" blendMode="HARD_LIGHT" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: transparent;" text="go!" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
                         <font>
                            <Font name="BM JUA OTF" size="13.0" />
                         </font>
