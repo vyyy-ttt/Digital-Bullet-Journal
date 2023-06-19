@@ -30,7 +30,6 @@ public class GuiController {
 
   public void handleAddTask() {
     try {
-      makePopup();
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getClassLoader().getResource("taskPop.fxml"));
       Scene scene = loader.load();
@@ -80,6 +79,7 @@ public class GuiController {
   }
 
   public void run() {
-    addTaskPG.setOnAction(event -> handleAddTask());
+    addTaskPG.setOnAction(event -> makePopup());
+    handleAddTask();
   }
 }
