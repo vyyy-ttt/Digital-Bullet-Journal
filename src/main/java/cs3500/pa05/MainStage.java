@@ -26,13 +26,13 @@ public class MainStage extends Application {
    */
   @Override
   public void start(Stage stage) {
+    stage.setTitle("dvb bujo!");
     WelcomeController welcomeController = new WelcomeController(stage);
     WelcomeView welcomeView = new WelcomeView(welcomeController);
     BujoController bujoController = new BujoController(stage);
-
     try {
       stage.setScene(welcomeView.load());
-      stage.setTitle("dvb bujo!");
+      stage.show();
       welcomeController.run();
       bujoController.run();
       stage.show();

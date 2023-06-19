@@ -35,6 +35,11 @@ public class WelcomeController {
   private BujoView bujoView;
   private UserController userController = new UserController();
 
+  /**
+   *
+   *
+   * @param stage
+   */
   public WelcomeController(Stage stage) {
     goButton = new Button();
     bujoFileField = new TextField();
@@ -46,18 +51,12 @@ public class WelcomeController {
   /**
    * Handles the button that commences into a bullet journal scene.
    */
-  private void handleGoButton(ActionEvent event) {
+  private void handleGoButton() {
     try {
-//      root = FXMLLoader.load(getClass().getClassLoader().getResource("bujo.fxml"));
-//      stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//      scene = new Scene(root);
-//      stage.setScene(scene);
-//      stage.show();
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getClassLoader().getResource("bujo.fxml"));
       Scene scene = loader.load();
       stage.setScene(scene);
-      stage.show();
     } catch (IOException e) {
       System.out.println("oh no");
     }
@@ -66,11 +65,11 @@ public class WelcomeController {
   /**
    * Handles the user input in the textField for the bujo file path.
    */
-  private void handleBujoField(ActionEvent event) {
+  private void handleBujoField() {
     String input = bujoFileField.getText();
     if (input.endsWith(".bujo")) {
       userController.handlePath(input);
-      handleGoButton(event);
+      handleGoButton();
     } else {
       prompt.setText("Oops! That wasn't a valid bujo file, please try again.");
     }
@@ -80,7 +79,7 @@ public class WelcomeController {
    * Initializes the event handlers for controls of the welcome GUI.
    */
   public void run() {
-    goButton.setOnAction(event -> handleBujoField(event));
+    goButton.setOnAction(event -> handleBujoField());
   }
 }
 

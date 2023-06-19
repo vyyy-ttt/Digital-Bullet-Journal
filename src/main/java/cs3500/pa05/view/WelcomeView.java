@@ -3,7 +3,6 @@ package cs3500.pa05.view;
 import cs3500.pa05.controller.WelcomeController;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 /**
