@@ -20,6 +20,8 @@ public class GuiController {
   @FXML
   private Button savePG;
   @FXML
+  private Button changeThemePG;
+  @FXML
   private Button cancel;
   @FXML
   private Button cancelEvent;
@@ -38,8 +40,6 @@ public class GuiController {
       loader.setLocation(getClass().getClassLoader().getResource("taskPop.fxml"));
       Scene scene = loader.load();
       popup.getContent().add(scene.getRoot());
-      cancel = new Button();
-      cancel.setOnAction(event -> popup.hide());
     } catch (IOException e) {
       System.out.println(e.getMessage());
     }
@@ -101,5 +101,8 @@ public class GuiController {
     handleEventPopup();
     savePG.setOnAction(event -> handleSaveButton());
     setLimitPG.setOnAction(event -> handleSetLimit());
+    cancel.setOnAction(event -> popup.hide());
+    cancelEvent.setOnAction(event -> popup.hide());
+    changeThemePG.setOnAction(event -> handleChangeTheme());
   }
 }
