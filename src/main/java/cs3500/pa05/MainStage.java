@@ -1,10 +1,7 @@
 package cs3500.pa05;
 
-import cs3500.pa05.controller.BujoController;
-import cs3500.pa05.controller.WelcomeController;
+import cs3500.pa05.controller.GuiController;
 import cs3500.pa05.view.WelcomeView;
-import java.io.IOException;
-import java.util.Objects;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -24,14 +21,11 @@ public class MainStage extends Application {
   @Override
   public void start(Stage stage) {
     stage.setTitle("dvb bujo!");
-    WelcomeController welcomeController = new WelcomeController(stage);
-    WelcomeView welcomeView = new WelcomeView(welcomeController);
-    BujoController bujoController = new BujoController(stage);
+    GuiController guiController = new GuiController(stage);
+    WelcomeView welcomeView = new WelcomeView(guiController);
     try {
       stage.setScene(welcomeView.load());
-      stage.show();
-      welcomeController.run();
-      bujoController.run();
+      guiController.run();
       stage.show();
     } catch (IllegalStateException e) {
       System.err.println("Unable to load, I'm sorry!");
