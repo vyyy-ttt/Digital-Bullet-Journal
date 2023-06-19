@@ -18,7 +18,8 @@ import org.junit.jupiter.api.Test;
  * Testing class for FileReader.
  */
 public class FileReaderTest {
-  TaskJson[] tasks = new TaskJson[] {new TaskJson("hi", "hello", Day.FRIDAY, Status.INCOMPLETE)};
+  TaskJson[] tasks =
+      new TaskJson[] {new TaskJson("hi", "hello", Day.FRIDAY, Status.INCOMPLETE, "1h0m")};
   EventJson[] events =
       new EventJson[] {new EventJson("vy", "bella",
           Day.SATURDAY, new Time(2, 30).toString(), "4 hours")};
@@ -26,7 +27,7 @@ public class FileReaderTest {
   DayJson[] days = new DayJson[] {day, day, day, day, day, new DayJson(tasks, new EventJson[3]),
       new DayJson(new TaskJson[1], events)};
 
-  BujoJson test = new BujoJson(days, null, ThemeType.CLASSIC, null);
+  BujoJson test = new BujoJson(days, null, ThemeType.PINKGREEN, null);
   FileReader reader;
 
   @BeforeEach

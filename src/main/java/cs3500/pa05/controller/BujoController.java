@@ -67,6 +67,7 @@ public class BujoController {
     changeTheme = new Button();
     sortByName = new Button();
     sortByDuration = new Button();
+    cancel = new Button();
     this.stage = stage;
     save = new Button();
     bujoView = new BujoView(this);
