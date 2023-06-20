@@ -54,6 +54,10 @@ public class BulletJournal implements IBulletJournal {
     if (!checkLimitViolation(false)) {
       events.add(event);
     }
+    System.out.println("size is " + events.size());
+    for (EventJson e : events) {
+      System.out.println(e);
+    }
   }
 
   @Override
@@ -223,6 +227,9 @@ public class BulletJournal implements IBulletJournal {
   @Override
   public void saveBulletJournal() {
     BujoJson updatedBujo = new BujoJson(getUpdatedDays(), limits, theme, note);
+//    for (EventJson e : updatedBujo.week()[6].events()) {
+//      System.out.println(e);
+//    }
     try {
       fileWriter.writeToFile(JsonUtils.serializeRecord(updatedBujo).toString());
     } catch (IOException e) {
@@ -258,6 +265,7 @@ public class BulletJournal implements IBulletJournal {
       // Finds events scheduled for the given day
       ArrayList<EventJson> eventsOfTheDayList = new ArrayList<>();
       for (EventJson currEvent : events) {
+        System.out.println(currEvent);
         if (currEvent.day().equals(daysOfTheWeek[daysIndex])) {
           eventsOfTheDayList.add(currEvent);
         }
@@ -274,6 +282,9 @@ public class BulletJournal implements IBulletJournal {
       newDays[daysIndex] = new DayJson(tasksOfTheDayArray, eventsOfTheDayArray);
       daysIndex++;
     }
+//    for (EventJson e : newDays[6].events()) {
+//      System.out.println(e);
+//    }
     return newDays;
   }
 
