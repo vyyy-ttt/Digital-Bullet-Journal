@@ -22,6 +22,10 @@ public class GuiController {
   @FXML
   private Button changeThemePG;
   @FXML
+  private Button sortByNamePG;
+  @FXML
+  private Button sortByDurationPG;
+  @FXML
   private Button cancel;
   @FXML
   private Button cancelEvent;
@@ -72,7 +76,7 @@ public class GuiController {
   /**
    * Handles button that sorts tasks and events by name.
    */
-  private void handleSortByName() {
+  private void handleSortTasksByName() {
     //TODO implement
   }
 
@@ -104,5 +108,7 @@ public class GuiController {
     cancel.setOnAction(event -> popup.hide());
     cancelEvent.setOnAction(event -> popup.hide());
     changeThemePG.setOnAction(event -> handleChangeTheme());
+    sortByNamePG.setOnAction(event -> handleSortTasksByName());
+    sortByDurationPG.setOnAction(event -> handleSortTasksByDuration());
   }
 }
