@@ -331,43 +331,48 @@ public class GuiController {
   /**
    * Handles button that changes the bullet journal's GUI theme.
    */
-  private void handleChangeTheme() {
-    headerRect.setFill(Color.valueOf("#e6f1fc"));
-    headerLabel.setStyle("-fx-font-family: Apple Symbols");
-    headerLabel.setTextFill(Color.valueOf("#484e54"));
-    changeThemeRect.setFill(Color.valueOf("#e6f1fc"));
-    weekNameLabel.setTextFill(Color.valueOf("#484e54"));
-    weekNameLabel.setStyle("-fx-font-family: Apple Symbols");
-    quotesLabel.setTextFill(Color.valueOf("#484e54"));
-    quotesLabel.setStyle("-fx-font-family: Apple Symbols");
-    sunLabel.setTextFill(Color.valueOf("#484e54"));
-    sunLabel.setStyle("-fx-font-family: Apple Symbols");
-    monLabel.setTextFill(Color.valueOf("#484e54"));
-    monLabel.setStyle("-fx-font-family: Apple Symbols");
-    tueLabel.setTextFill(Color.valueOf("#484e54"));
-    tueLabel.setStyle("-fx-font-family: Apple Symbols");
-    wedLabel.setTextFill(Color.valueOf("#484e54"));
-    wedLabel.setStyle("-fx-font-family: Apple Symbols");
-    thuLabel.setTextFill(Color.valueOf("#484e54"));
-    thuLabel.setStyle("-fx-font-family: Apple Symbols");
-    friLabel.setTextFill(Color.valueOf("#484e54"));
-    friLabel.setStyle("-fx-font-family: Apple Symbols");
-    satLabel.setTextFill(Color.valueOf("#484e54"));
-    satLabel.setStyle("-fx-font-family: Apple Symbols");
-    sortTasksLabel.setTextFill(Color.valueOf("#484e54"));
-    sortTasksLabel.setStyle("-fx-font-family: Apple Symbols");
-    sortEventsLabel.setTextFill(Color.valueOf("#484e54"));
-    sortEventsLabel.setStyle("-fx-font-family: Apple Symbols");
-    taskQueueLabel.setTextFill(Color.valueOf("#484e54"));
-    taskQueueLabel.setStyle("-fx-font-family: Apple Symbols");
-    addEventRect.setFill(Color.valueOf("#e6f1fc"));
-    addTaskRect.setFill(Color.valueOf("#e6f1fc"));
-    setLimitRect.setFill(Color.valueOf("#e6f1fc"));
-    saveRect.setFill(Color.valueOf("#e6f1fc"));
-    tasksNameRect.setFill(Color.valueOf("#e6f1fc"));
-    tasksDurRect.setFill(Color.valueOf("#e6f1fc"));
-    eventDurRect.setFill(Color.valueOf("#e6f1fc"));
-    eventNameRect.setFill(Color.valueOf("#e6f1fc"));
+
+  // BLUE
+  // "#e6f1fc" colour one
+  // "#484e54" colour two
+  // "-fx-font-family: Apple Symbols" font
+  private void handleChangeTheme(String colorOne, String colorTwo, String font) {
+    headerRect.setFill(Color.valueOf(colorOne));
+    headerLabel.setStyle(font);
+    headerLabel.setTextFill(Color.valueOf(colorTwo));
+    changeThemeRect.setFill(Color.valueOf(colorOne));
+    weekNameLabel.setTextFill(Color.valueOf(colorTwo));
+    weekNameLabel.setStyle(font);
+    quotesLabel.setTextFill(Color.valueOf(colorTwo));
+    quotesLabel.setStyle(font);
+    sunLabel.setTextFill(Color.valueOf(colorTwo));
+    sunLabel.setStyle(font);
+    monLabel.setTextFill(Color.valueOf(colorTwo));
+    monLabel.setStyle(font);
+    tueLabel.setTextFill(Color.valueOf(colorTwo));
+    tueLabel.setStyle(font);
+    wedLabel.setTextFill(Color.valueOf(colorTwo));
+    wedLabel.setStyle(font);
+    thuLabel.setTextFill(Color.valueOf(colorTwo));
+    thuLabel.setStyle(font);
+    friLabel.setTextFill(Color.valueOf(colorTwo));
+    friLabel.setStyle(font);
+    satLabel.setTextFill(Color.valueOf(colorTwo));
+    satLabel.setStyle(font);
+    sortTasksLabel.setTextFill(Color.valueOf(colorTwo));
+    sortTasksLabel.setStyle(font);
+    sortEventsLabel.setTextFill(Color.valueOf(colorTwo));
+    sortEventsLabel.setStyle(font);
+    taskQueueLabel.setTextFill(Color.valueOf(colorTwo));
+    taskQueueLabel.setStyle(font);
+    addEventRect.setFill(Color.valueOf(colorOne));
+    addTaskRect.setFill(Color.valueOf(colorOne));
+    setLimitRect.setFill(Color.valueOf(colorOne));
+    saveRect.setFill(Color.valueOf(colorOne));
+    tasksNameRect.setFill(Color.valueOf(colorOne));
+    tasksDurRect.setFill(Color.valueOf(colorOne));
+    eventDurRect.setFill(Color.valueOf(colorOne));
+    eventNameRect.setFill(Color.valueOf(colorOne));
   }
 
   /**
@@ -387,9 +392,8 @@ public class GuiController {
     makeEventPopUp();
     setLimit.setOnAction(event -> showLimitPopup());
     makeLimitPopup();
-    changeTheme.setOnAction(event -> handleChangeTheme());
+//    changeTheme.setOnAction(event -> handleChangeTheme());
     save.setOnAction(event -> handleSaveButton());
-    changeTheme.setOnAction(event -> handleChangeTheme());
     sortByNameTask.setOnAction(event -> handleSortTasksByName());
     sortByDurationTask.setOnAction(event -> handleSortTasksByDuration());
   }
