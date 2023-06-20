@@ -55,7 +55,8 @@ public class GuiController {
   @FXML
   private Button cancelEvent;
   private Stage stage;
-  private Popup popup;
+  private Popup taskPopup;
+  private Popup eventPopup;
   private TextField name;
   private TextField description;
   private TextField hoursDigit;
@@ -69,7 +70,8 @@ public class GuiController {
 
   public GuiController(Stage stage) {
     this.stage = stage;
-    this.popup = new Popup();
+    this.taskPopup = new Popup();
+    this.eventPopup = new Popup();
   }
 
   /**
@@ -106,12 +108,12 @@ public class GuiController {
     addTask = new Button("add task");
     addTask.setOnAction(event -> addToGridPane(name.getText()));
     cancel = new Button("cancel");
-    cancel.setOnAction(event -> popup.hide());
+    cancel.setOnAction(event -> taskPopup.hide());
     buttonRow.getChildren().add(addTask);
     buttonRow.getChildren().add(cancel);
     vBox.getChildren().add(buttonRow);
-    popup.getContent().add(background);
-    popup.getContent().add(vBox);
+    taskPopup.getContent().add(background);
+    taskPopup.getContent().add(vBox);
   }
 
   /**
@@ -152,12 +154,12 @@ public class GuiController {
     addTask = new Button("add event");
     addTask.setOnAction(event -> addToGridPane(name.getText()));
     cancel = new Button("cancel");
-    cancel.setOnAction(event -> popup.hide());
+    cancel.setOnAction(event -> eventPopup.hide());
     buttonRow.getChildren().add(addTask);
     buttonRow.getChildren().add(cancel);
     vBox.getChildren().add(buttonRow);
-    popup.getContent().add(background);
-    popup.getContent().add(vBox);
+    eventPopup.getContent().add(background);
+    eventPopup.getContent().add(vBox);
   }
 
   /**
@@ -177,10 +179,14 @@ public class GuiController {
   }
 
   /**
-   * Shows a popup on the stage.
+   * Shows a task popup on the stage.
    */
-  private void makePopup() {
-    this.popup.show(this.stage);
+  private void showTaskPopup() {
+    this.taskPopup.show(this.stage);
+  }
+
+  private void showEventPopup() {
+    this.eventPopup.show(this.stage);
   }
 
   /**
@@ -209,9 +215,9 @@ public class GuiController {
   }
 
   public void run() {
-    addTaskPG.setOnAction(event -> makePopup());
+    addTaskPG.setOnAction(event -> showTaskPopup());
     makeTaskPopUp();
-    addEventPG.setOnAction(event -> makePopup());
+    addEventPG.setOnAction(event -> showEventPopup());
     makeEventPopUp();
     savePG.setOnAction(event -> handleSaveButton());
     setLimitPG.setOnAction(event -> handleSetLimit());
