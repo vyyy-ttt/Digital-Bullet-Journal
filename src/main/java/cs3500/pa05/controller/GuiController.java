@@ -2,14 +2,11 @@ package cs3500.pa05.controller;
 
 
 import cs3500.pa05.model.BulletJournal;
-import java.io.IOException;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -54,9 +51,10 @@ public class GuiController {
   private Button cancel;
   @FXML
   private Button cancelEvent;
-  private Stage stage;
-  private Popup taskPopup;
-  private Popup eventPopup;
+  private final Stage stage;
+  private final Popup taskPopup;
+  private final Popup eventPopup;
+  private final Popup limitPopup;
   private TextField name;
   private TextField description;
   private TextField hoursDigit;
@@ -65,13 +63,21 @@ public class GuiController {
   private Label minutesLabel;
   private Button addTask;
   private TextField day;
-  private TextField duration;
+  private Label duration;
+  private CheckBox complete;
+  private TextField startTime;
+  private TextField taskLimit;
+  private TextField eventLimit;
+  private Button saveLimit;
+  private Button cancelLimit;
+  private Label limitPrompt;
   private BulletJournal bulletJournal;
 
   public GuiController(Stage stage) {
     this.stage = stage;
     this.taskPopup = new Popup();
     this.eventPopup = new Popup();
+    this.limitPopup = new Popup();
   }
 
   /**
@@ -79,7 +85,7 @@ public class GuiController {
    */
   private void makeTaskPopUp() {
     Rectangle background = new Rectangle();
-    background.setHeight(160);
+    background.setHeight(240);
     background.setWidth(180);
     background.setFill(Color.valueOf("#E7EACD"));
     background.setArcHeight(20);
@@ -90,8 +96,14 @@ public class GuiController {
     vBox.getChildren().add(padding);
     name = new TextField("task name...");
     description = new TextField("description...");
+    day = new TextField("day...");
+    complete = new CheckBox("task complete?");
+    duration = new Label("duration:");
     vBox.getChildren().add(name);
     vBox.getChildren().add(description);
+    vBox.getChildren().add(day);
+    vBox.getChildren().add(complete);
+    vBox.getChildren().add(duration);
     HBox hBox = new HBox(5);
     hoursDigit = new TextField("___");
     hoursDigit.setPrefWidth(30);
@@ -121,7 +133,7 @@ public class GuiController {
    */
   private void makeEventPopUp() {
     Rectangle background = new Rectangle();
-    background.setHeight(220);
+    background.setHeight(260);
     background.setWidth(180);
     background.setFill(Color.valueOf("#E7EACD"));
     background.setArcHeight(20);
@@ -133,10 +145,12 @@ public class GuiController {
     name = new TextField("event name...");
     description = new TextField("description...");
     day = new TextField("day...");
-    duration = new TextField("duration...");
+    startTime = new TextField("start time...");
+    duration = new Label("duration:");
     vBox.getChildren().add(name);
     vBox.getChildren().add(description);
     vBox.getChildren().add(day);
+    vBox.getChildren().add(startTime);
     vBox.getChildren().add(duration);
     HBox hBox = new HBox(5);
     hoursDigit = new TextField("___");
@@ -162,6 +176,35 @@ public class GuiController {
     eventPopup.getContent().add(vBox);
   }
 
+  private void makeLimitPopup() {
+    Rectangle background = new Rectangle();
+    background.setHeight(220);
+    background.setWidth(180);
+    background.setFill(Color.valueOf("#E7EACD"));
+    background.setArcHeight(20);
+    background.setArcWidth(20);
+    VBox vBox = new VBox(8);
+    Rectangle padding = new Rectangle(180, 10);
+    padding.setFill(Color.valueOf("#E7EACD"));
+    vBox.getChildren().add(padding);
+    limitPrompt = new Label("Please enter the limits you would like to set:");
+    taskLimit = new TextField("task limit...");
+    eventLimit = new TextField("event limit...");
+    HBox buttonRow = new HBox();
+    saveLimit = new Button("save");
+//    saveLimit.setOnAction(event -> );
+    cancelLimit = new Button("cancel");
+    cancelLimit.setOnAction(event -> limitPopup.hide());
+    vBox.getChildren().add(limitPrompt);
+    vBox.getChildren().add(taskLimit);
+    vBox.getChildren().add(eventLimit);
+    buttonRow.getChildren().add(saveLimit);
+    buttonRow.getChildren().add(cancelLimit);
+    vBox.getChildren().add(buttonRow);
+    limitPopup.getContent().add(background);
+    limitPopup.getContent().add(vBox);
+  }
+
   /**
    * Adds a task or event to the week gridpane.
    *
@@ -171,7 +214,7 @@ public class GuiController {
     if (day.getText().startsWith("M") || day.getText().startsWith("m")) {
       monPane.setText(name);
     } else if (day.getText().startsWith("Tu") || day.getText().startsWith("tu")) {
-      tuePane.setText(name) ;
+      tuePane.setText(name);
     } else if (day.getText().startsWith("W") || day.getText().startsWith("w")) {
       wedPane.setText(name);
     } else if (day.getText().startsWith("Th") || day.getText().startsWith("th")) {
@@ -185,9 +228,6 @@ public class GuiController {
     } else {
       System.out.println("oops");
     }
-
-    //TODO implement so that depending on the day the person chooses,
-    // it will add the task to the necessary pane.
   }
 
   /**
@@ -208,6 +248,10 @@ public class GuiController {
     this.eventPopup.show(this.stage);
   }
 
+  private void showLimitPopup() {
+    this.limitPopup.show(this.stage);
+  }
+
   /**
    * Handles button that sorts tasks and events by name.
    */
@@ -226,18 +270,24 @@ public class GuiController {
    * Handles button that changes the bullet journal's GUI theme.
    */
   private void handleChangeTheme() {
-    //TODO implement
+
   }
 
   private void handleSetLimit() {
     //TODO implement
   }
 
+  /**
+   * Initializes controls of the GUI.
+   */
   public void run() {
     addTaskPG.setOnAction(event -> showTaskPopup());
     makeTaskPopUp();
     addEventPG.setOnAction(event -> showEventPopup());
     makeEventPopUp();
+    setLimitPG.setOnAction(event -> showLimitPopup());
+    makeLimitPopup();
+    changeThemePG.setOnAction(event -> handleChangeTheme());
     savePG.setOnAction(event -> handleSaveButton());
     setLimitPG.setOnAction(event -> handleSetLimit());
     changeThemePG.setOnAction(event -> handleChangeTheme());
