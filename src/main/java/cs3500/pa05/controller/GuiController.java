@@ -15,6 +15,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
+/**
+ * Represents the controller for GUI elements.
+ */
 public class GuiController {
   @FXML
   private Button addTask;
@@ -279,9 +282,13 @@ public class GuiController {
     //TODO implement by chnaging the colours and fonts of the base bujo
   }
 
+  /**
+   * Handles the button that is used to set a limit of tasks and/or events.
+   */
   private void handleSetLimit() {
     //TODO implement
   }
+
 
   /**
    * Initializes controls of the GUI.

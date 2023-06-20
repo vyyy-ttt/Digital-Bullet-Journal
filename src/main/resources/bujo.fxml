@@ -104,13 +104,34 @@
                                        <Font name="BM JUA OTF" size="26.0" />
                                     </font>
                                  </Label>
-                                 <Label fx:id="sunPane" alignment="TOP_LEFT" prefHeight="406.0" prefWidth="81.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                                 <Label fx:id="thursPane" alignment="TOP_LEFT" prefHeight="406.0" prefWidth="88.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                                 <Label fx:id="wedPane" alignment="TOP_LEFT" prefHeight="406.0" prefWidth="87.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                 <Label fx:id="tuePane" alignment="TOP_LEFT" prefHeight="406.0" prefWidth="88.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                 <Label fx:id="monPane" alignment="TOP_LEFT" prefHeight="406.0" prefWidth="81.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                 <Label fx:id="satPane" alignment="TOP_LEFT" prefHeight="406.0" prefWidth="87.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-                                 <Label fx:id="friPane" alignment="TOP_LEFT" prefHeight="406.0" prefWidth="88.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                                 <Label fx:id="sunPane" alignment="TOP_LEFT" prefHeight="406.0" prefWidth="81.0" textFill="#977959" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                    <font>
+                                       <Font name="BM JUA OTF" size="13.0" />
+                                    </font></Label>
+                                 <Label fx:id="thursPane" alignment="TOP_LEFT" prefHeight="406.0" prefWidth="88.0" textFill="#977959" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                    <font>
+                                       <Font name="BM JUA OTF" size="13.0" />
+                                    </font></Label>
+                                 <Label fx:id="wedPane" alignment="TOP_LEFT" prefHeight="406.0" prefWidth="87.0" textFill="#977959" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                    <font>
+                                       <Font name="BM JUA OTF" size="13.0" />
+                                    </font></Label>
+                                 <Label fx:id="tuePane" alignment="TOP_LEFT" prefHeight="406.0" prefWidth="88.0" textFill="#977959" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                    <font>
+                                       <Font name="BM JUA OTF" size="13.0" />
+                                    </font></Label>
+                                 <Label fx:id="monPane" alignment="TOP_LEFT" prefHeight="406.0" prefWidth="88.0" textFill="#977959" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <font>
+                                       <Font name="BM JUA OTF" size="13.0" />
+                                    </font></Label>
+                                 <Label fx:id="satPane" alignment="TOP_LEFT" prefHeight="406.0" prefWidth="87.0" textFill="#977959" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                                    <font>
+                                       <Font name="BM JUA OTF" size="13.0" />
+                                    </font></Label>
+                                 <Label fx:id="friPane" alignment="TOP_LEFT" prefHeight="406.0" prefWidth="88.0" textFill="#977959" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                                    <font>
+                                       <Font name="BM JUA OTF" size="13.0" />
+                                    </font></Label>
                               </children>
                            </GridPane>
                         </children>
