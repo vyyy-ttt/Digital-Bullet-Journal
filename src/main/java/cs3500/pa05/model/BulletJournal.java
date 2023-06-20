@@ -9,6 +9,7 @@ import cs3500.pa05.model.Json.TaskJson;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -51,20 +52,12 @@ public class BulletJournal implements IBulletJournal {
 
   @Override
   public void addEvent(EventJson event) {
-    if (!checkLimitViolation(false)) {
-      events.add(event);
-    }
-    System.out.println("size is " + events.size());
-    for (EventJson e : events) {
-      System.out.println(e);
-    }
+    events.add(event);
   }
 
   @Override
   public void addTask(TaskJson task) {
-    if (!checkLimitViolation(true)) {
-      tasks.add(task);
-    }
+    tasks.add(task);
   }
 
   @Override
@@ -194,11 +187,12 @@ public class BulletJournal implements IBulletJournal {
 
   @Override
   public boolean checkLimitViolation(boolean isTask) {
-    if (isTask) {
+    if (isTask && limits!=null) {
       return tasks.size() + 1 >= limits.maxTasks();
-    } else {
+    } else if(limits != null){
       return events.size() + 1 >= limits.maxEvents();
     }
+    return false;
   }
 
   @Override
@@ -243,14 +237,13 @@ public class BulletJournal implements IBulletJournal {
    * @return an array of each updated DayJson
    */
   private DayJson[] getUpdatedDays() {
-    Day[] daysOfTheWeek = Day.values();
     DayJson[] newDays = new DayJson[7];
     int daysIndex = 0;
-    while (daysIndex < newDays.length) {
+    for (Day day : Day.values()) {
       // Finds tasks scheduled for the given day
       ArrayList<TaskJson> tasksOfTheDayList = new ArrayList<>();
       for (TaskJson currTask : tasks) {
-        if (currTask.day().equals(daysOfTheWeek[daysIndex])) {
+        if (currTask.day().equals(day)) {
           tasksOfTheDayList.add(currTask);
         }
       }
@@ -265,8 +258,7 @@ public class BulletJournal implements IBulletJournal {
       // Finds events scheduled for the given day
       ArrayList<EventJson> eventsOfTheDayList = new ArrayList<>();
       for (EventJson currEvent : events) {
-        System.out.println(currEvent);
-        if (currEvent.day().equals(daysOfTheWeek[daysIndex])) {
+        if (currEvent.day().equals(day)) {
           eventsOfTheDayList.add(currEvent);
         }
       }
@@ -282,9 +274,7 @@ public class BulletJournal implements IBulletJournal {
       newDays[daysIndex] = new DayJson(tasksOfTheDayArray, eventsOfTheDayArray);
       daysIndex++;
     }
-//    for (EventJson e : newDays[6].events()) {
-//      System.out.println(e);
-//    }
+
     return newDays;
   }
 
