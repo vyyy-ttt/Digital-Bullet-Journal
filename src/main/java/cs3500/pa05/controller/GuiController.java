@@ -164,9 +164,28 @@ public class GuiController {
 
   /**
    * Adds a task or event to the week gridpane.
+   *
+   * @param name the name of the task to display
    */
   public void addToGridPane(String name) {
-    monPane.setText(name);
+    if (day.getText().startsWith("M") || day.getText().startsWith("m")) {
+      monPane.setText(name);
+    } else if (day.getText().startsWith("Tu") || day.getText().startsWith("tu")) {
+      tuePane.setText(name) ;
+    } else if (day.getText().startsWith("W") || day.getText().startsWith("w")) {
+      wedPane.setText(name);
+    } else if (day.getText().startsWith("Th") || day.getText().startsWith("th")) {
+      thursPane.setText(name);
+    } else if (day.getText().startsWith("F") || day.getText().startsWith("f")) {
+      friPane.setText(name);
+    } else if (day.getText().startsWith("Sa") || day.getText().startsWith("sa")) {
+      satPane.setText(name);
+    } else if (day.getText().startsWith("Su") || day.getText().startsWith("su")) {
+      sunPane.setText(name);
+    } else {
+      System.out.println("oops");
+    }
+
     //TODO implement so that depending on the day the person chooses,
     // it will add the task to the necessary pane.
   }
