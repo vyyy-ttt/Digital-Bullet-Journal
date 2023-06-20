@@ -56,18 +56,20 @@ public class GuiController {
   private final Popup taskPopup;
   private final Popup eventPopup;
   private final Popup limitPopup;
-  private TextField nameT;
-  private TextField dayT;
-  private TextField name;
-  private TextField description;
+  private TextField taskName;
+  private TextField taskDay;
   private TextField hoursDigit;
   private TextField minutesDigit;
   private Label hoursLabel;
   private Label minutesLabel;
   private Button finalizeTask;
   private Button finalizeEvent;
-  private TextField day;
-  private Label duration;
+  private TextField eventName;
+  private TextField eventDescription;
+  private TextField eventDay;
+  private Label eventDuration;
+  private TextField taskDescription;
+  private Label taskDuration;
   private CheckBox complete;
   private TextField startTime;
   private TextField taskLimit;
@@ -96,16 +98,16 @@ public class GuiController {
     Rectangle padding = new Rectangle(180, 10);
     padding.setFill(Color.valueOf("#E7EACD"));
     vBox.getChildren().add(padding);
-    nameT = new TextField("task name...");
-    description = new TextField("description...");
-    dayT = new TextField("day...");
+    taskName = new TextField("task name...");
+    taskDescription = new TextField("description...");
+    taskDay = new TextField("day...");
     complete = new CheckBox("task complete?");
-    duration = new Label("duration:");
-    vBox.getChildren().add(nameT);
-    vBox.getChildren().add(description);
-    vBox.getChildren().add(dayT);
+    taskDuration = new Label("duration:");
+    vBox.getChildren().add(taskName);
+    vBox.getChildren().add(taskDescription);
+    vBox.getChildren().add(taskDay);
     vBox.getChildren().add(complete);
-    vBox.getChildren().add(duration);
+    vBox.getChildren().add(taskDuration);
     HBox hBox = new HBox(5);
     hoursDigit = new TextField("___");
     hoursDigit.setPrefWidth(30);
@@ -120,7 +122,7 @@ public class GuiController {
     vBox.getChildren().add(hBox);
     HBox buttonRow = new HBox(5);
     finalizeTask = new Button("add task");
-    finalizeTask.setOnAction(event -> addToGridPane(nameT.getText()));
+    finalizeTask.setOnAction(event -> addToGridPane(taskName.getText()));
     cancel = new Button("cancel");
     cancel.setOnAction(event -> taskPopup.hide());
     buttonRow.getChildren().add(finalizeTask);
@@ -139,16 +141,16 @@ public class GuiController {
     Rectangle padding = new Rectangle(180, 10);
     padding.setFill(Color.valueOf("#E7EACD"));
     vBox.getChildren().add(padding);
-    name = new TextField("event name...");
-    description = new TextField("description...");
-    day = new TextField("day...");
+    eventName = new TextField("event name...");
+    eventDescription = new TextField("description...");
+    eventDay = new TextField("day...");
     startTime = new TextField("start time...");
-    duration = new Label("duration:");
-    vBox.getChildren().add(name);
-    vBox.getChildren().add(description);
-    vBox.getChildren().add(day);
+    eventDuration = new Label("duration:");
+    vBox.getChildren().add(eventName);
+    vBox.getChildren().add(eventDescription);
+    vBox.getChildren().add(eventDay);
     vBox.getChildren().add(startTime);
-    vBox.getChildren().add(duration);
+    vBox.getChildren().add(eventDuration);
     HBox hBox = new HBox(5);
     hoursDigit = new TextField("___");
     hoursDigit.setPrefWidth(30);
@@ -163,7 +165,7 @@ public class GuiController {
     vBox.getChildren().add(hBox);
     HBox buttonRow = new HBox(5);
     finalizeEvent = new Button("add event");
-    finalizeEvent.setOnAction(event -> addToGridPane(name.getText()));
+    finalizeEvent.setOnAction(event -> addToGridPane(eventDay.getText()));
     cancel = new Button("cancel");
     cancel.setOnAction(event -> eventPopup.hide());
     buttonRow.getChildren().add(finalizeEvent);
@@ -208,19 +210,26 @@ public class GuiController {
 
   //TODO this has to be done for both the taskDay and the eventDay
   public void addToGridPane(String name) {
-    if (dayT.getText().startsWith("M") || dayT.getText().startsWith("m")) {
+    if (taskDay.getText().equalsIgnoreCase("monday")
+        || eventDay.getText().equalsIgnoreCase("monday")) {
       monPane.setText(name);
-    } else if (day.getText().startsWith("Tu") || day.getText().startsWith("tu")) {
+    } else if (taskDay.getText().equalsIgnoreCase("tuesday")
+        || eventDay.getText().equalsIgnoreCase("tuesday")) {
       tuePane.setText(name);
-    } else if (day.getText().startsWith("W") || day.getText().startsWith("w")) {
+    } else if (taskDay.getText().equalsIgnoreCase("wednesday")
+        || eventDay.getText().equalsIgnoreCase("wednesday")) {
       wedPane.setText(name);
-    } else if (day.getText().startsWith("Th") || day.getText().startsWith("th")) {
+    } else if (taskDay.getText().equalsIgnoreCase("thursday")
+        || eventDay.getText().equalsIgnoreCase("thursday")) {
       thursPane.setText(name);
-    } else if (day.getText().startsWith("F") || day.getText().startsWith("f")) {
+    } else if (taskDay.getText().equalsIgnoreCase("friday")
+        || eventDay.getText().equalsIgnoreCase("friday")) {
       friPane.setText(name);
-    } else if (day.getText().startsWith("Sa") || day.getText().startsWith("sa")) {
+    } else if (taskDay.getText().equalsIgnoreCase("saturday")
+        || eventDay.getText().equalsIgnoreCase("saturday")) {
       satPane.setText(name);
-    } else if (day.getText().startsWith("Su") || day.getText().startsWith("su")) {
+    } else if (taskDay.getText().equalsIgnoreCase("sunday")
+        || eventDay.getText().equalsIgnoreCase("sunday")) {
       sunPane.setText(name);
     } else {
       System.out.println("oops");
