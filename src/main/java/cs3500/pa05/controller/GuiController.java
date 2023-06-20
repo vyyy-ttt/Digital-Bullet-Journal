@@ -392,7 +392,31 @@ public class GuiController {
     makeEventPopUp();
     setLimit.setOnAction(event -> showLimitPopup());
     makeLimitPopup();
-//    changeTheme.setOnAction(event -> handleChangeTheme());
+
+    //TODO make it so that it loops through each of these inputs
+
+    // BLUE
+    // "#e6f1fc" colour one
+    // "#484e54" colour two
+    // "-fx-font-family: Apple Symbols" font
+
+    // YELLOW
+    // #f7dba1
+    // #a18570
+    // "-fx-font-family: Avenir Next"
+
+    // GREEN
+    // #a9bc89 green
+    // #ffe6dd pink
+    // "-fx-font-family: BM JUA OTF"
+
+    // PURPLE
+    // #bdb5d0
+    // #323236
+    // "-fx-font-family: BM DoHyeon OTF"
+
+    changeTheme.setOnAction(event -> handleChangeTheme("#e6f1fc",
+        "#484e54", "-fx-font-family: Apple Symbols"));
     save.setOnAction(event -> handleSaveButton());
     sortByNameTask.setOnAction(event -> handleSortTasksByName());
     sortByDurationTask.setOnAction(event -> handleSortTasksByDuration());
