@@ -2,6 +2,7 @@ package cs3500.pa05.controller;
 
 
 import cs3500.pa05.model.BulletJournal;
+import cs3500.pa05.view.PopupView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -16,23 +17,23 @@ import javafx.stage.Stage;
 
 public class GuiController {
   @FXML
-  private Button addTaskPG;
+  private Button addTask;
   @FXML
-  private Button addEventPG;
+  private Button addEvent;
   @FXML
-  private Button setLimitPG;
+  private Button setLimit;
   @FXML
-  private Button savePG;
+  private Button save;
   @FXML
-  private Button changeThemePG;
+  private Button changeTheme;
   @FXML
-  private Button sortByNameTPG;
+  private Button sortByNameTask;
   @FXML
-  private Button sortByDurationTPG;
+  private Button sortByDurationTask;
   @FXML
-  private Button sortByNameEPG;
+  private Button sortByNameEvent;
   @FXML
-  private Button sortByDurationEPG;
+  private Button sortByDurationEvent;
   @FXML
   private Label sunPane;
   @FXML
@@ -61,7 +62,7 @@ public class GuiController {
   private TextField minutesDigit;
   private Label hoursLabel;
   private Label minutesLabel;
-  private Button addTask;
+  private Button finalizeTask;
   private TextField day;
   private Label duration;
   private CheckBox complete;
@@ -72,24 +73,21 @@ public class GuiController {
   private Button cancelLimit;
   private Label limitPrompt;
   private BulletJournal bulletJournal;
+  private PopupView popupView;
 
   public GuiController(Stage stage) {
     this.stage = stage;
     this.taskPopup = new Popup();
     this.eventPopup = new Popup();
     this.limitPopup = new Popup();
+    popupView = new PopupView();
   }
 
   /**
    * Makes the GUI elements of a task popup. //TODO change this
    */
   private void makeTaskPopUp() {
-    Rectangle background = new Rectangle();
-    background.setHeight(240);
-    background.setWidth(180);
-    background.setFill(Color.valueOf("#E7EACD"));
-    background.setArcHeight(20);
-    background.setArcWidth(20);
+    Rectangle background = popupView.createPopupBackground(240, 180);
     VBox vBox = new VBox(8);
     Rectangle padding = new Rectangle(180, 10);
     padding.setFill(Color.valueOf("#E7EACD"));
@@ -117,11 +115,11 @@ public class GuiController {
     hBox.getChildren().add(minutesLabel);
     vBox.getChildren().add(hBox);
     HBox buttonRow = new HBox(5);
-    addTask = new Button("add task");
-    addTask.setOnAction(event -> addToGridPane(name.getText()));
+    finalizeTask = new Button("add task");
+    finalizeTask.setOnAction(event -> addToGridPane(name.getText()));
     cancel = new Button("cancel");
     cancel.setOnAction(event -> taskPopup.hide());
-    buttonRow.getChildren().add(addTask);
+    buttonRow.getChildren().add(finalizeTask);
     buttonRow.getChildren().add(cancel);
     vBox.getChildren().add(buttonRow);
     taskPopup.getContent().add(background);
@@ -132,12 +130,7 @@ public class GuiController {
    * Makes the GUI elements of an event popup. //TODO change this
    */
   private void makeEventPopUp() {
-    Rectangle background = new Rectangle();
-    background.setHeight(260);
-    background.setWidth(180);
-    background.setFill(Color.valueOf("#E7EACD"));
-    background.setArcHeight(20);
-    background.setArcWidth(20);
+    Rectangle background = popupView.createPopupBackground(260, 180);
     VBox vBox = new VBox(8);
     Rectangle padding = new Rectangle(180, 10);
     padding.setFill(Color.valueOf("#E7EACD"));
@@ -165,11 +158,11 @@ public class GuiController {
     hBox.getChildren().add(minutesLabel);
     vBox.getChildren().add(hBox);
     HBox buttonRow = new HBox(5);
-    addTask = new Button("add event");
-    addTask.setOnAction(event -> addToGridPane(name.getText()));
+    finalizeTask = new Button("add event");
+    finalizeTask.setOnAction(event -> addToGridPane(name.getText()));
     cancel = new Button("cancel");
     cancel.setOnAction(event -> eventPopup.hide());
-    buttonRow.getChildren().add(addTask);
+    buttonRow.getChildren().add(finalizeTask);
     buttonRow.getChildren().add(cancel);
     vBox.getChildren().add(buttonRow);
     eventPopup.getContent().add(background);
@@ -180,12 +173,7 @@ public class GuiController {
    * Creates popup for the user to set a limit of tasks and/or events for a day.
    */
   private void makeLimitPopup() {
-    Rectangle background = new Rectangle();
-    background.setHeight(180);
-    background.setWidth(260);
-    background.setFill(Color.valueOf("#E7EACD"));
-    background.setArcHeight(20);
-    background.setArcWidth(20);
+    Rectangle background = popupView.createPopupBackground(180, 260);
     VBox vBox = new VBox(8);
     Rectangle padding = new Rectangle(180, 10);
     padding.setFill(Color.valueOf("#E7EACD"));
@@ -284,16 +272,16 @@ public class GuiController {
    * Initializes controls of the GUI.
    */
   public void run() {
-    addTaskPG.setOnAction(event -> showTaskPopup());
+    addTask.setOnAction(event -> showTaskPopup());
     makeTaskPopUp();
-    addEventPG.setOnAction(event -> showEventPopup());
+    addEvent.setOnAction(event -> showEventPopup());
     makeEventPopUp();
-    setLimitPG.setOnAction(event -> showLimitPopup());
+    setLimit.setOnAction(event -> showLimitPopup());
     makeLimitPopup();
-    changeThemePG.setOnAction(event -> handleChangeTheme());
-    savePG.setOnAction(event -> handleSaveButton());
-    changeThemePG.setOnAction(event -> handleChangeTheme());
-    sortByNameTPG.setOnAction(event -> handleSortTasksByName());
-    sortByDurationTPG.setOnAction(event -> handleSortTasksByDuration());
+    changeTheme.setOnAction(event -> handleChangeTheme());
+    save.setOnAction(event -> handleSaveButton());
+    changeTheme.setOnAction(event -> handleChangeTheme());
+    sortByNameTask.setOnAction(event -> handleSortTasksByName());
+    sortByDurationTask.setOnAction(event -> handleSortTasksByDuration());
   }
 }
