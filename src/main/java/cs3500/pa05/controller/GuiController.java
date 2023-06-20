@@ -56,6 +56,8 @@ public class GuiController {
   private final Popup taskPopup;
   private final Popup eventPopup;
   private final Popup limitPopup;
+  private TextField nameT;
+  private TextField dayT;
   private TextField name;
   private TextField description;
   private TextField hoursDigit;
@@ -63,6 +65,7 @@ public class GuiController {
   private Label hoursLabel;
   private Label minutesLabel;
   private Button finalizeTask;
+  private Button finalizeEvent;
   private TextField day;
   private Label duration;
   private CheckBox complete;
@@ -83,6 +86,7 @@ public class GuiController {
     popupView = new PopupView();
   }
 
+  //TODO task and event cant share text fields
   /**
    * Makes the GUI elements of a task popup. //TODO change this
    */
@@ -92,14 +96,14 @@ public class GuiController {
     Rectangle padding = new Rectangle(180, 10);
     padding.setFill(Color.valueOf("#E7EACD"));
     vBox.getChildren().add(padding);
-    name = new TextField("task name...");
+    nameT = new TextField("task name...");
     description = new TextField("description...");
-    day = new TextField("day...");
+    dayT = new TextField("day...");
     complete = new CheckBox("task complete?");
     duration = new Label("duration:");
-    vBox.getChildren().add(name);
+    vBox.getChildren().add(nameT);
     vBox.getChildren().add(description);
-    vBox.getChildren().add(day);
+    vBox.getChildren().add(dayT);
     vBox.getChildren().add(complete);
     vBox.getChildren().add(duration);
     HBox hBox = new HBox(5);
@@ -116,7 +120,7 @@ public class GuiController {
     vBox.getChildren().add(hBox);
     HBox buttonRow = new HBox(5);
     finalizeTask = new Button("add task");
-    finalizeTask.setOnAction(event -> addToGridPane(name.getText()));
+    finalizeTask.setOnAction(event -> addToGridPane(nameT.getText()));
     cancel = new Button("cancel");
     cancel.setOnAction(event -> taskPopup.hide());
     buttonRow.getChildren().add(finalizeTask);
@@ -158,11 +162,11 @@ public class GuiController {
     hBox.getChildren().add(minutesLabel);
     vBox.getChildren().add(hBox);
     HBox buttonRow = new HBox(5);
-    finalizeTask = new Button("add event");
-    finalizeTask.setOnAction(event -> addToGridPane(name.getText()));
+    finalizeEvent = new Button("add event");
+    finalizeEvent.setOnAction(event -> addToGridPane(name.getText()));
     cancel = new Button("cancel");
     cancel.setOnAction(event -> eventPopup.hide());
-    buttonRow.getChildren().add(finalizeTask);
+    buttonRow.getChildren().add(finalizeEvent);
     buttonRow.getChildren().add(cancel);
     vBox.getChildren().add(buttonRow);
     eventPopup.getContent().add(background);
@@ -201,8 +205,10 @@ public class GuiController {
    *
    * @param name the name of the task to display
    */
+
+  //TODO this has to be done for both the taskDay and the eventDay
   public void addToGridPane(String name) {
-    if (day.getText().startsWith("M") || day.getText().startsWith("m")) {
+    if (dayT.getText().startsWith("M") || dayT.getText().startsWith("m")) {
       monPane.setText(name);
     } else if (day.getText().startsWith("Tu") || day.getText().startsWith("tu")) {
       tuePane.setText(name);
