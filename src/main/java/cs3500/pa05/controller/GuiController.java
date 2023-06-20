@@ -81,7 +81,7 @@ public class GuiController {
   }
 
   /**
-   * Makes the GUI elements of a task popup.
+   * Makes the GUI elements of a task popup. //TODO change this
    */
   private void makeTaskPopUp() {
     Rectangle background = new Rectangle();
@@ -129,7 +129,7 @@ public class GuiController {
   }
 
   /**
-   * Makes the GUI elements of an event popup.
+   * Makes the GUI elements of an event popup. //TODO change this
    */
   private void makeEventPopUp() {
     Rectangle background = new Rectangle();
@@ -176,10 +176,13 @@ public class GuiController {
     eventPopup.getContent().add(vBox);
   }
 
+  /**
+   * Creates popup for the user to set a limit of tasks and/or events for a day.
+   */
   private void makeLimitPopup() {
     Rectangle background = new Rectangle();
-    background.setHeight(220);
-    background.setWidth(180);
+    background.setHeight(180);
+    background.setWidth(260);
     background.setFill(Color.valueOf("#E7EACD"));
     background.setArcHeight(20);
     background.setArcWidth(20);
@@ -270,7 +273,7 @@ public class GuiController {
    * Handles button that changes the bullet journal's GUI theme.
    */
   private void handleChangeTheme() {
-
+    //TODO implement by chnaging the colours and fonts of the base bujo
   }
 
   private void handleSetLimit() {
@@ -289,7 +292,6 @@ public class GuiController {
     makeLimitPopup();
     changeThemePG.setOnAction(event -> handleChangeTheme());
     savePG.setOnAction(event -> handleSaveButton());
-    setLimitPG.setOnAction(event -> handleSetLimit());
     changeThemePG.setOnAction(event -> handleChangeTheme());
     sortByNameTPG.setOnAction(event -> handleSortTasksByName());
     sortByDurationTPG.setOnAction(event -> handleSortTasksByDuration());
