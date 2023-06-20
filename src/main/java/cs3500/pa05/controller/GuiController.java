@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
@@ -30,6 +31,20 @@ public class GuiController {
   @FXML
   private Button sortByDurationEPG;
   @FXML
+  private Label sunPane;
+  @FXML
+  private Label monPane;
+  @FXML
+  private Label tuePane;
+  @FXML
+  private Label wedPane;
+  @FXML
+  private Label thursPane;
+  @FXML
+  private Label friPane;
+  @FXML
+  private Label satPane;
+  @FXML
   private Button cancel;
   @FXML
   private Button cancelEvent;
@@ -42,6 +57,9 @@ public class GuiController {
     this.popup = new Popup();
   }
 
+  /**
+   * Loads a popup for the user to input the details of a task.
+   */
   public void handleTaskPopup() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -56,6 +74,9 @@ public class GuiController {
     }
   }
 
+  /**
+   * Loads a popup for the user to input the details of an event.
+   */
   public void handleEventPopup() {
     try {
       FXMLLoader loader = new FXMLLoader();
@@ -68,6 +89,14 @@ public class GuiController {
     } catch (IOException e) {
       System.out.println(e.getMessage());
     }
+  }
+
+  /**
+   * Adds a task or event to the week gridpane.
+   */
+  public void addToGridPane() {
+    //TODO implement so that depending on the day the person chooses,
+    // it will add the task to the necessary pane.
   }
   /**
    * Saves the current bullet jouranl spread.
