@@ -3,10 +3,12 @@ package cs3500.pa05.controller;
 
 import cs3500.pa05.model.BulletJournal;
 import cs3500.pa05.view.PopupView;
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -52,9 +54,52 @@ public class GuiController {
   @FXML
   private Label satPane;
   @FXML
-  private Button cancel;
+  private Rectangle headerRect;
   @FXML
-  private Button cancelEvent;
+  private Rectangle changeThemeRect;
+  @FXML
+  private Label weekNameLabel;
+  @FXML
+  private Label sunLabel;
+  @FXML
+  private Label monLabel;
+  @FXML
+  private Label tueLabel;
+  @FXML
+  private Label wedLabel;
+  @FXML
+  private Label thuLabel;
+  @FXML
+  private Label friLabel;
+  @FXML
+  private Label satLabel;
+  @FXML
+  private Rectangle addTaskRect;
+  @FXML
+  private Rectangle addEventRect;
+  @FXML
+  private Rectangle setLimitRect;
+  @FXML
+  private Rectangle saveRect;
+  @FXML
+  private Label quotesLabel;
+  @FXML
+  private Label sortTasksLabel;
+  @FXML
+  private Label sortEventsLabel;
+  @FXML
+  private Rectangle tasksNameRect;
+  @FXML
+  private Rectangle tasksDurRect;
+  @FXML
+  private Rectangle eventNameRect;
+  @FXML
+  private Rectangle eventDurRect;
+  @FXML
+  private Label taskQueueLabel;
+  @FXML
+  private Label headerLabel;
+  private Button cancel;
   private final Stage stage;
   private final Popup taskPopup;
   private final Popup eventPopup;
@@ -80,6 +125,7 @@ public class GuiController {
   private Button saveLimit;
   private Button cancelLimit;
   private Label limitPrompt;
+  private ArrayList<String> taskList;
   private BulletJournal bulletJournal;
   private PopupView popupView;
 
@@ -92,6 +138,7 @@ public class GuiController {
   }
 
   //TODO task and event cant share text fields
+
   /**
    * Makes the GUI elements of a task popup. //TODO change this
    */
@@ -168,7 +215,15 @@ public class GuiController {
     vBox.getChildren().add(hBox);
     HBox buttonRow = new HBox(5);
     finalizeEvent = new Button("add event");
-    finalizeEvent.setOnAction(event -> addToGridPane(eventDay.getText()));
+    finalizeEvent.setOnAction(event ->
+    {
+      //TODO work this out so events are not duplicated and added like a list
+      taskList = new ArrayList<>();
+      if (!taskList.contains(eventName.getText()) || !eventName.equals("event name...")) {
+        taskList.add(eventName.getText());
+        addToGridPane(eventName.getText());
+      }
+    });
     cancel = new Button("cancel");
     cancel.setOnAction(event -> eventPopup.hide());
     buttonRow.getChildren().add(finalizeEvent);
@@ -210,8 +265,6 @@ public class GuiController {
    *
    * @param name the name of the task to display
    */
-
-  //TODO this has to be done for both the taskDay and the eventDay
   public void addToGridPane(String name) {
     if (taskDay.getText().equalsIgnoreCase("monday")
         || eventDay.getText().equalsIgnoreCase("monday")) {
@@ -279,7 +332,42 @@ public class GuiController {
    * Handles button that changes the bullet journal's GUI theme.
    */
   private void handleChangeTheme() {
-    //TODO implement by chnaging the colours and fonts of the base bujo
+    headerRect.setFill(Color.valueOf("#e6f1fc"));
+    headerLabel.setStyle("-fx-font-family: Apple Symbols");
+    headerLabel.setTextFill(Color.valueOf("#484e54"));
+    changeThemeRect.setFill(Color.valueOf("#e6f1fc"));
+    weekNameLabel.setTextFill(Color.valueOf("#484e54"));
+    weekNameLabel.setStyle("-fx-font-family: Apple Symbols");
+    quotesLabel.setTextFill(Color.valueOf("#484e54"));
+    quotesLabel.setStyle("-fx-font-family: Apple Symbols");
+    sunLabel.setTextFill(Color.valueOf("#484e54"));
+    sunLabel.setStyle("-fx-font-family: Apple Symbols");
+    monLabel.setTextFill(Color.valueOf("#484e54"));
+    monLabel.setStyle("-fx-font-family: Apple Symbols");
+    tueLabel.setTextFill(Color.valueOf("#484e54"));
+    tueLabel.setStyle("-fx-font-family: Apple Symbols");
+    wedLabel.setTextFill(Color.valueOf("#484e54"));
+    wedLabel.setStyle("-fx-font-family: Apple Symbols");
+    thuLabel.setTextFill(Color.valueOf("#484e54"));
+    thuLabel.setStyle("-fx-font-family: Apple Symbols");
+    friLabel.setTextFill(Color.valueOf("#484e54"));
+    friLabel.setStyle("-fx-font-family: Apple Symbols");
+    satLabel.setTextFill(Color.valueOf("#484e54"));
+    satLabel.setStyle("-fx-font-family: Apple Symbols");
+    sortTasksLabel.setTextFill(Color.valueOf("#484e54"));
+    sortTasksLabel.setStyle("-fx-font-family: Apple Symbols");
+    sortEventsLabel.setTextFill(Color.valueOf("#484e54"));
+    sortEventsLabel.setStyle("-fx-font-family: Apple Symbols");
+    taskQueueLabel.setTextFill(Color.valueOf("#484e54"));
+    taskQueueLabel.setStyle("-fx-font-family: Apple Symbols");
+    addEventRect.setFill(Color.valueOf("#e6f1fc"));
+    addTaskRect.setFill(Color.valueOf("#e6f1fc"));
+    setLimitRect.setFill(Color.valueOf("#e6f1fc"));
+    saveRect.setFill(Color.valueOf("#e6f1fc"));
+    tasksNameRect.setFill(Color.valueOf("#e6f1fc"));
+    tasksDurRect.setFill(Color.valueOf("#e6f1fc"));
+    eventDurRect.setFill(Color.valueOf("#e6f1fc"));
+    eventNameRect.setFill(Color.valueOf("#e6f1fc"));
   }
 
   /**
@@ -288,7 +376,6 @@ public class GuiController {
   private void handleSetLimit() {
     //TODO implement
   }
-
 
   /**
    * Initializes controls of the GUI.
