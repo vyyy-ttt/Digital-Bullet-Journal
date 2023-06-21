@@ -22,6 +22,7 @@ public class BulletJournal implements IBulletJournal {
   private final ArrayList<EventJson> events;
   private LimitJson limits;
   private final BujoJson week;
+  private String weekName;
   private ThemeType theme;
   private String note;
   static final int NUM_MINS_IN_HOUR = 60;
@@ -42,7 +43,7 @@ public class BulletJournal implements IBulletJournal {
       tasks = fileReader.getTasks();
       events = fileReader.getEvents();
     } else {
-      week = new BujoJson(new DayJson[7], null, ThemeType.PINKGREEN, null);
+      week = new BujoJson(new DayJson[7], null, null, ThemeType.PINKGREEN, null);
       tasks = new ArrayList<>();
       events = new ArrayList<>();
       this.theme = ThemeType.PINKGREEN;
@@ -220,7 +221,7 @@ public class BulletJournal implements IBulletJournal {
 
   @Override
   public void saveBulletJournal() {
-    BujoJson updatedBujo = new BujoJson(getUpdatedDays(), limits, theme, note);
+    BujoJson updatedBujo = new BujoJson(getUpdatedDays(), weekName, limits, theme, note);
     try {
       fileWriter.writeToFile(JsonUtils.serializeRecord(updatedBujo).toString());
     } catch (IOException e) {
