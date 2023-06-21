@@ -108,4 +108,27 @@ public class UserController {
   protected List<TaskJson> getTaskQueue() {
     return bujo.sortTasksPriority();
   }
+
+  /**
+   * Replaces an event with another event.
+   *
+   * @param oldEvent the event to be replaced
+   * @param editedEvent the new event
+   */
+  protected void editEvent(EventJson oldEvent, EventJson editedEvent){
+    bujo.removeEvent(oldEvent);
+    bujo.addEvent(editedEvent);
+  }
+
+  /**
+   * Replaces a task with another task.
+   *
+   * @param oldTask the task to be replaced
+   * @param editedTask the new task
+   */
+  protected void editTask(TaskJson oldTask, TaskJson editedTask){
+    bujo.removeTask(oldTask);
+    bujo.addTask(editedTask);
+  }
+
 }

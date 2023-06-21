@@ -27,6 +27,8 @@ public class MainStage extends Application {
       stage.setScene(bujoView.load());
       guiController.run();
       stage.show();
+      guiController.makeFileNamePopup();
+      guiController.showFileTitlePopUp();
     } catch (IllegalStateException e) {
       System.err.println("Unable to load, I'm sorry!");
     }

@@ -429,33 +429,8 @@ public class GuiController {
   /**
    *
    */
-  private void showFileTitlePopUp() {
+  public void showFileTitlePopUp() {
     this.fileTitlePopup.show(this.stage);
-  }
-  /**
-   * Shows a task popup on the stage.
-   */
-  private void showTaskPopup() {
-  }
-
-  /**
-   * Shows an event popup on the stage.
-   */
-  private void showEventPopup() {
-  }
-
-  /**
-   * Shows a popup to set the limit on the stage.
-   */
-  private void showLimitPopup() {
-
-  }
-
-  /**
-   * Shows a popup for changing themes on the stage.
-   */
-  private void showThemePopup() {
-    ;
   }
 
   /**
