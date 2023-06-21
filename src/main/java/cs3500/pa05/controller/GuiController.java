@@ -1,8 +1,8 @@
 package cs3500.pa05.controller;
 
-
 import cs3500.pa05.model.BulletJournal;
 import cs3500.pa05.view.PopupView;
+import cs3500.pa05.view.ThemeView;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,10 +10,12 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.skin.TextInputControlSkin;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
@@ -40,19 +42,19 @@ public class GuiController {
   @FXML
   private Button sortByDurationEvent;
   @FXML
-  private Label sunPane;
+  private VBox sunPane;
   @FXML
-  private Label monPane;
+  private VBox monPane;
   @FXML
-  private Label tuePane;
+  private VBox tuePane;
   @FXML
-  private Label wedPane;
+  private VBox wedPane;
   @FXML
-  private Label thursPane;
+  private VBox thuPane;
   @FXML
-  private Label friPane;
+  private VBox friPane;
   @FXML
-  private Label satPane;
+  private VBox satPane;
   @FXML
   private Rectangle headerRect;
   @FXML
@@ -80,6 +82,8 @@ public class GuiController {
   @FXML
   private Rectangle setLimitRect;
   @FXML
+  private Rectangle changeTitleRect;
+  @FXML
   private Rectangle saveRect;
   @FXML
   private Label quotesLabel;
@@ -99,63 +103,70 @@ public class GuiController {
   private Label taskQueueLabel;
   @FXML
   private Label headerLabel;
+  @FXML
+  private Button changeTitle;
+  @FXML
+  private TextArea quotesArea;
   private Button cancel;
-  private Button cancelChange;
   private final Stage stage;
   private final Popup taskPopup;
   private final Popup eventPopup;
   private final Popup limitPopup;
   private final Popup changeThemePopup;
+  private final Popup titlePopup;
   private TextField taskName;
   private TextField taskDay;
   private TextField hoursDigit;
   private TextField minutesDigit;
   private Label hoursLabel;
   private Label minutesLabel;
-  private Button finalizeTask;
-  private Button finalizeEvent;
   private TextField eventName;
-  private TextField eventDescription;
   private TextField eventDay;
-  private Label eventDuration;
-  private TextField taskDescription;
-  private Label taskDuration;
-  private CheckBox complete;
-  private TextField startTime;
-  private TextField taskLimit;
-  private TextField eventLimit;
-  private Button saveLimit;
-  private Button cancelLimit;
-  private Label limitPrompt;
+  private Button finalizeTask;
+  private TextField hourDigit;
+  private TextField minDigit;
   private ArrayList<String> taskList;
   private BulletJournal bulletJournal;
-  private PopupView popupView;
+  private final PopupView popupView;
+  private final ThemeView themeView;
 
+  /**
+   * Constructs a GUIController.
+   *
+   * @param stage the stage of the GUI
+   */
   public GuiController(Stage stage) {
     this.stage = stage;
     this.taskPopup = new Popup();
     this.eventPopup = new Popup();
     this.limitPopup = new Popup();
     this.changeThemePopup = new Popup();
+    this.titlePopup = new Popup();
     popupView = new PopupView();
+    themeView = new ThemeView();
+    monPane = new VBox(3);
+    tuePane = new VBox(3);
+    wedPane = new VBox(3);
+    thuPane = new VBox(3);
+    friPane = new VBox(3);
+    satPane = new VBox(3);
+    sunPane = new VBox(3);
   }
 
-  //TODO task and event cant share text fields
-
   /**
-   * Makes the GUI elements of a task popup. //TODO change this
+   * Makes the GUI elements of a task popup.
    */
   private void makeTaskPopUp() {
     Rectangle background = popupView.createPopupBackground(240, 180);
     VBox vBox = new VBox(8);
     Rectangle padding = new Rectangle(180, 10);
-    padding.setFill(Color.valueOf("#E7EACD"));
+    padding.setFill(Color.valueOf("#ffffff"));
     vBox.getChildren().add(padding);
     taskName = new TextField("task name...");
-    taskDescription = new TextField("description...");
+    TextField taskDescription = new TextField("description...");
     taskDay = new TextField("day...");
-    complete = new CheckBox("task complete?");
-    taskDuration = new Label("duration:");
+    CheckBox complete = new CheckBox("task complete?");
+    Label taskDuration = new Label("duration:");
     vBox.getChildren().add(taskName);
     vBox.getChildren().add(taskDescription);
     vBox.getChildren().add(taskDay);
@@ -175,7 +186,7 @@ public class GuiController {
     vBox.getChildren().add(hBox);
     HBox buttonRow = new HBox(5);
     finalizeTask = new Button("add task");
-    finalizeTask.setOnAction(event -> addToGridPane(taskName.getText()));
+//    finalizeTask.setOnAction(event -> addToGridPane(taskName.getText()));
     cancel = new Button("cancel");
     cancel.setOnAction(event -> taskPopup.hide());
     buttonRow.getChildren().add(finalizeTask);
@@ -186,23 +197,31 @@ public class GuiController {
   }
 
   /**
-   * Makes the GUI elements of an event popup. //TODO change this
+   * Makes the GUI elements of an event popup.
    */
   private void makeEventPopUp() {
     Rectangle background = popupView.createPopupBackground(260, 180);
     VBox vBox = new VBox(8);
     Rectangle padding = new Rectangle(180, 10);
-    padding.setFill(Color.valueOf("#E7EACD"));
+    padding.setFill(Color.valueOf("#ffffff"));
     vBox.getChildren().add(padding);
     eventName = new TextField("event name...");
-    eventDescription = new TextField("description...");
+    TextField eventDescription = new TextField("description...");
     eventDay = new TextField("day...");
-    startTime = new TextField("start time...");
-    eventDuration = new Label("duration:");
+    Label startTime = new Label("start time...");
+    Label eventDuration = new Label("duration:");
     vBox.getChildren().add(eventName);
     vBox.getChildren().add(eventDescription);
     vBox.getChildren().add(eventDay);
     vBox.getChildren().add(startTime);
+    HBox startTimeRow = new HBox(5);
+    hourDigit = new TextField("___");
+    hourDigit.setPrefWidth(30);
+    minDigit = new TextField("___");
+    minDigit.setPrefWidth(30);
+    startTimeRow.getChildren().add(hourDigit);
+    startTimeRow.getChildren().add(minDigit);
+    vBox.getChildren().add(startTimeRow);
     vBox.getChildren().add(eventDuration);
     HBox hBox = new HBox(5);
     hoursDigit = new TextField("___");
@@ -217,14 +236,20 @@ public class GuiController {
     hBox.getChildren().add(minutesLabel);
     vBox.getChildren().add(hBox);
     HBox buttonRow = new HBox(5);
-    finalizeEvent = new Button("add event");
+    Button finalizeEvent = new Button("add event");
     finalizeEvent.setOnAction(event ->
     {
       //TODO work this out so events are not duplicated and added like a list
       taskList = new ArrayList<>();
-      if (!taskList.contains(eventName.getText()) || !eventName.equals("event name...")) {
+      if (!taskList.contains(eventName.getText()) || !eventName.getText().equals("event name...")) {
         taskList.add(eventName.getText());
-        addToGridPane(eventName.getText());
+        VBox eventBox = createEventBox(eventName.getText(),
+            eventDescription.getText(),
+            hourDigit.getText(),
+            minDigit.getText(),
+            hoursDigit.getText(),
+            minutesDigit.getText());
+        addToGridPane(eventBox);
       }
     });
     cancel = new Button("cancel");
@@ -236,6 +261,36 @@ public class GuiController {
     eventPopup.getContent().add(vBox);
   }
 
+  private VBox createEventBox(String name, String description, String hourTime, String minuteTime, String hourDur, String minDur) {
+    VBox eventBox = new VBox(8);
+    Text textName = new Text(name);
+    Text textDescription = new Text(description);
+    Text textHour = new Text(hourTime);
+    Text textMinute = new Text(minuteTime);
+    Text textDurHour = new Text(hourDur);
+    Text textDurMin = new Text(minDur);
+    HBox timeRow = new HBox();
+    timeRow.getChildren().add(textHour);
+    timeRow.getChildren().add(textMinute);
+    HBox durationRow = new HBox();
+    durationRow.getChildren().add(textDurHour);
+    durationRow.getChildren().add(textDurMin);
+    eventBox.getChildren().add(textName);
+    eventBox.getChildren().add(textDescription);
+    eventBox.getChildren().add(timeRow);
+    eventBox.getChildren().add(durationRow);
+    return eventBox;
+  }
+  private boolean verifyEventName() {
+    // TODO implement
+    return false;
+  }
+
+  private boolean verifyTaskName() {
+    // TODO implement
+    return true;
+  }
+
   /**
    * Creates popup for the user to set a limit of tasks and/or events for a day.
    */
@@ -243,15 +298,15 @@ public class GuiController {
     Rectangle background = popupView.createPopupBackground(180, 260);
     VBox vBox = new VBox(8);
     Rectangle padding = new Rectangle(180, 10);
-    padding.setFill(Color.valueOf("#E7EACD"));
+    padding.setFill(Color.valueOf("ffffff"));
     vBox.getChildren().add(padding);
-    limitPrompt = new Label("Please enter the limits you would like to set:");
-    taskLimit = new TextField("task limit...");
-    eventLimit = new TextField("event limit...");
+    Label limitPrompt = new Label("Please enter the limits you would like to set:");
+    TextField taskLimit = new TextField("task limit...");
+    TextField eventLimit = new TextField("event limit...");
     HBox buttonRow = new HBox();
-    saveLimit = new Button("save");
-//    saveLimit.setOnAction(event -> );
-    cancelLimit = new Button("cancel");
+    Button saveLimit = new Button("save");
+//    saveLimit.setOnAction(event -> ha);
+    Button cancelLimit = new Button("cancel");
     cancelLimit.setOnAction(event -> limitPopup.hide());
     vBox.getChildren().add(limitPrompt);
     vBox.getChildren().add(taskLimit);
@@ -264,34 +319,63 @@ public class GuiController {
   }
 
   /**
+   * Makes a popup for the user to change the titles of the bullet journal spread.
+   */
+  private void makeTitlePopup() {
+    Rectangle background = popupView.createPopupBackground(120, 260);
+    VBox vBox = new VBox(8);
+    TextField fileName = new TextField("name your file");
+    TextField weekName = new TextField("name your week");
+    String fileTitle = fileName.getText();
+    String weekTitle = weekName.getText();
+    HBox fileRow = new HBox(5);
+    HBox weekRow = new HBox(5);
+    Button saveTitle = new Button("save file title");
+    Button saveWeekName = new Button("save week title");
+    saveTitle.setOnAction(event -> headerLabel.setText(fileTitle));
+    saveWeekName.setOnAction(event -> weekNameLabel.setText(weekTitle));
+    Button cancelTitle = new Button("cancel");
+    cancelTitle.setOnAction(event -> titlePopup.hide());
+    fileRow.getChildren().add(fileName);
+    fileRow.getChildren().add(saveTitle);
+    weekRow.getChildren().add(weekName);
+    weekRow.getChildren().add(saveWeekName);
+    vBox.getChildren().add(fileRow);
+    vBox.getChildren().add(weekRow);
+    vBox.getChildren().add(cancelTitle);
+    titlePopup.getContent().add(background);
+    titlePopup.getContent().add(vBox);
+  }
+
+  /**
    * Adds a task or event to the week gridpane.
    *
-   * @param name the name of the task to display
+   * @param event the event to display
    */
-  public void addToGridPane(String name) {
+  public void addToGridPane(VBox event) {
     if (taskDay.getText().equalsIgnoreCase("monday")
         || eventDay.getText().equalsIgnoreCase("monday")) {
-      monPane.setText(name);
+      monPane.getChildren().add(event);
     } else if (taskDay.getText().equalsIgnoreCase("tuesday")
         || eventDay.getText().equalsIgnoreCase("tuesday")) {
-      tuePane.setText(name);
+      tuePane.getChildren().add(event);
     } else if (taskDay.getText().equalsIgnoreCase("wednesday")
         || eventDay.getText().equalsIgnoreCase("wednesday")) {
-      wedPane.setText(name);
+      wedPane.getChildren().add(event);
     } else if (taskDay.getText().equalsIgnoreCase("thursday")
         || eventDay.getText().equalsIgnoreCase("thursday")) {
-      thursPane.setText(name);
+      thuPane.getChildren().add(event);
     } else if (taskDay.getText().equalsIgnoreCase("friday")
         || eventDay.getText().equalsIgnoreCase("friday")) {
-      friPane.setText(name);
+      friPane.getChildren().add(event);
     } else if (taskDay.getText().equalsIgnoreCase("saturday")
         || eventDay.getText().equalsIgnoreCase("saturday")) {
-      satPane.setText(name);
+      satPane.getChildren().add(event);
     } else if (taskDay.getText().equalsIgnoreCase("sunday")
         || eventDay.getText().equalsIgnoreCase("sunday")) {
-      sunPane.setText(name);
+      sunPane.getChildren().add(event);
     } else {
-      System.out.println("oops");
+      System.out.println("oops"); // TODO make this display smt
     }
   }
 
@@ -309,16 +393,32 @@ public class GuiController {
     this.taskPopup.show(this.stage);
   }
 
+  /**
+   * Shows an event popup on the stage.
+   */
   private void showEventPopup() {
     this.eventPopup.show(this.stage);
   }
 
+  /**
+   * Shows a popup to set the limit on the stage.
+   */
   private void showLimitPopup() {
     this.limitPopup.show(this.stage);
   }
 
+  /**
+   * Shows a popup for changing themes on the stage.
+   */
   private void showThemePopup() {
     this.changeThemePopup.show(this.stage);
+  }
+
+  /**
+   * Shows a popup for changing the title on the stage.
+   */
+  private void showTitlePopup() {
+    this.titlePopup.show(this.stage);
   }
 
   /**
@@ -336,21 +436,38 @@ public class GuiController {
   }
 
   /**
+   * Handles button that sorts tasks and events by name.
+   */
+  private void handleSortEventsByName() {
+    //TODO implement
+  }
+
+  /**
+   * Handles button that sorts tasks and events by duration.
+   */
+  private void handleSortEventsByDuration() {
+    //TODO implement
+  }
+
+
+  /**
    * Changes the bullet journal's GUI to the specified colors and fonts.
    *
    * @param colorOne color to use for buttons or headers
    * @param colorTwo color to use for text
-   * @param font font to use for text
+   * @param font     font to use for text
    */
   private void changeTheme(String colorOne, String colorTwo, String font) {
     headerRect.setFill(Color.valueOf(colorOne));
     headerLabel.setStyle(font);
     headerLabel.setTextFill(Color.valueOf(colorTwo));
     changeThemeRect.setFill(Color.valueOf(colorOne));
+    changeTitleRect.setFill(Color.valueOf(colorOne));
     weekNameLabel.setTextFill(Color.valueOf(colorTwo));
     weekNameLabel.setStyle(font);
     quotesLabel.setTextFill(Color.valueOf(colorTwo));
     quotesLabel.setStyle(font);
+    quotesArea.setStyle(font);
     sunLabel.setTextFill(Color.valueOf(colorTwo));
     sunLabel.setStyle(font);
     monLabel.setTextFill(Color.valueOf(colorTwo));
@@ -381,14 +498,17 @@ public class GuiController {
     eventNameRect.setFill(Color.valueOf(colorOne));
   }
 
+  /**
+   * Makes a popup for the user to change the theme of the bullet journal spread.
+   */
   private void makeThemePopup() {
-    Rectangle background = popupView.createPopupBackground(50, 50);
+    Rectangle background = popupView.createPopupBackground(180, 100);
     VBox vbox = new VBox(8);
-    Button pinkAndGreen = new Button("Pink and Green");
+    Button green = new Button("Green");
     Button yellow = new Button("Yellow");
     Button blue = new Button("Blue");
     Button purple = new Button("Purple");
-    pinkAndGreen.setOnAction(event -> changeTheme(
+    green.setOnAction(event -> changeTheme(
         "#a9bc89", "#555e3a", "-fx-font-family: 'BM JUA OTF'"));
     yellow.setOnAction(event -> changeTheme(
         "#f7dba1", "#a18570", "-fx-font-family: 'Avenir Next'"));
@@ -396,21 +516,15 @@ public class GuiController {
         "#e6f1fc", "#484e54", "-fx-font-family: 'Apple Symbols'"));
     purple.setOnAction(event -> changeTheme(
         "#bdb5d0", "#323236", "-fx-font-family: 'BM DoHyeon OTF'"));
-    cancelChange = new Button("cancel");
+    Button cancelChange = new Button("cancel");
     cancelChange.setOnAction(event -> changeThemePopup.hide());
-    vbox.getChildren().add(pinkAndGreen);
+    vbox.getChildren().add(green);
     vbox.getChildren().add(yellow);
     vbox.getChildren().add(purple);
     vbox.getChildren().add(blue);
     vbox.getChildren().add(cancelChange);
     changeThemePopup.getContent().add(background);
     changeThemePopup.getContent().add(vbox);
-;  }
-  /**
-   * Handles the button that is used to set a limit of tasks and/or events.
-   */
-  private void handleSetLimit() {
-    //TODO implement
   }
 
   /**
@@ -425,8 +539,12 @@ public class GuiController {
     makeLimitPopup();
     changeTheme.setOnAction(event -> showThemePopup());
     makeThemePopup();
+    changeTitle.setOnAction(event -> showTitlePopup());
+    makeTitlePopup();
     save.setOnAction(event -> handleSaveButton());
     sortByNameTask.setOnAction(event -> handleSortTasksByName());
     sortByDurationTask.setOnAction(event -> handleSortTasksByDuration());
+    sortByNameEvent.setOnAction(event -> handleSortEventsByName());
+    sortByDurationEvent.setOnAction(event -> handleSortEventsByDuration());
   }
 }

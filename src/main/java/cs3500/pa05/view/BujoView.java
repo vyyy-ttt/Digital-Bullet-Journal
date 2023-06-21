@@ -4,6 +4,7 @@ import cs3500.pa05.controller.GuiController;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 
 /**
  * Represents the bullet journal spread GUI.

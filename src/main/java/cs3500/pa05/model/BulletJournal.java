@@ -18,10 +18,11 @@ import java.util.List;
 public class BulletJournal implements IBulletJournal {
   private final Path bujoFile;
   private final FileWriter fileWriter;
-  private ArrayList<TaskJson> tasks;
-  private ArrayList<EventJson> events;
+  private final ArrayList<TaskJson> tasks;
+  private final ArrayList<EventJson> events;
   private LimitJson limits;
-  private BujoJson week;
+  private final BujoJson week;
+  private String weekName;
   private ThemeType theme;
   private String note;
   static final int NUM_MINS_IN_HOUR = 60;
@@ -42,7 +43,7 @@ public class BulletJournal implements IBulletJournal {
       tasks = fileReader.getTasks();
       events = fileReader.getEvents();
     } else {
-      week = new BujoJson(new DayJson[7], null, ThemeType.PINKGREEN, "");
+      week = new BujoJson(new DayJson[7], null, null, ThemeType.PINKGREEN, null);
       tasks = new ArrayList<>();
       events = new ArrayList<>();
       this.theme = ThemeType.PINKGREEN;
@@ -188,9 +189,9 @@ public class BulletJournal implements IBulletJournal {
   @Override
   public boolean checkLimitViolation(boolean isTask) {
     if (isTask && limits!=null) {
-      return tasks.size() + 1 >= limits.maxTasks();
+      return tasks.size() + 1 > limits.maxTasks();
     } else if(limits != null){
-      return events.size() + 1 >= limits.maxEvents();
+      return events.size() + 1 > limits.maxEvents();
     }
     return false;
   }
@@ -214,16 +215,18 @@ public class BulletJournal implements IBulletJournal {
   }
 
   @Override
+  public void setWeekName(String name) {
+    weekName = name;
+  }
+
+  @Override
   public void chooseTheme(ThemeType theme) {
     this.theme = theme;
   }
 
   @Override
   public void saveBulletJournal() {
-    BujoJson updatedBujo = new BujoJson(getUpdatedDays(), limits, theme, note);
-//    for (EventJson e : updatedBujo.week()[6].events()) {
-//      System.out.println(e);
-//    }
+    BujoJson updatedBujo = new BujoJson(getUpdatedDays(), weekName, limits, theme, note);
     try {
       fileWriter.writeToFile(JsonUtils.serializeRecord(updatedBujo).toString());
     } catch (IOException e) {
