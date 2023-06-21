@@ -117,19 +117,17 @@ public class BulletJournal implements IBulletJournal {
           }
         }
       }
-    } else { // Sorts by completion (incomplete first)
+    } else { // Sorts by completion
+      // Sorts the incomplete tasks first
       for (TaskJson currTask : tasks) {
-        if (sortedTasks.isEmpty()) {
+        if (!currTask.complete()) {
           sortedTasks.add(currTask);
-        } else {
-          for (TaskJson currSortedTask : sortedTasks) {
-            //TODO:implement
-          }
-          // Adds the current task to sortedTasks if it hasn't been added yet, being that its
-          // duration is greater than every other task's duration already sorted
-          if (!sortedTasks.contains(currTask)) {
-            sortedTasks.add(currTask);
-          }
+        }
+      }
+      // Then adds all the complete tasks
+      for (TaskJson currTask : tasks) {
+        if (currTask.complete()) {
+          sortedTasks.add(currTask);
         }
       }
     }
