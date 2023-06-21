@@ -525,12 +525,13 @@ public class GuiController {
    * @param colorTwo color to use for text
    * @param font     font to use for text
    */
-  private void changeTheme(String colorOne, String colorTwo, String font) {
+  private void changeTheme(String colorOne, String colorTwo, String font, String face) {
     headerRect.setFill(Color.valueOf(colorOne));
+    headerLabel.setText(face);
     headerLabel.setStyle(font);
     headerLabel.setTextFill(Color.valueOf(colorTwo));
     changeThemeRect.setFill(Color.valueOf(colorOne));
-    weekNameText.setStyle("-fx-background-color: 'transparent'");
+    weekNameText.setStyle("-fx-background-color: transparent");
     weekNameText.setStyle("-fx-text-fill: " + colorTwo);
     weekNameText.setStyle(font);
     quotesLabel.setTextFill(Color.valueOf(colorTwo));
@@ -578,13 +579,17 @@ public class GuiController {
     Button blue = new Button("Blue");
     Button purple = new Button("Purple");
     green.setOnAction(event -> changeTheme(
-        "#a9bc89", "#555e3a", "-fx-font-family: 'BM JUA OTF'"));
+        "#a9bc89", "#555e3a",
+        "-fx-font-family: 'BM JUA OTF'", "(O_O)"));
     yellow.setOnAction(event -> changeTheme(
-        "#f7dba1", "#a18570", "-fx-font-family: 'Avenir Next'"));
+        "#f7dba1", "#a18570",
+        "-fx-font-family: 'Avenir Next'", "(-_- )"));
     blue.setOnAction(event -> changeTheme(
-        "#e6f1fc", "#484e54", "-fx-font-family: 'Apple Symbols'"));
+        "#e6f1fc", "#484e54",
+        "-fx-font-family: 'Apple Symbols'", "(^ - ^ )"));
     purple.setOnAction(event -> changeTheme(
-        "#bdb5d0", "#323236", "-fx-font-family: 'BM DoHyeon OTF'"));
+        "#bdb5d0", "#323236",
+        "-fx-font-family: 'BM DoHyeon OTF'", "(; - ; )"));
     Button cancelChange = new Button("cancel");
     cancelChange.setOnAction(event -> changeThemePopup.hide());
     vbox.getChildren().add(green);
