@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -116,6 +115,7 @@ public class GuiController {
   private TextField taskDay;
   private TextField hoursDigit;
   private TextField minutesDigit;
+  private TextField weekName;
   private Label hoursLabel;
   private Label minutesLabel;
   private Button finalizeTask;
@@ -130,7 +130,7 @@ public class GuiController {
   private TextField startTime;
   private TextField taskLimit;
   private TextField eventLimit;
-  private TextField fileTitle;
+  private TextField fileName;
   private Button saveLimit;
   private Button cancelLimit;
   private Label limitPrompt;
@@ -271,20 +271,31 @@ public class GuiController {
     limitPopup.getContent().add(vBox);
   }
 
+  /**
+   * Makes a popup for the user to change the titles of the bullet journal spread.
+   */
   private void makeTitlePopup() {
-    Rectangle background = popupView.createPopupBackground(100, 200);
+    Rectangle background = popupView.createPopupBackground(120, 260);
     VBox vBox = new VBox(8);
-    fileTitle = new TextField("name your bujo!");
-    String title = fileTitle.getText();
-    HBox buttonRow = new HBox(5);
-    Button saveTitle = new Button("save");
-    saveTitle.setOnAction(event -> headerLabel.setText(title));
+    fileName = new TextField("name your file");
+    weekName = new TextField("name your week");
+    String fileTitle = fileName.getText();
+    String weekTitle = weekName.getText();
+    HBox fileRow = new HBox(5);
+    HBox weekRow = new HBox(5);
+    Button saveTitle = new Button("save file title");
+    Button saveWeekName = new Button("save week title");
+    saveTitle.setOnAction(event -> headerLabel.setText(fileTitle));
+    saveWeekName.setOnAction(event -> weekNameLabel.setText(weekTitle));
     Button cancelTitle = new Button("cancel");
     cancelTitle.setOnAction(event -> titlePopup.hide());
-    buttonRow.getChildren().add(saveTitle);
-    buttonRow.getChildren().add(cancelTitle);
-    vBox.getChildren().add(fileTitle);
-    vBox.getChildren().add(buttonRow);
+    fileRow.getChildren().add(fileName);
+    fileRow.getChildren().add(saveTitle);
+    weekRow.getChildren().add(weekName);
+    weekRow.getChildren().add(saveWeekName);
+    vBox.getChildren().add(fileRow);
+    vBox.getChildren().add(weekRow);
+    vBox.getChildren().add(cancelTitle);
     titlePopup.getContent().add(background);
     titlePopup.getContent().add(vBox);
   }
@@ -378,6 +389,21 @@ public class GuiController {
   }
 
   /**
+   * Handles button that sorts tasks and events by name.
+   */
+  private void handleSortEventsByName() {
+    //TODO implement
+  }
+
+  /**
+   * Handles button that sorts tasks and events by duration.
+   */
+  private void handleSortEventsByDuration() {
+    //TODO implement
+  }
+
+
+  /**
    * Changes the bullet journal's GUI to the specified colors and fonts.
    *
    * @param colorOne color to use for buttons or headers
@@ -424,6 +450,9 @@ public class GuiController {
     eventNameRect.setFill(Color.valueOf(colorOne));
   }
 
+  /**
+   * Makes a popup for the user to change the theme of the bullet journal spread.
+   */
   private void makeThemePopup() {
     Rectangle background = popupView.createPopupBackground(180, 100);
     VBox vbox = new VBox(8);
