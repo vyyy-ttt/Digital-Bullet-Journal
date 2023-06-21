@@ -1,12 +1,17 @@
 package cs3500.pa05.controller;
 
+import static java.lang.Thread.sleep;
+
 import cs3500.pa05.model.Json.EventJson;
 import cs3500.pa05.model.Json.TaskJson;
 import cs3500.pa05.view.PopupView;
 import cs3500.pa05.view.ThemeView;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -15,13 +20,17 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.skin.TextInputControlSkin;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Represents the controller for GUI elements.
@@ -123,7 +132,7 @@ public class GuiController {
   private final Popup eventPopup;
   private final Popup limitPopup;
   private final Popup changeThemePopup;
-  private final Popup titlePopup;
+  private final Popup splashScreen;
   private final Popup fileTitlePopup;
   private TextField taskName;
   private TextField taskDay;
@@ -153,7 +162,7 @@ public class GuiController {
     this.eventPopup = new Popup();
     this.limitPopup = new Popup();
     this.changeThemePopup = new Popup();
-    this.titlePopup = new Popup();
+    this.splashScreen = new Popup();
     this.fileTitlePopup = new Popup();
     popupView = new PopupView();
     themeView = new ThemeView();
@@ -171,12 +180,19 @@ public class GuiController {
    * Creates a popup for getting the user's specified file path, or lets them name a new one.
    */
   public void makeFileNamePopup() {
-    Rectangle background = popupView.createPopupBackground(50, 180);
+    Rectangle background = popupView.createPopupBackground(907, 1290);
     VBox vBox = new VBox(8);
+    vBox.setAlignment(Pos.CENTER);
+    vBox.setPrefWidth(1290);
+    vBox.setPrefHeight(907);
     HBox hBox = new HBox(6);
-    Text welcome = new Text("Hi! Welcome!" + System.lineSeparator()
-        + "Please enter an existing file path, or name a new one!");
-    TextField fileName = new TextField("Enter a .bujo file.");
+    hBox.setAlignment(Pos.CENTER);
+    Text welcome = new Text("Welcome!" + System.lineSeparator()
+        + "Please enter an existing bujo file path, or name a new one!");
+    welcome.setTextAlignment(TextAlignment.CENTER);
+    welcome.setStyle("-fx-font-family: 'BM Jua'");
+    welcome.setFill(Color.valueOf("#555e3a"));
+    TextField fileName = new TextField();
     Button goButton = new Button("go!");
     goButton.setOnAction(event -> {
       if (fileName.getText().endsWith(".bujo")) {
@@ -194,6 +210,27 @@ public class GuiController {
     fileTitlePopup.getContent().add(background);
     fileTitlePopup.getContent().add(vBox);
   }
+
+
+//  /**
+//   * Makes a splash screen.
+//   */
+//  public void makeSplashScreen() {
+//    Rectangle background = popupView.createPopupBackground(907,1290);
+//    HBox hbox = new HBox();
+//    Text welcome = new Text("Ready to Journal? (^-^)");
+//    welcome.setStyle("-fx-font-family: 'BM DoHyeon OTF'");
+//    hbox.getChildren().add(welcome);
+//    hbox.setAlignment(Pos.CENTER);
+//    splashScreen.getContent().add(background);
+//    splashScreen.getContent().add(welcome);
+//  }
+//
+//  public void showSplashScreen() {
+//    this.splashScreen.show(this.stage);
+//    PauseTransition pause = new PauseTransition(Duration.seconds(3));
+//    pause.setOnFinished(event -> splashScreen.hide());
+//  }
 
   /**
    * Creates a popup for the user to enter details of a task.
