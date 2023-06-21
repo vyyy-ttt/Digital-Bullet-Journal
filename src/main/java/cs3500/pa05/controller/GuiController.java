@@ -134,6 +134,7 @@ public class GuiController {
   private Button finalizeTask;
   private TextField hourDigit;
   private TextField minDigit;
+  private CheckBox complete;
   private ArrayList<String> taskList;
   private BulletJournal bulletJournal;
   private final PopupView popupView;
@@ -194,7 +195,7 @@ public class GuiController {
     taskName = new TextField("task name...");
     TextField taskDescription = new TextField("description...");
     taskDay = new TextField("day...");
-    CheckBox complete = new CheckBox("task complete?");
+    complete = new CheckBox("task complete?");
     Label taskDuration = new Label("duration:");
     vBox.getChildren().add(taskName);
     vBox.getChildren().add(taskDescription);
@@ -215,7 +216,11 @@ public class GuiController {
     vBox.getChildren().add(hBox);
     HBox buttonRow = new HBox(5);
     finalizeTask = new Button("add task");
-//    finalizeTask.setOnAction(event -> addToGridPane(taskName.getText()));
+    finalizeTask.setOnAction(event -> {
+      VBox taskBox = makeTaskBox(taskName.getText(), taskDescription.getText(),
+          hoursDigit.getText(), minutesDigit.getText());
+      addToGridPane(taskBox);
+    });
     cancel = new Button("cancel");
     cancel.setOnAction(event -> taskPopup.hide());
     buttonRow.getChildren().add(finalizeTask);
@@ -223,6 +228,29 @@ public class GuiController {
     vBox.getChildren().add(buttonRow);
     taskPopup.getContent().add(background);
     taskPopup.getContent().add(vBox);
+  }
+
+  private VBox makeTaskBox(String name, String description, String hourDur, String minDur) {
+    VBox taskBox = new VBox(8);
+    Text taskName = new Text(name);
+    Text taskDescription = new Text(description);
+    Text taskCompletion;
+    if (complete.isSelected()) {
+      taskCompletion = new Text("Complete!");
+    } else {
+      taskCompletion = new Text("Not complete!");
+    }
+    Text taskHour = new Text(hourDur + " H, ");
+    Text taskMin = new Text(minDur + " M");
+    HBox durationRow = new HBox(5);
+    durationRow.getChildren().add(taskHour);
+    durationRow.getChildren().add(taskMin);
+    taskBox.getChildren().add(new Text("Task:"));
+    taskBox.getChildren().add(taskName);
+    taskBox.getChildren().add(taskDescription);
+    taskBox.getChildren().add(taskCompletion);
+    taskBox.getChildren().add(durationRow);
+    return taskBox;
   }
 
   /**
@@ -321,6 +349,7 @@ public class GuiController {
     HBox durationRow = new HBox();
     durationRow.getChildren().add(textDurHour);
     durationRow.getChildren().add(textDurMin);
+    eventBox.getChildren().add(new Text("Event:"));
     eventBox.getChildren().add(textName);
     eventBox.getChildren().add(textDescription);
     eventBox.getChildren().add(timeRow);

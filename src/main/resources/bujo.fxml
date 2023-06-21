@@ -165,7 +165,7 @@
                            </Button>
                         </children>
                      </HBox>
-                     <HBox alignment="BOTTOM_LEFT" layoutX="32.0" prefHeight="126.0" prefWidth="626.0">
+                     <HBox alignment="BOTTOM_LEFT" layoutX="32.0" prefHeight="126.0" prefWidth="296.0">
                         <children>
                            <TextField fx:id="weekNameText" prefWidth="308.0" promptText="week name!" style="-fx-background-color: transparent;">
                               <font>
