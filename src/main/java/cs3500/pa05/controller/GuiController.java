@@ -137,6 +137,7 @@ public class GuiController {
   private BulletJournal bulletJournal;
   private final PopupView popupView;
   private final ThemeView themeView;
+  private final UserController userController;
 
   /**
    * Constructs a GUIController.
@@ -159,6 +160,7 @@ public class GuiController {
     friPane = new VBox(3);
     satPane = new VBox(3);
     sunPane = new VBox(3);
+    userController = new UserController();
   }
 
   /**
