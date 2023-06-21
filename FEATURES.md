@@ -14,6 +14,7 @@
 - Sort By Name & Duration
 
 ## Section 4: Quality of Life
-
+- Mind Changes
+- Week Tabs
 
 ## Section 5: Extra Credit
