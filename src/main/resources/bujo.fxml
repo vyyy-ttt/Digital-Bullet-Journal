@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -105,13 +106,34 @@
                                        <Font name="BM JUA OTF" size="26.0" />
                                     </font>
                                  </Label>
-                                 <VBox fx:id="sunPane" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" />
-                                 <VBox fx:id="monPane" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                 <VBox fx:id="tuePane" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                 <VBox fx:id="wedPane" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                 <VBox fx:id="thuPane" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                                 <VBox fx:id="friPane" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                                 <VBox fx:id="satPane" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                                 <VBox fx:id="sunPane" prefHeight="415.0" prefWidth="73.0" GridPane.rowIndex="1">
+                                    <padding>
+                                       <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                    </padding></VBox>
+                                 <VBox fx:id="monPane" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <padding>
+                                       <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                    </padding></VBox>
+                                 <VBox fx:id="tuePane" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                    <padding>
+                                       <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                    </padding></VBox>
+                                 <VBox fx:id="wedPane" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                    <padding>
+                                       <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                    </padding></VBox>
+                                 <VBox fx:id="thuPane" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                    <padding>
+                                       <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                    </padding></VBox>
+                                 <VBox fx:id="friPane" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                                    <padding>
+                                       <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                    </padding></VBox>
+                                 <VBox fx:id="satPane" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                                    <padding>
+                                       <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                    </padding></VBox>
                               </children>
                            </GridPane>
                         </children>
@@ -202,7 +224,7 @@
                <Pane prefHeight="832.0" prefWidth="272.0" BorderPane.alignment="CENTER">
                   <children>
                      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="499.0" layoutX="62.0" layoutY="143.0" stroke="#d9baab" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="2.0" width="208.0" />
-                     <Text fill="#977959" layoutX="93.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="..." wrappingWidth="159.9675178527832">
+                     <Text fx:id="taskQueueText" fill="#977959" layoutX="93.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="..." wrappingWidth="159.9675178527832">
                         <font>
                            <Font size="26.0" />
                         </font></Text>

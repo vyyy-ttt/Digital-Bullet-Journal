@@ -8,8 +8,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.skin.TextInputControlSkin;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -107,6 +109,12 @@ public class GuiController {
   private Button changeTitle;
   @FXML
   private TextArea quotesArea;
+  @FXML
+  private RadioButton am;
+  @FXML
+  private RadioButton pm;
+  @FXML
+  private Text taskQueueText;
   private Button cancel;
   private final Stage stage;
   private final Popup taskPopup;
@@ -216,11 +224,22 @@ public class GuiController {
     vBox.getChildren().add(startTime);
     HBox startTimeRow = new HBox(5);
     hourDigit = new TextField("___");
+    Label colon = new Label(":");
+    colon.setPrefWidth(10);
     hourDigit.setPrefWidth(30);
     minDigit = new TextField("___");
     minDigit.setPrefWidth(30);
+    ToggleGroup amOrPm = new ToggleGroup();
+    am = new RadioButton("AM");
+    pm = new RadioButton("PM");
+    am.setToggleGroup(amOrPm);
+    am.setSelected(true);
+    pm.setToggleGroup(amOrPm);
     startTimeRow.getChildren().add(hourDigit);
+    startTimeRow.getChildren().add(colon);
     startTimeRow.getChildren().add(minDigit);
+    startTimeRow.getChildren().add(am);
+    startTimeRow.getChildren().add(pm);
     vBox.getChildren().add(startTimeRow);
     vBox.getChildren().add(eventDuration);
     HBox hBox = new HBox(5);
@@ -265,7 +284,7 @@ public class GuiController {
     VBox eventBox = new VBox(8);
     Text textName = new Text(name);
     Text textDescription = new Text(description);
-    Text textHour = new Text(hourTime);
+    Text textHour = new Text(hourTime + ":");
     Text textMinute = new Text(minuteTime);
     Text textDurHour = new Text(hourDur);
     Text textDurMin = new Text(minDur);
@@ -496,6 +515,7 @@ public class GuiController {
     tasksDurRect.setFill(Color.valueOf(colorOne));
     eventDurRect.setFill(Color.valueOf(colorOne));
     eventNameRect.setFill(Color.valueOf(colorOne));
+    taskQueueText.setStyle(font);
   }
 
   /**
