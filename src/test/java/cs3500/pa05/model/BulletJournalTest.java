@@ -249,6 +249,15 @@ class BulletJournalTest {
   }
 
   @Test
+  public void setWeekNameTest() {
+    FileReader fr = new FileReader();
+    bujo.setWeekName("Cheese Week");
+    bujo.saveBulletJournal();
+    fr.readFile(Path.of("bujoModelTest.bujo"));
+    assertEquals("Cheese Week", fr.getBujo().weekName());
+  }
+
+  @Test
   public void chooseThemeTest() {
     FileReader fr = new FileReader();
     fr.readFile(Path.of("bujoModelTest.bujo"));
@@ -264,6 +273,6 @@ class BulletJournalTest {
   public void getWeekTest() {
     FileReader fr = new FileReader();
     fr.readFile(Path.of("bujoModelTest.bujo"));
-    assertEquals(bujo.getWeek(), fr.getBujo());
+    assertEquals(fr.getBujo(), bujo.getWeek());
   }
 }
