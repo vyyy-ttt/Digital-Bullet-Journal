@@ -100,10 +100,12 @@ public class GuiController {
   @FXML
   private Label headerLabel;
   private Button cancel;
+  private Button cancelChange;
   private final Stage stage;
   private final Popup taskPopup;
   private final Popup eventPopup;
   private final Popup limitPopup;
+  private final Popup changeThemePopup;
   private TextField taskName;
   private TextField taskDay;
   private TextField hoursDigit;
@@ -134,6 +136,7 @@ public class GuiController {
     this.taskPopup = new Popup();
     this.eventPopup = new Popup();
     this.limitPopup = new Popup();
+    this.changeThemePopup = new Popup();
     popupView = new PopupView();
   }
 
@@ -314,6 +317,10 @@ public class GuiController {
     this.limitPopup.show(this.stage);
   }
 
+  private void showThemePopup() {
+    this.changeThemePopup.show(this.stage);
+  }
+
   /**
    * Handles button that sorts tasks and events by name.
    */
@@ -329,14 +336,13 @@ public class GuiController {
   }
 
   /**
-   * Handles button that changes the bullet journal's GUI theme.
+   * Changes the bullet journal's GUI to the specified colors and fonts.
+   *
+   * @param colorOne color to use for buttons or headers
+   * @param colorTwo color to use for text
+   * @param font font to use for text
    */
-
-  // BLUE
-  // "#e6f1fc" colour one
-  // "#484e54" colour two
-  // "-fx-font-family: Apple Symbols" font
-  private void handleChangeTheme(String colorOne, String colorTwo, String font) {
+  private void changeTheme(String colorOne, String colorTwo, String font) {
     headerRect.setFill(Color.valueOf(colorOne));
     headerLabel.setStyle(font);
     headerLabel.setTextFill(Color.valueOf(colorTwo));
@@ -375,6 +381,31 @@ public class GuiController {
     eventNameRect.setFill(Color.valueOf(colorOne));
   }
 
+  private void makeThemePopup() {
+    Rectangle background = popupView.createPopupBackground(50, 50);
+    VBox vbox = new VBox(8);
+    Button pinkAndGreen = new Button("Pink and Green");
+    Button yellow = new Button("Yellow");
+    Button blue = new Button("Blue");
+    Button purple = new Button("Purple");
+    pinkAndGreen.setOnAction(event -> changeTheme(
+        "#a9bc89", "#555e3a", "-fx-font-family: Comic Sans"));
+    yellow.setOnAction(event -> changeTheme(
+        "#f7dba1", "#a18570", "-fx-font-family: Avenir Next"));
+    blue.setOnAction(event -> changeTheme(
+        "#e6f1fc", "#484e54", "-fx-font-family: Apple Symbols"));
+    purple.setOnAction(event -> changeTheme(
+        "#bdb5d0", "#323236", "-fx-font-family: BM DoHyeon OTF"));
+    cancelChange = new Button("cancel");
+    cancelChange.setOnAction(event -> changeThemePopup.hide());
+    vbox.getChildren().add(pinkAndGreen);
+    vbox.getChildren().add(yellow);
+    vbox.getChildren().add(purple);
+    vbox.getChildren().add(blue);
+    vbox.getChildren().add(cancelChange);
+    changeThemePopup.getContent().add(background);
+    changeThemePopup.getContent().add(vbox);
+;  }
   /**
    * Handles the button that is used to set a limit of tasks and/or events.
    */
@@ -392,31 +423,8 @@ public class GuiController {
     makeEventPopUp();
     setLimit.setOnAction(event -> showLimitPopup());
     makeLimitPopup();
-
-    //TODO make it so that it loops through each of these inputs
-
-    // BLUE
-    // "#e6f1fc" colour one
-    // "#484e54" colour two
-    // "-fx-font-family: Apple Symbols" font
-
-    // YELLOW
-    // #f7dba1
-    // #a18570
-    // "-fx-font-family: Avenir Next"
-
-    // GREEN
-    // #a9bc89 green
-    // #ffe6dd pink
-    // "-fx-font-family: BM JUA OTF"
-
-    // PURPLE
-    // #bdb5d0
-    // #323236
-    // "-fx-font-family: BM DoHyeon OTF"
-
-    changeTheme.setOnAction(event -> handleChangeTheme("#e6f1fc",
-        "#484e54", "-fx-font-family: Apple Symbols"));
+    changeTheme.setOnAction(event -> showThemePopup());
+    makeThemePopup();
     save.setOnAction(event -> handleSaveButton());
     sortByNameTask.setOnAction(event -> handleSortTasksByName());
     sortByDurationTask.setOnAction(event -> handleSortTasksByDuration());
