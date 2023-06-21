@@ -175,26 +175,40 @@
                </Pane>
             </center>
             <top>
-               <Pane prefHeight="175.0" prefWidth="1290.0" style="-fx-background-color: #97a67b;" BorderPane.alignment="CENTER">
+               <Pane prefHeight="183.0" prefWidth="1290.0" BorderPane.alignment="CENTER">
                   <children>
                      <Rectangle fx:id="headerRect" arcHeight="5.0" arcWidth="5.0" fill="#a9bc89" height="182.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1291.0" />
-                     <HBox layoutX="16.0" layoutY="12.0" prefHeight="88.0" prefWidth="184.0">
-                        <children>
-                           <Rectangle fx:id="changeThemeRect" arcHeight="5.0" arcWidth="5.0" fill="#afbc8b" height="29.0" stroke="BLACK" strokeType="INSIDE" width="105.0" />
-                        </children>
-                     </HBox>
                      <HBox alignment="CENTER" layoutX="9.0" prefHeight="174.0" prefWidth="1284.0">
                         <children>
-                           <Label fx:id="headerLabel" alignment="TOP_CENTER" text="&lt;3 deeveebee hq &lt;3" textFill="WHITE">
+                           <Label fx:id="headerLabel" alignment="TOP_CENTER" text="your bujo!" textFill="WHITE">
                               <font>
                                  <Font name="BM JUA OTF" size="44.0" />
                               </font>
                            </Label>
                         </children>
                      </HBox>
+                     <HBox layoutX="128.0" layoutY="12.0" prefHeight="39.0" prefWidth="143.0">
+                        <children>
+                           <Rectangle fx:id="changeTitleRect" arcHeight="5.0" arcWidth="5.0" fill="#afbc8b" height="29.0" stroke="BLACK" strokeType="INSIDE" width="105.0" />
+                        </children>
+                     </HBox>
+                     <HBox layoutX="16.0" layoutY="12.0" prefHeight="88.0" prefWidth="184.0">
+                        <children>
+                           <Rectangle fx:id="changeThemeRect" arcHeight="5.0" arcWidth="5.0" fill="#afbc8b" height="29.0" stroke="BLACK" strokeType="INSIDE" width="105.0" />
+                        </children>
+                     </HBox>
                      <HBox layoutX="17.0" layoutY="13.0" prefHeight="87.0" prefWidth="183.0">
                         <children>
                            <Button fx:id="changeTheme" mnemonicParsing="false" style="-fx-background-color: transparent;" text="change theme" textFill="WHITE">
+                              <font>
+                                 <Font name="BM JUA OTF" size="14.0" />
+                              </font>
+                           </Button>
+                        </children>
+                     </HBox>
+                     <HBox layoutX="127.0" layoutY="13.0" prefHeight="31.0" prefWidth="107.0">
+                        <children>
+                           <Button fx:id="changeTitle" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" style="-fx-background-color: transparent;" text="change title" textFill="WHITE">
                               <font>
                                  <Font name="BM JUA OTF" size="14.0" />
                               </font>

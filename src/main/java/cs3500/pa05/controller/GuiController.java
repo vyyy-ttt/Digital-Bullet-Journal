@@ -3,6 +3,7 @@ package cs3500.pa05.controller;
 
 import cs3500.pa05.model.BulletJournal;
 import cs3500.pa05.view.PopupView;
+import cs3500.pa05.view.ThemeView;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -80,6 +81,8 @@ public class GuiController {
   @FXML
   private Rectangle setLimitRect;
   @FXML
+  private Rectangle changeTitleRect;
+  @FXML
   private Rectangle saveRect;
   @FXML
   private Label quotesLabel;
@@ -99,6 +102,8 @@ public class GuiController {
   private Label taskQueueLabel;
   @FXML
   private Label headerLabel;
+  @FXML
+  private Button changeTitle;
   private Button cancel;
   private Button cancelChange;
   private final Stage stage;
@@ -106,6 +111,7 @@ public class GuiController {
   private final Popup eventPopup;
   private final Popup limitPopup;
   private final Popup changeThemePopup;
+  private final Popup titlePopup;
   private TextField taskName;
   private TextField taskDay;
   private TextField hoursDigit;
@@ -124,12 +130,14 @@ public class GuiController {
   private TextField startTime;
   private TextField taskLimit;
   private TextField eventLimit;
+  private TextField fileTitle;
   private Button saveLimit;
   private Button cancelLimit;
   private Label limitPrompt;
   private ArrayList<String> taskList;
   private BulletJournal bulletJournal;
   private PopupView popupView;
+  private ThemeView themeView;
 
   public GuiController(Stage stage) {
     this.stage = stage;
@@ -137,13 +145,13 @@ public class GuiController {
     this.eventPopup = new Popup();
     this.limitPopup = new Popup();
     this.changeThemePopup = new Popup();
+    this.titlePopup = new Popup();
     popupView = new PopupView();
+    themeView = new ThemeView();
   }
 
-  //TODO task and event cant share text fields
-
   /**
-   * Makes the GUI elements of a task popup. //TODO change this
+   * Makes the GUI elements of a task popup.
    */
   private void makeTaskPopUp() {
     Rectangle background = popupView.createPopupBackground(240, 180);
@@ -186,7 +194,7 @@ public class GuiController {
   }
 
   /**
-   * Makes the GUI elements of an event popup. //TODO change this
+   * Makes the GUI elements of an event popup.
    */
   private void makeEventPopUp() {
     Rectangle background = popupView.createPopupBackground(260, 180);
@@ -263,6 +271,24 @@ public class GuiController {
     limitPopup.getContent().add(vBox);
   }
 
+  private void makeTitlePopup() {
+    Rectangle background = popupView.createPopupBackground(100, 200);
+    VBox vBox = new VBox(8);
+    fileTitle = new TextField("name your bujo!");
+    String title = fileTitle.getText();
+    HBox buttonRow = new HBox(5);
+    Button saveTitle = new Button("save");
+    saveTitle.setOnAction(event -> headerLabel.setText(title));
+    Button cancelTitle = new Button("cancel");
+    cancelTitle.setOnAction(event -> titlePopup.hide());
+    buttonRow.getChildren().add(saveTitle);
+    buttonRow.getChildren().add(cancelTitle);
+    vBox.getChildren().add(fileTitle);
+    vBox.getChildren().add(buttonRow);
+    titlePopup.getContent().add(background);
+    titlePopup.getContent().add(vBox);
+  }
+
   /**
    * Adds a task or event to the week gridpane.
    *
@@ -309,16 +335,32 @@ public class GuiController {
     this.taskPopup.show(this.stage);
   }
 
+  /**
+   * Shows an event popup on the stage.
+   */
   private void showEventPopup() {
     this.eventPopup.show(this.stage);
   }
 
+  /**
+   * Shows a popup to set the limit on the stage.
+   */
   private void showLimitPopup() {
     this.limitPopup.show(this.stage);
   }
 
+  /**
+   * Shows a popup for changing themes on the stage.
+   */
   private void showThemePopup() {
     this.changeThemePopup.show(this.stage);
+  }
+
+  /**
+   * Shows a popup for changing the title on the stage.
+   */
+  private void showTitlePopup() {
+    this.titlePopup.show(this.stage);
   }
 
   /**
@@ -340,13 +382,14 @@ public class GuiController {
    *
    * @param colorOne color to use for buttons or headers
    * @param colorTwo color to use for text
-   * @param font font to use for text
+   * @param font     font to use for text
    */
   private void changeTheme(String colorOne, String colorTwo, String font) {
     headerRect.setFill(Color.valueOf(colorOne));
     headerLabel.setStyle(font);
     headerLabel.setTextFill(Color.valueOf(colorTwo));
     changeThemeRect.setFill(Color.valueOf(colorOne));
+    changeTitleRect.setFill(Color.valueOf(colorOne));
     weekNameLabel.setTextFill(Color.valueOf(colorTwo));
     weekNameLabel.setStyle(font);
     quotesLabel.setTextFill(Color.valueOf(colorTwo));
@@ -382,13 +425,13 @@ public class GuiController {
   }
 
   private void makeThemePopup() {
-    Rectangle background = popupView.createPopupBackground(50, 50);
+    Rectangle background = popupView.createPopupBackground(180, 100);
     VBox vbox = new VBox(8);
-    Button pinkAndGreen = new Button("Pink and Green");
+    Button green = new Button("Green");
     Button yellow = new Button("Yellow");
     Button blue = new Button("Blue");
     Button purple = new Button("Purple");
-    pinkAndGreen.setOnAction(event -> changeTheme(
+    green.setOnAction(event -> changeTheme(
         "#a9bc89", "#555e3a", "-fx-font-family: 'BM JUA OTF'"));
     yellow.setOnAction(event -> changeTheme(
         "#f7dba1", "#a18570", "-fx-font-family: 'Avenir Next'"));
@@ -398,19 +441,13 @@ public class GuiController {
         "#bdb5d0", "#323236", "-fx-font-family: 'BM DoHyeon OTF'"));
     cancelChange = new Button("cancel");
     cancelChange.setOnAction(event -> changeThemePopup.hide());
-    vbox.getChildren().add(pinkAndGreen);
+    vbox.getChildren().add(green);
     vbox.getChildren().add(yellow);
     vbox.getChildren().add(purple);
     vbox.getChildren().add(blue);
     vbox.getChildren().add(cancelChange);
     changeThemePopup.getContent().add(background);
     changeThemePopup.getContent().add(vbox);
-;  }
-  /**
-   * Handles the button that is used to set a limit of tasks and/or events.
-   */
-  private void handleSetLimit() {
-    //TODO implement
   }
 
   /**
@@ -425,6 +462,8 @@ public class GuiController {
     makeLimitPopup();
     changeTheme.setOnAction(event -> showThemePopup());
     makeThemePopup();
+    changeTitle.setOnAction(event -> showTitlePopup());
+    makeTitlePopup();
     save.setOnAction(event -> handleSaveButton());
     sortByNameTask.setOnAction(event -> handleSortTasksByName());
     sortByDurationTask.setOnAction(event -> handleSortTasksByDuration());
