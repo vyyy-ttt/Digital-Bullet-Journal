@@ -1,9 +1,11 @@
 package cs3500.pa05.controller;
 
-import cs3500.pa05.model.BulletJournal;
+import cs3500.pa05.model.Json.EventJson;
+import cs3500.pa05.model.Json.TaskJson;
 import cs3500.pa05.view.PopupView;
 import cs3500.pa05.view.ThemeView;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -136,7 +138,6 @@ public class GuiController {
   private TextField minDigit;
   private CheckBox complete;
   private ArrayList<String> taskList;
-  private BulletJournal bulletJournal;
   private final PopupView popupView;
   private final ThemeView themeView;
   private final UserController userController;
@@ -169,12 +170,16 @@ public class GuiController {
   public void makeFileNamePopup() {
     Rectangle background = popupView.createPopupBackground(50, 180);
     HBox hBox = new HBox(6);
-    TextField fileName = new TextField("name your bujo file!");
+    //TODO: Create a label to let the user know they can create a new file or open an existing file
+    TextField fileName = new TextField("Enter a .bujo file.");
     Button goButton = new Button("go!");
     goButton.setOnAction(event -> {
       if (fileName.getText().endsWith(".bujo")) {
         userController.handlePath(fileName.getText());
         fileTitlePopup.hide();
+      } else {
+        fileName.clear();
+        fileName.appendText("Please enter a file path ending with .bujo");
       }
     });
     hBox.getChildren().add(fileName);
@@ -357,16 +362,6 @@ public class GuiController {
     return eventBox;
   }
 
-  private boolean verifyEventName() {
-    // TODO implement
-    return false;
-  }
-
-  private boolean verifyTaskName() {
-    // TODO implement
-    return true;
-  }
-
   /**
    * Creates popup for the user to set a limit of tasks and/or events for a day.
    */
@@ -381,7 +376,8 @@ public class GuiController {
     TextField eventLimit = new TextField("event limit...");
     HBox buttonRow = new HBox();
     Button saveLimit = new Button("save");
-//    saveLimit.setOnAction(event -> ha);
+    saveLimit.setOnAction(
+        event -> userController.handleLimit(taskLimit.getText(), eventLimit.getText()));
     Button cancelLimit = new Button("cancel");
     cancelLimit.setOnAction(event -> limitPopup.hide());
     vBox.getChildren().add(limitPrompt);
@@ -456,13 +452,6 @@ public class GuiController {
   }
 
   /**
-   * Saves the current bullet jouranl spread.
-   */
-  private void handleSaveButton() {
-    bulletJournal.saveBulletJournal();
-  }
-
-  /**
    *
    */
   public void showFileTitlePopUp() {
@@ -480,28 +469,29 @@ public class GuiController {
    * Handles button that sorts tasks and events by name.
    */
   private void handleSortTasksByName() {
-    //TODO implement
+    List<TaskJson> tasks = userController.sortTasks(true);
   }
 
   /**
    * Handles button that sorts tasks and events by duration.
    */
   private void handleSortTasksByDuration() {
-    //TODO implement
+    List<TaskJson> tasks = userController.sortTasks(false);
+
   }
 
   /**
    * Handles button that sorts tasks and events by name.
    */
   private void handleSortEventsByName() {
-    //TODO implement
+    List<EventJson> events = userController.sortEvents(true);
   }
 
   /**
    * Handles button that sorts tasks and events by duration.
    */
   private void handleSortEventsByDuration() {
-    //TODO implement
+    List<EventJson> events = userController.sortEvents(false);
   }
 
 
@@ -595,7 +585,8 @@ public class GuiController {
     makeLimitPopup();
     changeTheme.setOnAction(event -> this.changeThemePopup.show(this.stage));
     makeThemePopup();
-    save.setOnAction(event -> handleSaveButton());
+    //TODO:Make a label or popup to notify the user that their bujo has been saved
+    save.setOnAction(event -> userController.handleSave());
     sortByNameTask.setOnAction(event -> handleSortTasksByName());
     sortByDurationTask.setOnAction(event -> handleSortTasksByDuration());
     sortByNameEvent.setOnAction(event -> handleSortEventsByName());

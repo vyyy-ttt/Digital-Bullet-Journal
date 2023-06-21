@@ -55,15 +55,9 @@ public class UserController {
   /**
    * Handles when the user enters a new limit.
    *
-   * @param limit       maximum number of events or tasks
-   * @param isTaskLimit true if the limit is for tasks, false if the limit is for events.
    */
-  protected void handleLimit(int limit, boolean isTaskLimit) {
-    if (isTaskLimit) {
-      bujo.setTaskLimit(limit);
-    } else {
-      bujo.setEventLimit(limit);
-    }
+  protected void handleLimit(String taskLimit, String eventLimit) {
+   //TODO
   }
 
   /**
@@ -131,4 +125,11 @@ public class UserController {
     bujo.addTask(editedTask);
   }
 
+  protected List<TaskJson> sortTasks(boolean name){
+    return bujo.sortTasksNameDuration(name);
+  }
+
+  protected List<EventJson> sortEvents(boolean name){
+    return bujo.sortEventsNameDuration(name);
+  }
 }
