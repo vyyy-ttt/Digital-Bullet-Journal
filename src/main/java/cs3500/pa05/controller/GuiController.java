@@ -1,6 +1,5 @@
 package cs3500.pa05.controller;
 
-
 import cs3500.pa05.model.BulletJournal;
 import cs3500.pa05.view.PopupView;
 import cs3500.pa05.view.ThemeView;
@@ -9,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -103,8 +103,9 @@ public class GuiController {
   private Label headerLabel;
   @FXML
   private Button changeTitle;
+  @FXML
+  private TextArea quotesArea;
   private Button cancel;
-  private Button cancelChange;
   private final Stage stage;
   private final Popup taskPopup;
   private final Popup eventPopup;
@@ -115,30 +116,21 @@ public class GuiController {
   private TextField taskDay;
   private TextField hoursDigit;
   private TextField minutesDigit;
-  private TextField weekName;
   private Label hoursLabel;
   private Label minutesLabel;
-  private Button finalizeTask;
-  private Button finalizeEvent;
   private TextField eventName;
-  private TextField eventDescription;
   private TextField eventDay;
-  private Label eventDuration;
-  private TextField taskDescription;
-  private Label taskDuration;
-  private CheckBox complete;
-  private TextField startTime;
-  private TextField taskLimit;
-  private TextField eventLimit;
-  private TextField fileName;
-  private Button saveLimit;
-  private Button cancelLimit;
-  private Label limitPrompt;
+  private Button finalizeTask;
   private ArrayList<String> taskList;
   private BulletJournal bulletJournal;
-  private PopupView popupView;
-  private ThemeView themeView;
+  private final PopupView popupView;
+  private final ThemeView themeView;
 
+  /**
+   * Constructs a GUIController.
+   *
+   * @param stage the stage of the GUI
+   */
   public GuiController(Stage stage) {
     this.stage = stage;
     this.taskPopup = new Popup();
@@ -157,13 +149,13 @@ public class GuiController {
     Rectangle background = popupView.createPopupBackground(240, 180);
     VBox vBox = new VBox(8);
     Rectangle padding = new Rectangle(180, 10);
-    padding.setFill(Color.valueOf("#E7EACD"));
+    padding.setFill(Color.valueOf("#ffffff"));
     vBox.getChildren().add(padding);
     taskName = new TextField("task name...");
-    taskDescription = new TextField("description...");
+    TextField taskDescription = new TextField("description...");
     taskDay = new TextField("day...");
-    complete = new CheckBox("task complete?");
-    taskDuration = new Label("duration:");
+    CheckBox complete = new CheckBox("task complete?");
+    Label taskDuration = new Label("duration:");
     vBox.getChildren().add(taskName);
     vBox.getChildren().add(taskDescription);
     vBox.getChildren().add(taskDay);
@@ -200,13 +192,13 @@ public class GuiController {
     Rectangle background = popupView.createPopupBackground(260, 180);
     VBox vBox = new VBox(8);
     Rectangle padding = new Rectangle(180, 10);
-    padding.setFill(Color.valueOf("#E7EACD"));
+    padding.setFill(Color.valueOf("#ffffff"));
     vBox.getChildren().add(padding);
     eventName = new TextField("event name...");
-    eventDescription = new TextField("description...");
+    TextField eventDescription = new TextField("description...");
     eventDay = new TextField("day...");
-    startTime = new TextField("start time...");
-    eventDuration = new Label("duration:");
+    TextField startTime = new TextField("start time...");
+    Label eventDuration = new Label("duration:");
     vBox.getChildren().add(eventName);
     vBox.getChildren().add(eventDescription);
     vBox.getChildren().add(eventDay);
@@ -225,7 +217,7 @@ public class GuiController {
     hBox.getChildren().add(minutesLabel);
     vBox.getChildren().add(hBox);
     HBox buttonRow = new HBox(5);
-    finalizeEvent = new Button("add event");
+    Button finalizeEvent = new Button("add event");
     finalizeEvent.setOnAction(event ->
     {
       //TODO work this out so events are not duplicated and added like a list
@@ -244,6 +236,16 @@ public class GuiController {
     eventPopup.getContent().add(vBox);
   }
 
+  private boolean verifyEventName() {
+    // TODO implement
+    return false;
+  }
+
+  private boolean verifyTaskName() {
+    // TODO implement
+    return true;
+  }
+
   /**
    * Creates popup for the user to set a limit of tasks and/or events for a day.
    */
@@ -251,15 +253,15 @@ public class GuiController {
     Rectangle background = popupView.createPopupBackground(180, 260);
     VBox vBox = new VBox(8);
     Rectangle padding = new Rectangle(180, 10);
-    padding.setFill(Color.valueOf("#E7EACD"));
+    padding.setFill(Color.valueOf("ffffff"));
     vBox.getChildren().add(padding);
-    limitPrompt = new Label("Please enter the limits you would like to set:");
-    taskLimit = new TextField("task limit...");
-    eventLimit = new TextField("event limit...");
+    Label limitPrompt = new Label("Please enter the limits you would like to set:");
+    TextField taskLimit = new TextField("task limit...");
+    TextField eventLimit = new TextField("event limit...");
     HBox buttonRow = new HBox();
-    saveLimit = new Button("save");
-//    saveLimit.setOnAction(event -> );
-    cancelLimit = new Button("cancel");
+    Button saveLimit = new Button("save");
+//    saveLimit.setOnAction(event -> ha);
+    Button cancelLimit = new Button("cancel");
     cancelLimit.setOnAction(event -> limitPopup.hide());
     vBox.getChildren().add(limitPrompt);
     vBox.getChildren().add(taskLimit);
@@ -277,8 +279,8 @@ public class GuiController {
   private void makeTitlePopup() {
     Rectangle background = popupView.createPopupBackground(120, 260);
     VBox vBox = new VBox(8);
-    fileName = new TextField("name your file");
-    weekName = new TextField("name your week");
+    TextField fileName = new TextField("name your file");
+    TextField weekName = new TextField("name your week");
     String fileTitle = fileName.getText();
     String weekTitle = weekName.getText();
     HBox fileRow = new HBox(5);
@@ -420,6 +422,7 @@ public class GuiController {
     weekNameLabel.setStyle(font);
     quotesLabel.setTextFill(Color.valueOf(colorTwo));
     quotesLabel.setStyle(font);
+    quotesArea.setStyle(font);
     sunLabel.setTextFill(Color.valueOf(colorTwo));
     sunLabel.setStyle(font);
     monLabel.setTextFill(Color.valueOf(colorTwo));
@@ -468,7 +471,7 @@ public class GuiController {
         "#e6f1fc", "#484e54", "-fx-font-family: 'Apple Symbols'"));
     purple.setOnAction(event -> changeTheme(
         "#bdb5d0", "#323236", "-fx-font-family: 'BM DoHyeon OTF'"));
-    cancelChange = new Button("cancel");
+    Button cancelChange = new Button("cancel");
     cancelChange.setOnAction(event -> changeThemePopup.hide());
     vbox.getChildren().add(green);
     vbox.getChildren().add(yellow);
@@ -496,5 +499,7 @@ public class GuiController {
     save.setOnAction(event -> handleSaveButton());
     sortByNameTask.setOnAction(event -> handleSortTasksByName());
     sortByDurationTask.setOnAction(event -> handleSortTasksByDuration());
+    sortByNameEvent.setOnAction(event -> handleSortEventsByName());
+    sortByDurationEvent.setOnAction(event -> handleSortEventsByDuration());
   }
 }

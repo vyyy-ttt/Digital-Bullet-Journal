@@ -18,7 +18,7 @@ public class PopupView {
     Rectangle background = new Rectangle();
     background.setHeight(height);
     background.setWidth(width);
-    background.setFill(Color.valueOf("#E7EACD"));
+    background.setFill(Color.valueOf("#ffffff"));
     background.setArcHeight(20);
     background.setArcWidth(20);
     return background;
