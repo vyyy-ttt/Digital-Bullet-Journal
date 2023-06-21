@@ -33,7 +33,7 @@ class BulletJournalTest {
     days = new DayJson[] {day, day, day, day, day, new DayJson(tasks, new EventJson[3]),
         new DayJson(new TaskJson[1], events)};
 
-    expectedBujo = new BujoJson(days, null, ThemeType.PINKGREEN, null);
+    expectedBujo = new BujoJson(days, null, null, ThemeType.PINKGREEN, null);
 
     bujo = new BulletJournal(Path.of("bujoModel.bujo"), new FileReader(),
         new FileWriter(Path.of("bujoModelTest.bujo").toFile()));
