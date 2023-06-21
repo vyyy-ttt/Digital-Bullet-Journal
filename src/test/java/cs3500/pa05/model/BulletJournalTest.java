@@ -24,11 +24,11 @@ class BulletJournalTest {
   public void setup() {
     tasks =
         new TaskJson[] {new TaskJson("Get Apples", "Buy those apples!", Day.FRIDAY,
-            Status.INCOMPLETE, "1h0m")};
+            false)};
     events =
         new EventJson[] {new EventJson("Fruit Convention",
             "All my homies love fruit.", Day.SATURDAY,
-            new Time(2, 30).toString(), "4h0m")};
+            new Time(2, 30), new Time(4,0))};
     DayJson day = new DayJson(new TaskJson[2], new EventJson[2]);
     days = new DayJson[] {day, day, day, day, day, new DayJson(tasks, new EventJson[3]),
         new DayJson(new TaskJson[1], events)};
@@ -45,8 +45,8 @@ class BulletJournalTest {
     ArrayList<EventJson> expectedEvents = new ArrayList<>(List.of(events));
 
     EventJson fruitConvention = new EventJson("Fruit Convention",
-        "All my homies love fruit.", Day.SATURDAY, new Time(2, 30).toString(),
-        "4h0m");
+        "All my homies love fruit.", Day.SATURDAY, new Time(2, 30),
+        new Time(4,0));
     bujo.addEvent(fruitConvention);
     bujo.saveBulletJournal();
 
@@ -66,7 +66,7 @@ class BulletJournalTest {
     ArrayList<TaskJson> expectedTasks = new ArrayList<>(List.of(tasks));
 
     TaskJson getApples = new TaskJson("Get Apples",
-        "Buy those apples!", Day.FRIDAY, Status.INCOMPLETE, "1h0m");
+        "Buy those apples!", Day.FRIDAY, false);
     bujo.addTask(getApples);
     bujo.saveBulletJournal();
 
@@ -85,11 +85,11 @@ class BulletJournalTest {
     bujo.setTaskLimit(10);
 
     TaskJson getApples = new TaskJson("Get Apples",
-        "Buy those apples!", Day.FRIDAY, Status.INCOMPLETE, "1h0m");
+        "Buy those apples!", Day.FRIDAY, false);
     TaskJson getBananas = new TaskJson("Get Bananas",
-        "Buy those bananas!", Day.TUESDAY, Status.INCOMPLETE, "0h45m");
+        "Buy those bananas!", Day.TUESDAY, false);
     TaskJson getPears = new TaskJson("Get Pears",
-        "Buy those pears!", Day.MONDAY, Status.INCOMPLETE, "2h35m");
+        "Buy those pears!", Day.MONDAY, false);
     bujo.addTask(getApples);
     bujo.addTask(getBananas);
     bujo.addTask(getPears);
@@ -103,29 +103,15 @@ class BulletJournalTest {
   }
 
   @Test
-  public void convertToMinutesTest() {
-    TaskJson getApples = new TaskJson("Get Apples",
-        "Buy those apples!", Day.FRIDAY, Status.INCOMPLETE, "1h0m");
-    TaskJson getBananas = new TaskJson("Get Bananas",
-        "Buy those bananas!", Day.TUESDAY, Status.INCOMPLETE, "0h45m");
-    TaskJson getPears = new TaskJson("Get Pears",
-        "Buy those pears!", Day.MONDAY, Status.INCOMPLETE, "2h35m");
-
-    assertEquals(60, bujo.convertToMinutes(getApples.duration()));
-    assertEquals(45, bujo.convertToMinutes(getBananas.duration()));
-    assertEquals(155, bujo.convertToMinutes(getPears.duration()));
-  }
-
-  @Test
   public void sortTasksNameDurationTest() {
     bujo.setTaskLimit(10);
 
     TaskJson getApples = new TaskJson("Apples",
-        "Buy those apples!", Day.FRIDAY, Status.INCOMPLETE, "1h0m");
+        "Buy those apples!", Day.FRIDAY, false);
     TaskJson getBananas = new TaskJson("Bananas",
-        "Buy those bananas!", Day.TUESDAY, Status.INCOMPLETE, "0h45m");
+        "Buy those bananas!", Day.TUESDAY, false);
     TaskJson getPears = new TaskJson("Pears",
-        "Buy those pears!", Day.MONDAY, Status.INCOMPLETE, "2h35m");
+        "Buy those pears!", Day.MONDAY, false);
     bujo.addTask(getApples);
     bujo.addTask(getBananas);
     bujo.addTask(getPears);
@@ -136,7 +122,7 @@ class BulletJournalTest {
     expectedTasksName.add(getBananas);
     expectedTasksName.add(getPears);
 
-    assertEquals(expectedTasksName, bujo.sortTasksNameDuration(true));
+    assertEquals(expectedTasksName, bujo.sortTasksNameCompletion(true));
 
     // Sort by duration
     ArrayList<TaskJson> expectedTasksDuration = new ArrayList<>();
@@ -144,7 +130,7 @@ class BulletJournalTest {
     expectedTasksDuration.add(getApples);
     expectedTasksDuration.add(getPears);
 
-    assertEquals(expectedTasksDuration, bujo.sortTasksNameDuration(false));
+    assertEquals(expectedTasksDuration, bujo.sortTasksNameCompletion(false));
   }
 
   @Test
@@ -152,14 +138,14 @@ class BulletJournalTest {
     bujo.setEventLimit(10);
 
     EventJson fruitConvention = new EventJson("Fruit Convention",
-        "All my homies love fruit.", Day.SATURDAY, new Time(2, 30).toString(),
-        "4h0m");
+        "All my homies love fruit.", Day.SATURDAY, new Time(2, 30),
+        new Time(4,0));
     EventJson veggieConvention = new EventJson("Veggie Convention",
         "All my homies love veggies.", Day.WEDNESDAY,
-        new Time(4, 44).toString(), "5h55m");
+        new Time(4, 44), new Time(5,55));
     EventJson meatConvention = new EventJson("Meat Convention",
         "All my homies love meat.", Day.THURSDAY,
-        new Time(10, 0).toString(), "1h23m");
+        new Time(10, 0), new Time(1,23));
     bujo.addEvent(fruitConvention);
     bujo.addEvent(veggieConvention);
     bujo.addEvent(meatConvention);
@@ -192,9 +178,9 @@ class BulletJournalTest {
     assertFalse(bujo.checkLimitViolation(true));
 
     TaskJson getApples = new TaskJson("Apples",
-        "Buy those apples!", Day.FRIDAY, Status.INCOMPLETE, "1h0m");
+        "Buy those apples!", Day.FRIDAY, false);
     TaskJson getBananas = new TaskJson("Bananas",
-        "Buy those bananas!", Day.TUESDAY, Status.INCOMPLETE, "0h45m");
+        "Buy those bananas!", Day.TUESDAY, false);
     bujo.addTask(getApples);
     bujo.addTask(getBananas);
     assertTrue(bujo.checkLimitViolation(true));
@@ -204,11 +190,11 @@ class BulletJournalTest {
     assertFalse(bujo.checkLimitViolation(false));
 
     EventJson fruitConvention = new EventJson("Fruit Convention",
-        "All my homies love fruit.", Day.SATURDAY, new Time(2, 30).toString(),
-        "4h0m");
+        "All my homies love fruit.", Day.SATURDAY, new Time(2, 30),
+        new Time(4,0));
     EventJson veggieConvention = new EventJson("Veggie Convention",
         "All my homies love veggies.", Day.WEDNESDAY,
-        new Time(4, 44).toString(), "5h55m");
+        new Time(4, 44), new Time(5,55));
     bujo.addEvent(fruitConvention);
     bujo.addEvent(veggieConvention);
     assertTrue(bujo.checkLimitViolation(false));

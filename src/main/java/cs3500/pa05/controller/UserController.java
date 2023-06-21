@@ -126,7 +126,7 @@ public class UserController {
   }
 
   protected List<TaskJson> sortTasks(boolean name){
-    return bujo.sortTasksNameDuration(name);
+    return bujo.sortTasksNameCompletion(name);
   }
 
   protected List<EventJson> sortEvents(boolean name){

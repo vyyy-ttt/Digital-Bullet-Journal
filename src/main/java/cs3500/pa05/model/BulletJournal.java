@@ -95,7 +95,7 @@ public class BulletJournal implements IBulletJournal {
   }
 
   @Override
-  public List<TaskJson> sortTasksNameDuration(boolean isName) {
+  public List<TaskJson> sortTasksNameCompletion(boolean isName) {
     ArrayList<TaskJson> sortedTasks = new ArrayList<>();
     if (isName) { // Sorts by name
       for (TaskJson currTask : tasks) {
@@ -117,17 +117,13 @@ public class BulletJournal implements IBulletJournal {
           }
         }
       }
-    } else { // Sorts by duration
+    } else { // Sorts by completion (incomplete first)
       for (TaskJson currTask : tasks) {
         if (sortedTasks.isEmpty()) {
           sortedTasks.add(currTask);
         } else {
           for (TaskJson currSortedTask : sortedTasks) {
-            if (convertToMinutes(currTask.duration()) <
-                convertToMinutes(currSortedTask.duration())) {
-              sortedTasks.add(sortedTasks.indexOf(currSortedTask), currTask);
-              break;
-            }
+            //TODO:implement
           }
           // Adds the current task to sortedTasks if it hasn't been added yet, being that its
           // duration is greater than every other task's duration already sorted
@@ -169,8 +165,8 @@ public class BulletJournal implements IBulletJournal {
           sortedEvents.add(currEvent);
         } else {
           for (EventJson currSortedEvent : sortedEvents) {
-            if (convertToMinutes(currEvent.duration()) <
-                convertToMinutes(currSortedEvent.duration())) {
+            if (currEvent.duration().compareTo(currSortedEvent.duration()) <
+                0) {
               sortedEvents.add(sortedEvents.indexOf(currSortedEvent), currEvent);
               break;
             }

@@ -16,8 +16,8 @@ import cs3500.pa05.model.Time;
 public record EventJson(@JsonProperty("name") String name,
                         @JsonProperty("description") String description,
                         @JsonProperty("day") Day day,
-                        @JsonProperty("start_time") String time,
-                        @JsonProperty("duration") String duration) {
+                        @JsonProperty("start_time") Time time,
+                        @JsonProperty("duration") Time duration) {
   // Temporary Note: duration format will be "-h-m", where the - are digits
   //TODO: description is optional, everything else is mandatory
 }

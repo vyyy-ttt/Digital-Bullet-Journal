@@ -3,7 +3,7 @@ package cs3500.pa05.model;
 /**
  * Represents a timestamp
  */
-public class Time {
+public class Time implements Comparable<Time> {
   private static final int MAX_MILITARY_HOURS = 24;
   private static final int MAX_MINUTES = 59;
   private static final int MAX_REGULAR_HOURS = 12;
@@ -58,5 +58,27 @@ public class Time {
           marker.toString().toLowerCase());
     }
     return String.format("%s%d:%s%d", hour_tens_place, hour, min_tens_place, minute);
+  }
+
+  public int getHour() {
+    return hour;
+  }
+
+  public int getMinute() {
+    return minute;
+  }
+
+  @Override
+  public int compareTo(Time o) {
+    if (hour > o.hour) {
+      return 1;
+    } else if (hour < o.hour) {
+      return -1;
+    } else if (minute > o.minute) {
+      return 1;
+    } else if (minute < o.minute) {
+      return -1;
+    }
+    return 0;
   }
 }

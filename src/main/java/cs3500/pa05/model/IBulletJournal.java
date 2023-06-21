@@ -60,7 +60,7 @@ public interface IBulletJournal {
    *               to longest duration
    * @return a list of TaskJsons sorted by the given flag
    */
-  List<TaskJson> sortTasksNameDuration(boolean byName);
+  List<TaskJson> sortTasksNameCompletion(boolean byName);
 
   /**
    * Sorts all events by their name or duration.

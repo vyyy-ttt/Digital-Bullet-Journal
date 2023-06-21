@@ -2,8 +2,12 @@ package cs3500.pa05.controller;
 
 import static java.lang.Thread.sleep;
 
+import cs3500.pa05.model.Day;
+import cs3500.pa05.model.Json.BujoJson;
+import cs3500.pa05.model.Json.DayJson;
 import cs3500.pa05.model.Json.EventJson;
 import cs3500.pa05.model.Json.TaskJson;
+import cs3500.pa05.model.Time;
 import cs3500.pa05.view.PopupView;
 import cs3500.pa05.view.ThemeView;
 import java.util.ArrayList;
@@ -26,7 +30,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 /**
  * Represents the controller for GUI elements.
@@ -82,6 +85,8 @@ public class GuiController {
   private Label friLabel;
   @FXML
   private Label satLabel;
+  private List<Label> weekLabels =
+      List.of(sunLabel, monLabel, tueLabel, wedLabel, thuLabel, friLabel, satLabel);
   @FXML
   private Rectangle addTaskRect;
   @FXML
@@ -137,7 +142,6 @@ public class GuiController {
   private Button finalizeTask;
   private TextField hourDigit;
   private TextField minDigit;
-  private CheckBox complete;
   private ArrayList<String> taskList;
   private final PopupView popupView;
   private final ThemeView themeView;
@@ -168,6 +172,19 @@ public class GuiController {
     userController = new UserController();
   }
 
+  public void makeFileGui(BujoJson bujo) {
+    for (DayJson dayJson : bujo.week()) {
+      for (TaskJson task : dayJson.tasks()) {
+        addToGridPane(createTaskBox(task.name(), task.description(), task.complete()), task.day());
+      }
+      for (EventJson event : dayJson.events()) {
+        addToGridPane(
+            createEventBox(event.name(), event.description(), event.time(), event.duration()),
+            event.day());
+      }
+    }
+  }
+
   /**
    * Creates a popup for getting the user's specified file path, or lets them name a new one.
    */
@@ -188,7 +205,7 @@ public class GuiController {
     Button goButton = new Button("go!");
     goButton.setOnAction(event -> {
       if (fileName.getText().endsWith(".bujo")) {
-        userController.handlePath(fileName.getText());
+        makeFileGui(userController.handlePath(fileName.getText()));
         fileTitlePopup.hide();
       } else {
         fileName.clear();
@@ -236,31 +253,24 @@ public class GuiController {
     taskName = new TextField("task name...");
     TextField taskDescription = new TextField("description...");
     taskDay = new TextField("day...");
-    complete = new CheckBox("task complete?");
-    Label taskDuration = new Label("duration:");
+    CheckBox complete = new CheckBox("task complete?");
     vBox.getChildren().add(taskName);
     vBox.getChildren().add(taskDescription);
     vBox.getChildren().add(taskDay);
     vBox.getChildren().add(complete);
-    vBox.getChildren().add(taskDuration);
-    HBox hBox = new HBox(5);
-    hoursDigit = new TextField("___");
-    hoursDigit.setPrefWidth(30);
-    hoursLabel = new Label("H");
-    minutesDigit = new TextField("___");
-    minutesDigit.setPrefWidth(30);
-    minutesLabel = new Label("M");
-    hBox.getChildren().add(hoursDigit);
-    hBox.getChildren().add(hoursLabel);
-    hBox.getChildren().add(minutesDigit);
-    hBox.getChildren().add(minutesLabel);
-    vBox.getChildren().add(hBox);
     HBox buttonRow = new HBox(5);
     finalizeTask = new Button("add task");
     finalizeTask.setOnAction(event -> {
-      VBox taskBox = makeTaskBox(taskName.getText(), taskDescription.getText(),
-          hoursDigit.getText(), minutesDigit.getText());
-      addToGridPane(taskBox);
+      VBox taskBox =
+          createTaskBox(taskName.getText(), taskDescription.getText(), complete.isSelected());
+      if (translateStringToDay(taskDay.getText()) == null) {
+        //TODO: get valid input from the user
+      }
+      addToGridPane(taskBox, translateStringToDay(taskDay.getText()));
+      userController.handleTask(
+          new TaskJson(taskName.getText(), taskDescription.getText(),
+              translateStringToDay(taskDay.getText()),
+              complete.isSelected()));
     });
     cancel = new Button("cancel");
     cancel.setOnAction(event -> taskPopup.hide());
@@ -271,35 +281,38 @@ public class GuiController {
     taskPopup.getContent().add(vBox);
   }
 
+  private Day translateStringToDay(String day) {
+    return switch (day.toUpperCase()) {
+      case "MONDAY" -> Day.MONDAY;
+      case "TUESDAY" -> Day.TUESDAY;
+      case "WEDNESDAY" -> Day.WEDNESDAY;
+      case "THURSDAY" -> Day.THURSDAY;
+      case "FRIDAY" -> Day.FRIDAY;
+      case "SATURDAY" -> Day.SATURDAY;
+      case "SUNDAY" -> Day.SUNDAY;
+      default -> null;
+    };
+  }
+
   /**
    * Creates a formatted representation of a task to display in the week view.
    *
    * @param name        the name of the task
    * @param description the description of the task
-   * @param hourDur     the hour value of the duration
-   * @param minDur      the minute value of the duration
    * @return taskBox a box-like representaion of a task
    */
-  private VBox makeTaskBox(String name, String description, String hourDur, String minDur) {
+  private VBox createTaskBox(String name, String description, boolean complete) {
     VBox taskBox = new VBox(8);
     Text taskName = new Text(name);
     Text taskDescription = new Text(description);
     Text taskCompletion;
-    if (complete.isSelected()) {
+    if (complete) {
       taskCompletion = new Text("Complete!");
     } else {
       taskCompletion = new Text("Not complete!");
     }
-    Text taskHour = new Text(hourDur + " H, ");
-    Text taskMin = new Text(minDur + " M");
-    HBox durationRow = new HBox(5);
-    durationRow.getChildren().add(taskHour);
-    durationRow.getChildren().add(taskMin);
-    taskBox.getChildren().add(new Text("Task:"));
-    taskBox.getChildren().add(taskName);
-    taskBox.getChildren().add(taskDescription);
-    taskBox.getChildren().add(taskCompletion);
-    taskBox.getChildren().add(durationRow);
+    taskBox.getChildren()
+        .addAll(new Text("Task:"), taskName, taskDescription, taskCompletion);
     return taskBox;
   }
 
@@ -311,16 +324,11 @@ public class GuiController {
     VBox vBox = new VBox(8);
     Rectangle padding = new Rectangle(180, 10);
     padding.setFill(Color.valueOf("#ffffff"));
-    vBox.getChildren().add(padding);
     eventName = new TextField("event name...");
     TextField eventDescription = new TextField("description...");
     eventDay = new TextField("day...");
     Label startTime = new Label("start time...");
     Label eventDuration = new Label("duration:");
-    vBox.getChildren().add(eventName);
-    vBox.getChildren().add(eventDescription);
-    vBox.getChildren().add(eventDay);
-    vBox.getChildren().add(startTime);
     HBox startTimeRow = new HBox(5);
     hourDigit = new TextField("___");
     Label colon = new Label(":");
@@ -334,13 +342,7 @@ public class GuiController {
     am.setToggleGroup(amOrPm);
     am.setSelected(true);
     pm.setToggleGroup(amOrPm);
-    startTimeRow.getChildren().add(hourDigit);
-    startTimeRow.getChildren().add(colon);
-    startTimeRow.getChildren().add(minDigit);
-    startTimeRow.getChildren().add(am);
-    startTimeRow.getChildren().add(pm);
-    vBox.getChildren().add(startTimeRow);
-    vBox.getChildren().add(eventDuration);
+    startTimeRow.getChildren().addAll(hourDigit, colon, minDigit, am, pm);
     HBox hBox = new HBox(5);
     hoursDigit = new TextField("___");
     hoursDigit.setPrefWidth(30);
@@ -348,11 +350,10 @@ public class GuiController {
     minutesDigit = new TextField("___");
     minutesDigit.setPrefWidth(30);
     minutesLabel = new Label("M");
-    hBox.getChildren().add(hoursDigit);
-    hBox.getChildren().add(hoursLabel);
-    hBox.getChildren().add(minutesDigit);
-    hBox.getChildren().add(minutesLabel);
-    vBox.getChildren().add(hBox);
+    hBox.getChildren().addAll(hoursDigit, hoursLabel, minutesDigit, minutesLabel);
+    vBox.getChildren()
+        .addAll(padding, eventName, eventDescription, eventDay, startTime, startTimeRow,
+            eventDuration, hBox);
     HBox buttonRow = new HBox(5);
     Button finalizeEvent = new Button("add event");
     finalizeEvent.setOnAction(event ->
@@ -360,14 +361,28 @@ public class GuiController {
       //TODO work this out so events are not duplicated and added like a list
       taskList = new ArrayList<>();
       if (!taskList.contains(eventName.getText()) || !eventName.getText().equals("event name...")) {
+        Time time;
+        try {
+          time =
+              new Time(Integer.parseInt(hourDigit.getText()), Integer.parseInt(minDigit.getText()));
+        } catch (NumberFormatException e) {
+          time = null;
+        }
+        Time duration;
+        try {
+          duration = new Time(Integer.parseInt(hoursDigit.getText()),
+              Integer.parseInt(minutesDigit.getText()));
+        } catch (NumberFormatException e) {
+          duration = null;
+        }
+
         taskList.add(eventName.getText());
-        VBox eventBox = createEventBox(eventName.getText(),
-            eventDescription.getText(),
-            hourDigit.getText(),
-            minDigit.getText(),
-            hoursDigit.getText(),
-            minutesDigit.getText());
-        addToGridPane(eventBox);
+        VBox eventBox =
+            createEventBox(eventName.getText(), eventDescription.getText(), time, duration);
+        if (translateStringToDay(eventDay.getText()) == null) {
+          //TODO: get valid input from the user
+        }
+        addToGridPane(eventBox, translateStringToDay(eventDay.getText()));
       }
     });
     cancel = new Button("cancel");
@@ -384,37 +399,31 @@ public class GuiController {
    *
    * @param name        the name of the event
    * @param description the description of the event
-   * @param hourTime    the hour value of the event time
-   * @param minuteTime  the minute value of the event tme
-   * @param hourDur     the hour value of the duration
-   * @param minDur      the minute value of the duration
    * @return eventBox a box-like representation of an event
    */
-  private VBox createEventBox(String name, String description, String hourTime, String minuteTime,
-                              String hourDur, String minDur) {
+  private VBox createEventBox(String name, String description, Time startTime, Time duration) {
     VBox eventBox = new VBox(8);
     Text textName = new Text(name);
     Text textDescription = new Text(description);
-    Text textHour = new Text(hourTime + ":");
-    Text textMinute;
-    if (am.isSelected()) {
-      textMinute = new Text(minuteTime + "AM");
+    Text textStartTime;
+    if (startTime == null) {
+      textStartTime = new Text("No start time");
     } else {
-      textMinute = new Text(minuteTime + "PM");
+      textStartTime = new Text(startTime.toString());
     }
-    Text textDurHour = new Text(hourDur);
-    Text textDurMin = new Text(minDur);
-    HBox timeRow = new HBox();
-    timeRow.getChildren().add(textHour);
-    timeRow.getChildren().add(textMinute);
-    HBox durationRow = new HBox();
-    durationRow.getChildren().add(textDurHour);
-    durationRow.getChildren().add(textDurMin);
-    eventBox.getChildren().add(new Text("Event:"));
-    eventBox.getChildren().add(textName);
-    eventBox.getChildren().add(textDescription);
-    eventBox.getChildren().add(timeRow);
-    eventBox.getChildren().add(durationRow);
+    Text textDuration;
+    if (duration == null) {
+      textDuration = new Text("No duration specified");
+    } else {
+      textDuration =
+          new Text(String.format("%dhr and %dmin", duration.getHour(), duration.getMinute()));
+    }
+//    HBox timeRow = new HBox();
+//    timeRow.getChildren().add(textStartTime);
+//    HBox durationRow = new HBox();
+//    durationRow.getChildren().add(textDuration);
+    eventBox.getChildren()
+        .addAll(new Text("Event:"), textName, textDescription, textStartTime, textDuration);
     return eventBox;
   }
 
@@ -451,30 +460,15 @@ public class GuiController {
    *
    * @param event the event to display
    */
-  public void addToGridPane(VBox event) {
-    if (taskDay.getText().equalsIgnoreCase("monday")
-        || eventDay.getText().equalsIgnoreCase("monday")) {
-      monPane.getChildren().add(event);
-    } else if (taskDay.getText().equalsIgnoreCase("tuesday")
-        || eventDay.getText().equalsIgnoreCase("tuesday")) {
-      tuePane.getChildren().add(event);
-    } else if (taskDay.getText().equalsIgnoreCase("wednesday")
-        || eventDay.getText().equalsIgnoreCase("wednesday")) {
-      wedPane.getChildren().add(event);
-    } else if (taskDay.getText().equalsIgnoreCase("thursday")
-        || eventDay.getText().equalsIgnoreCase("thursday")) {
-      thuPane.getChildren().add(event);
-    } else if (taskDay.getText().equalsIgnoreCase("friday")
-        || eventDay.getText().equalsIgnoreCase("friday")) {
-      friPane.getChildren().add(event);
-    } else if (taskDay.getText().equalsIgnoreCase("saturday")
-        || eventDay.getText().equalsIgnoreCase("saturday")) {
-      satPane.getChildren().add(event);
-    } else if (taskDay.getText().equalsIgnoreCase("sunday")
-        || eventDay.getText().equalsIgnoreCase("sunday")) {
-      sunPane.getChildren().add(event);
-    } else {
-      System.out.println("oops"); // TODO make this display smt
+  public void addToGridPane(VBox event, Day day) {
+    switch (day) {
+      case FRIDAY -> friPane.getChildren().add(event);
+      case MONDAY -> monPane.getChildren().add(event);
+      case SUNDAY -> sunPane.getChildren().add(event);
+      case TUESDAY -> tuePane.getChildren().add(event);
+      case SATURDAY -> satPane.getChildren().add(event);
+      case THURSDAY -> thuPane.getChildren().add(event);
+      case WEDNESDAY -> wedPane.getChildren().add(event);
     }
   }
 
@@ -514,6 +508,11 @@ public class GuiController {
     List<EventJson> events = userController.sortEvents(false);
   }
 
+  private void changeLabelTheme(Label label, String textFill, String font) {
+    label.setTextFill(Color.valueOf(textFill));
+    label.setStyle(font);
+  }
+
 
   /**
    * Changes the bullet journal's GUI to the specified colors and fonts.
@@ -525,35 +524,19 @@ public class GuiController {
   private void changeTheme(String colorOne, String colorTwo, String font, String face) {
     headerRect.setFill(Color.valueOf(colorOne));
     headerLabel.setText(face);
-    headerLabel.setStyle(font);
-    headerLabel.setTextFill(Color.valueOf(colorTwo));
+    changeLabelTheme(headerLabel, colorTwo, font);
     changeThemeRect.setFill(Color.valueOf(colorOne));
     weekNameText.setBackground(Background.fill(Color.valueOf("#ffffff")));
     weekNameText.setStyle("-fx-text-fill: " + colorTwo);
     weekNameText.setStyle(font);
-    quotesLabel.setTextFill(Color.valueOf(colorTwo));
-    quotesLabel.setStyle(font);
+    changeLabelTheme(quotesLabel, colorTwo, font);
     quotesArea.setStyle(font);
-    sunLabel.setTextFill(Color.valueOf(colorTwo));
-    sunLabel.setStyle(font);
-    monLabel.setTextFill(Color.valueOf(colorTwo));
-    monLabel.setStyle(font);
-    tueLabel.setTextFill(Color.valueOf(colorTwo));
-    tueLabel.setStyle(font);
-    wedLabel.setTextFill(Color.valueOf(colorTwo));
-    wedLabel.setStyle(font);
-    thuLabel.setTextFill(Color.valueOf(colorTwo));
-    thuLabel.setStyle(font);
-    friLabel.setTextFill(Color.valueOf(colorTwo));
-    friLabel.setStyle(font);
-    satLabel.setTextFill(Color.valueOf(colorTwo));
-    satLabel.setStyle(font);
-    sortTasksLabel.setTextFill(Color.valueOf(colorTwo));
-    sortTasksLabel.setStyle(font);
-    sortEventsLabel.setTextFill(Color.valueOf(colorTwo));
-    sortEventsLabel.setStyle(font);
-    taskQueueLabel.setTextFill(Color.valueOf(colorTwo));
-    taskQueueLabel.setStyle(font);
+    for (Label day : weekLabels) {
+      changeLabelTheme(day, colorTwo, font);
+    }
+    changeLabelTheme(sortTasksLabel, colorTwo, font);
+    changeLabelTheme(sortEventsLabel, colorTwo, font);
+    changeLabelTheme(taskQueueLabel, colorTwo, font);
     addEventRect.setFill(Color.valueOf(colorOne));
     addTaskRect.setFill(Color.valueOf(colorOne));
     setLimitRect.setFill(Color.valueOf(colorOne));
@@ -589,13 +572,8 @@ public class GuiController {
         "-fx-font-family: 'BM DoHyeon OTF'", "(; - ; )"));
     Button cancelChange = new Button("cancel");
     cancelChange.setOnAction(event -> changeThemePopup.hide());
-    vbox.getChildren().add(green);
-    vbox.getChildren().add(yellow);
-    vbox.getChildren().add(purple);
-    vbox.getChildren().add(blue);
-    vbox.getChildren().add(cancelChange);
-    changeThemePopup.getContent().add(background);
-    changeThemePopup.getContent().add(vbox);
+    vbox.getChildren().addAll(green, yellow, purple, blue, cancelChange);
+    changeThemePopup.getContent().addAll(background, vbox);
   }
 
   /**
