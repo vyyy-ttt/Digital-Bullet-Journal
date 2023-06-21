@@ -389,13 +389,13 @@ public class GuiController {
     Button blue = new Button("Blue");
     Button purple = new Button("Purple");
     pinkAndGreen.setOnAction(event -> changeTheme(
-        "#a9bc89", "#555e3a", "-fx-font-family: Comic Sans"));
+        "#a9bc89", "#555e3a", "-fx-font-family: 'BM JUA OTF'"));
     yellow.setOnAction(event -> changeTheme(
-        "#f7dba1", "#a18570", "-fx-font-family: Avenir Next"));
+        "#f7dba1", "#a18570", "-fx-font-family: 'Avenir Next'"));
     blue.setOnAction(event -> changeTheme(
-        "#e6f1fc", "#484e54", "-fx-font-family: Apple Symbols"));
+        "#e6f1fc", "#484e54", "-fx-font-family: 'Apple Symbols'"));
     purple.setOnAction(event -> changeTheme(
-        "#bdb5d0", "#323236", "-fx-font-family: BM DoHyeon OTF"));
+        "#bdb5d0", "#323236", "-fx-font-family: 'BM DoHyeon OTF'"));
     cancelChange = new Button("cancel");
     cancelChange.setOnAction(event -> changeThemePopup.hide());
     vbox.getChildren().add(pinkAndGreen);
