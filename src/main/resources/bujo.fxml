@@ -30,15 +30,6 @@
             <center>
                <Pane prefHeight="663.0" prefWidth="1439.0" BorderPane.alignment="CENTER">
                   <children>
-                     <HBox alignment="BOTTOM_LEFT" layoutX="32.0" prefHeight="126.0" prefWidth="626.0">
-                        <children>
-                           <TextField fx:id="weekNameText" prefWidth="308.0" promptText="week name!" style="-fx-background-color: transparent;">
-                              <font>
-                                 <Font name="BM JUA OTF" size="28.0" />
-                              </font>
-                           </TextField>
-                        </children>
-                     </HBox>
                      <HBox layoutX="43.0" layoutY="144.0" prefHeight="500.0" prefWidth="637.0">
                         <children>
                            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="497.0" stroke="#d9baab" strokeType="INSIDE" strokeWidth="2.0" width="91.0" />
@@ -172,6 +163,15 @@
                                  <Font name="BM JUA OTF" size="18.0" />
                               </font>
                            </Button>
+                        </children>
+                     </HBox>
+                     <HBox alignment="BOTTOM_LEFT" layoutX="32.0" prefHeight="126.0" prefWidth="626.0">
+                        <children>
+                           <TextField fx:id="weekNameText" prefWidth="308.0" promptText="week name!" style="-fx-background-color: transparent;">
+                              <font>
+                                 <Font name="BM JUA OTF" size="28.0" />
+                              </font>
+                           </TextField>
                         </children>
                      </HBox>
                   </children>
