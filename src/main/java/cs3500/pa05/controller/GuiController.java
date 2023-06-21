@@ -166,7 +166,7 @@ public class GuiController {
   }
 
   public void makeFileNamePopup() {
-    Rectangle background = popupView.createPopupBackground(120, 160);
+    Rectangle background = popupView.createPopupBackground(50, 180);
     HBox hBox = new HBox(6);
     TextField fileName = new TextField("name your bujo file!");
     Button goButton = new Button("go!");
@@ -301,12 +301,18 @@ public class GuiController {
     eventPopup.getContent().add(vBox);
   }
 
-  private VBox createEventBox(String name, String description, String hourTime, String minuteTime, String hourDur, String minDur) {
+  private VBox createEventBox(String name, String description, String hourTime, String minuteTime,
+                              String hourDur, String minDur) {
     VBox eventBox = new VBox(8);
     Text textName = new Text(name);
     Text textDescription = new Text(description);
     Text textHour = new Text(hourTime + ":");
-    Text textMinute = new Text(minuteTime);
+    Text textMinute;
+    if (am.isSelected()) {
+      textMinute = new Text(minuteTime + "AM");
+    } else {
+      textMinute = new Text(minuteTime + "PM");
+    }
     Text textDurHour = new Text(hourDur);
     Text textDurMin = new Text(minDur);
     HBox timeRow = new HBox();
@@ -321,6 +327,7 @@ public class GuiController {
     eventBox.getChildren().add(durationRow);
     return eventBox;
   }
+
   private boolean verifyEventName() {
     // TODO implement
     return false;
