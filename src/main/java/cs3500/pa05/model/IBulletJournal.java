@@ -56,7 +56,8 @@ public interface IBulletJournal {
   /**
    * Sorts all tasks by their name or duration.
    *
-   * @param byName if wanting to sort by name, otherwise will be sorted by duration
+   * @param byName if wanting to sort by name, otherwise will be sorted by duration from shortest
+   *               to longest duration
    * @return a list of TaskJsons sorted by the given flag
    */
   List<TaskJson> sortTasksNameDuration(boolean byName);
@@ -64,7 +65,8 @@ public interface IBulletJournal {
   /**
    * Sorts all events by their name or duration.
    *
-   * @param byName if wanting to sort by name, otherwise will be sorted by duration
+   * @param byName if wanting to sort by name, otherwise will be sorted by duration from shortest
+   *               to longest duration
    * @return a list of EventJsons sorted by the given flag
    */
   List<EventJson> sortEventsNameDuration(boolean byName);
