@@ -6,10 +6,8 @@ import cs3500.pa05.model.Json.EventJson;
 import cs3500.pa05.model.Json.TaskJson;
 import cs3500.pa05.view.PopupView;
 import cs3500.pa05.view.ThemeView;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -19,9 +17,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.skin.TextInputControlSkin;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -117,7 +112,7 @@ public class GuiController {
   @FXML
   private Label headerLabel;
   @FXML
-  private Button changeTitle;
+  private TextField weekNameText;
   @FXML
   private TextArea quotesArea;
   @FXML
@@ -187,7 +182,7 @@ public class GuiController {
     vBox.setPrefHeight(907);
     HBox hBox = new HBox(6);
     hBox.setAlignment(Pos.CENTER);
-    Text welcome = new Text("Welcome!" + System.lineSeparator()
+    Text welcome = new Text("Welcome! (^-^)" + System.lineSeparator()
         + "Please enter an existing bujo file path, or name a new one!");
     welcome.setTextAlignment(TextAlignment.CENTER);
     welcome.setStyle("-fx-font-family: 'BM Jua'");
@@ -535,9 +530,9 @@ public class GuiController {
     headerLabel.setStyle(font);
     headerLabel.setTextFill(Color.valueOf(colorTwo));
     changeThemeRect.setFill(Color.valueOf(colorOne));
-    changeTitleRect.setFill(Color.valueOf(colorOne));
-    weekNameLabel.setTextFill(Color.valueOf(colorTwo));
-    weekNameLabel.setStyle(font);
+    weekNameText.setStyle("-fx-background-color: 'transparent'");
+    weekNameText.setStyle("-fx-text-fill: " + colorTwo);
+    weekNameText.setStyle(font);
     quotesLabel.setTextFill(Color.valueOf(colorTwo));
     quotesLabel.setStyle(font);
     quotesArea.setStyle(font);
