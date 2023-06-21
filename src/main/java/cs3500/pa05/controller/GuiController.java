@@ -167,10 +167,15 @@ public class GuiController {
     userController = new UserController();
   }
 
+  /**
+   * Creates a popup for getting the user's specified file path, or lets them name a new one.
+   */
   public void makeFileNamePopup() {
     Rectangle background = popupView.createPopupBackground(50, 180);
+    VBox vBox = new VBox(8);
     HBox hBox = new HBox(6);
-    //TODO: Create a label to let the user know they can create a new file or open an existing file
+    Text welcome = new Text("Hi! Welcome!" + System.lineSeparator()
+        + "Please enter an existing file path, or name a new one!");
     TextField fileName = new TextField("Enter a .bujo file.");
     Button goButton = new Button("go!");
     goButton.setOnAction(event -> {
@@ -182,14 +187,16 @@ public class GuiController {
         fileName.appendText("Please enter a file path ending with .bujo");
       }
     });
+    vBox.getChildren().add(welcome);
     hBox.getChildren().add(fileName);
     hBox.getChildren().add(goButton);
+    vBox.getChildren().add(hBox);
     fileTitlePopup.getContent().add(background);
-    fileTitlePopup.getContent().add(hBox);
+    fileTitlePopup.getContent().add(vBox);
   }
 
   /**
-   * Makes the GUI elements of a task popup.
+   * Creates a popup for the user to enter details of a task.
    */
   private void makeTaskPopUp() {
     Rectangle background = popupView.createPopupBackground(240, 180);
@@ -235,6 +242,15 @@ public class GuiController {
     taskPopup.getContent().add(vBox);
   }
 
+  /**
+   * Creates a formatted representation of a task to display in the week view.
+   *
+   * @param name        the name of the task
+   * @param description the description of the task
+   * @param hourDur     the hour value of the duration
+   * @param minDur      the minute value of the duration
+   * @return taskBox a box-like representaion of a task
+   */
   private VBox makeTaskBox(String name, String description, String hourDur, String minDur) {
     VBox taskBox = new VBox(8);
     Text taskName = new Text(name);
@@ -259,7 +275,7 @@ public class GuiController {
   }
 
   /**
-   * Makes the GUI elements of an event popup.
+   * Creates a popup for a user to enter the details of an event.
    */
   private void makeEventPopUp() {
     Rectangle background = popupView.createPopupBackground(260, 180);
@@ -334,6 +350,17 @@ public class GuiController {
     eventPopup.getContent().add(vBox);
   }
 
+  /**
+   * Creates a formatted representation of an event to display in a week view.
+   *
+   * @param name        the name of the event
+   * @param description the description of the event
+   * @param hourTime    the hour value of the event time
+   * @param minuteTime  the minute value of the event tme
+   * @param hourDur     the hour value of the duration
+   * @param minDur      the minute value of the duration
+   * @return eventBox a box-like representation of an event
+   */
   private VBox createEventBox(String name, String description, String hourTime, String minuteTime,
                               String hourDur, String minDur) {
     VBox eventBox = new VBox(8);
@@ -363,7 +390,7 @@ public class GuiController {
   }
 
   /**
-   * Creates popup for the user to set a limit of tasks and/or events for a day.
+   * Creates a popup for the user to set a limit of tasks and/or events for a day.
    */
   private void makeLimitPopup() {
     Rectangle background = popupView.createPopupBackground(180, 260);
@@ -391,36 +418,7 @@ public class GuiController {
   }
 
   /**
-   * Makes a popup for the user to change the titles of the bullet journal spread.
-   */
-  private void makeTitlePopup() {
-    Rectangle background = popupView.createPopupBackground(120, 260);
-    VBox vBox = new VBox(8);
-    TextField fileName = new TextField("name your file");
-    TextField weekName = new TextField("name your week");
-    String fileTitle = fileName.getText();
-    String weekTitle = weekName.getText();
-    HBox fileRow = new HBox(5);
-    HBox weekRow = new HBox(5);
-    Button saveTitle = new Button("save file title");
-    Button saveWeekName = new Button("save week title");
-    saveTitle.setOnAction(event -> headerLabel.setText(fileTitle));
-    saveWeekName.setOnAction(event -> weekNameLabel.setText(weekTitle));
-    Button cancelTitle = new Button("cancel");
-    cancelTitle.setOnAction(event -> titlePopup.hide());
-    fileRow.getChildren().add(fileName);
-    fileRow.getChildren().add(saveTitle);
-    weekRow.getChildren().add(weekName);
-    weekRow.getChildren().add(saveWeekName);
-    vBox.getChildren().add(fileRow);
-    vBox.getChildren().add(weekRow);
-    vBox.getChildren().add(cancelTitle);
-    titlePopup.getContent().add(background);
-    titlePopup.getContent().add(vBox);
-  }
-
-  /**
-   * Adds a task or event to the week gridpane.
+   * Adds a task or event to the week view's grid pane.
    *
    * @param event the event to display
    */
@@ -456,13 +454,6 @@ public class GuiController {
    */
   public void showFileTitlePopUp() {
     this.fileTitlePopup.show(this.stage);
-  }
-
-  /**
-   * Shows a popup for changing the title on the stage.
-   */
-  public void showTitlePopup() {
-    this.titlePopup.show(this.stage);
   }
 
   /**
