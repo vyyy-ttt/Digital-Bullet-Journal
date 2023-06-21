@@ -122,6 +122,7 @@ public class GuiController {
   private final Popup limitPopup;
   private final Popup changeThemePopup;
   private final Popup titlePopup;
+  private final Popup fileTitlePopup;
   private TextField taskName;
   private TextField taskDay;
   private TextField hoursDigit;
@@ -151,6 +152,7 @@ public class GuiController {
     this.limitPopup = new Popup();
     this.changeThemePopup = new Popup();
     this.titlePopup = new Popup();
+    this.fileTitlePopup = new Popup();
     popupView = new PopupView();
     themeView = new ThemeView();
     monPane = new VBox(3);
@@ -161,6 +163,23 @@ public class GuiController {
     satPane = new VBox(3);
     sunPane = new VBox(3);
     userController = new UserController();
+  }
+
+  public void makeFileNamePopup() {
+    Rectangle background = popupView.createPopupBackground(120, 160);
+    HBox hBox = new HBox(6);
+    TextField fileName = new TextField("name your bujo file!");
+    Button goButton = new Button("go!");
+    goButton.setOnAction(event -> {
+      if (fileName.getText().endsWith(".bujo")) {
+        userController.handlePath(fileName.getText());
+        fileTitlePopup.hide();
+      }
+    });
+    hBox.getChildren().add(fileName);
+    hBox.getChildren().add(goButton);
+    fileTitlePopup.getContent().add(background);
+    fileTitlePopup.getContent().add(hBox);
   }
 
   /**
@@ -408,6 +427,12 @@ public class GuiController {
   }
 
   /**
+   *
+   */
+  private void showFileTitlePopUp() {
+    this.fileTitlePopup.show(this.stage);
+  }
+  /**
    * Shows a task popup on the stage.
    */
   private void showTaskPopup() {
@@ -438,7 +463,7 @@ public class GuiController {
   /**
    * Shows a popup for changing the title on the stage.
    */
-  private void showTitlePopup() {
+  public void showTitlePopup() {
     this.titlePopup.show(this.stage);
   }
 
@@ -553,6 +578,8 @@ public class GuiController {
    * Initializes controls of the GUI.
    */
   public void run() {
+    makeFileNamePopup();
+    showFileTitlePopUp();
     addTask.setOnAction(event -> showTaskPopup());
     makeTaskPopUp();
     addEvent.setOnAction(event -> showEventPopup());
