@@ -215,6 +215,11 @@ public class BulletJournal implements IBulletJournal {
   }
 
   @Override
+  public void setWeekName(String name) {
+    weekName = name;
+  }
+
+  @Override
   public void chooseTheme(ThemeType theme) {
     this.theme = theme;
   }

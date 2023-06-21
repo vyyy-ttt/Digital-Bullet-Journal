@@ -94,6 +94,13 @@ public interface IBulletJournal {
   void setEventLimit(int limit);
 
   /**
+   * Sets the name of the week.
+   *
+   * @param name the name for the week
+   */
+  void setWeekName(String name);
+
+  /**
    * Changes the theme of the bullet journal.
    *
    * @param theme the specified theme
