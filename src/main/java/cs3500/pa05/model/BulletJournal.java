@@ -42,7 +42,7 @@ public class BulletJournal implements IBulletJournal {
       tasks = fileReader.getTasks();
       events = fileReader.getEvents();
     } else {
-      week = new BujoJson(new DayJson[7], null, ThemeType.PINKGREEN, "");
+      week = new BujoJson(new DayJson[7], null, ThemeType.PINKGREEN, null);
       tasks = new ArrayList<>();
       events = new ArrayList<>();
       this.theme = ThemeType.PINKGREEN;
