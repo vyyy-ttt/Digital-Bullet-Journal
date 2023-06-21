@@ -17,6 +17,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -68,8 +69,6 @@ public class GuiController {
   @FXML
   private Rectangle changeThemeRect;
   @FXML
-  private Label weekNameLabel;
-  @FXML
   private Label sunLabel;
   @FXML
   private Label monLabel;
@@ -89,8 +88,6 @@ public class GuiController {
   private Rectangle addEventRect;
   @FXML
   private Rectangle setLimitRect;
-  @FXML
-  private Rectangle changeTitleRect;
   @FXML
   private Rectangle saveRect;
   @FXML
@@ -531,7 +528,7 @@ public class GuiController {
     headerLabel.setStyle(font);
     headerLabel.setTextFill(Color.valueOf(colorTwo));
     changeThemeRect.setFill(Color.valueOf(colorOne));
-    weekNameText.setStyle("-fx-background-color: transparent");
+    weekNameText.setBackground(Background.fill(Color.valueOf("#ffffff")));
     weekNameText.setStyle("-fx-text-fill: " + colorTwo);
     weekNameText.setStyle(font);
     quotesLabel.setTextFill(Color.valueOf(colorTwo));
