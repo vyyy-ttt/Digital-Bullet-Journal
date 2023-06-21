@@ -14,7 +14,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class BulletJournalTest {
-
   BulletJournal bujo;
   BujoJson expectedBujo;
   TaskJson[] tasks;
