@@ -436,28 +436,26 @@ public class GuiController {
    * Shows a task popup on the stage.
    */
   private void showTaskPopup() {
-    this.taskPopup.show(this.stage);
   }
 
   /**
    * Shows an event popup on the stage.
    */
   private void showEventPopup() {
-    this.eventPopup.show(this.stage);
   }
 
   /**
    * Shows a popup to set the limit on the stage.
    */
   private void showLimitPopup() {
-    this.limitPopup.show(this.stage);
+
   }
 
   /**
    * Shows a popup for changing themes on the stage.
    */
   private void showThemePopup() {
-    this.changeThemePopup.show(this.stage);
+    ;
   }
 
   /**
@@ -578,22 +576,20 @@ public class GuiController {
    * Initializes controls of the GUI.
    */
   public void run() {
-    makeFileNamePopup();
-    showFileTitlePopUp();
-    addTask.setOnAction(event -> showTaskPopup());
+    addTask.setOnAction(event -> this.taskPopup.show(this.stage));
     makeTaskPopUp();
-    addEvent.setOnAction(event -> showEventPopup());
+    addEvent.setOnAction(event -> this.eventPopup.show(this.stage));
     makeEventPopUp();
-    setLimit.setOnAction(event -> showLimitPopup());
+    setLimit.setOnAction(event -> this.limitPopup.show(this.stage));
     makeLimitPopup();
-    changeTheme.setOnAction(event -> showThemePopup());
+    changeTheme.setOnAction(event -> this.changeThemePopup.show(this.stage));
     makeThemePopup();
-    changeTitle.setOnAction(event -> showTitlePopup());
-    makeTitlePopup();
     save.setOnAction(event -> handleSaveButton());
     sortByNameTask.setOnAction(event -> handleSortTasksByName());
     sortByDurationTask.setOnAction(event -> handleSortTasksByDuration());
     sortByNameEvent.setOnAction(event -> handleSortEventsByName());
     sortByDurationEvent.setOnAction(event -> handleSortEventsByDuration());
+    makeFileNamePopup();
+    showFileTitlePopUp();
   }
 }
