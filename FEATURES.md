@@ -18,3 +18,4 @@
 - Week Tabs
 
 ## Section 5: Extra Credit
+- Visual Flourish
