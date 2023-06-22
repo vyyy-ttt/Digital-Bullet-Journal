@@ -138,10 +138,17 @@ public class GuiController {
   private Label hoursLabel;
   private Label minutesLabel;
   private TextField eventName;
-  private TextField eventDay;
   private Button finalizeTask;
   private TextField hourDigit;
   private TextField minDigit;
+  private CheckBox complete;
+  private RadioButton mon;
+  private RadioButton tue;
+  private RadioButton wed;
+  private RadioButton thu;
+  private RadioButton fri;
+  private RadioButton sat;
+  private RadioButton sun;
   private ArrayList<String> taskList;
   private final PopupView popupView;
   private final ThemeView themeView;
@@ -175,7 +182,7 @@ public class GuiController {
   public void makeFileGui(BujoJson bujo) {
     for (DayJson dayJson : bujo.week()) {
       for (TaskJson task : dayJson.tasks()) {
-        addToGridPane(createTaskBox(task.name(), task.description(), task.complete()), task.day());
+        addToGridPane(createTaskBox(task.name(), task.description()), task.day());
       }
       for (EventJson event : dayJson.events()) {
         addToGridPane(
@@ -250,26 +257,25 @@ public class GuiController {
     Rectangle padding = new Rectangle(180, 10);
     padding.setFill(Color.valueOf("#ffffff"));
     vBox.getChildren().add(padding);
-    taskName = new TextField("task name...");
-    TextField taskDescription = new TextField("description...");
-    taskDay = new TextField("day...");
-    CheckBox complete = new CheckBox("task complete?");
-    vBox.getChildren().add(taskName);
-    vBox.getChildren().add(taskDescription);
-    vBox.getChildren().add(taskDay);
-    vBox.getChildren().add(complete);
+    Label nameLabel = new Label("name: ");
+    taskName = new TextField();
+    Label descripLabel = new Label("description");
+    TextField taskDescription = new TextField();
+    Label dayLabel = new Label("day: ");
+    HBox dayRow = createWeekRadios();
+    vBox.getChildren().addAll(nameLabel, taskName, descripLabel, taskDescription, dayLabel, dayRow);
     HBox buttonRow = new HBox(5);
     finalizeTask = new Button("add task");
     finalizeTask.setOnAction(event -> {
       VBox taskBox =
-          createTaskBox(taskName.getText(), taskDescription.getText(), complete.isSelected());
-      if (translateStringToDay(taskDay.getText()) == null) {
+          createTaskBox(taskName.getText(), taskDescription.getText());
+      if (whatDay() == null) {
         //TODO: get valid input from the user
       }
-      addToGridPane(taskBox, translateStringToDay(taskDay.getText()));
+      addToGridPane(taskBox, whatDay());
       userController.handleTask(
           new TaskJson(taskName.getText(), taskDescription.getText(),
-              translateStringToDay(taskDay.getText()),
+              whatDay(),
               complete.isSelected()));
     });
     cancel = new Button("cancel");
@@ -281,17 +287,37 @@ public class GuiController {
     taskPopup.getContent().add(vBox);
   }
 
-  private Day translateStringToDay(String day) {
-    return switch (day.toUpperCase()) {
-      case "MONDAY" -> Day.MONDAY;
-      case "TUESDAY" -> Day.TUESDAY;
-      case "WEDNESDAY" -> Day.WEDNESDAY;
-      case "THURSDAY" -> Day.THURSDAY;
-      case "FRIDAY" -> Day.FRIDAY;
-      case "SATURDAY" -> Day.SATURDAY;
-      case "SUNDAY" -> Day.SUNDAY;
-      default -> null;
-    };
+//  private Day translateStringToDay(RadioButton day) {
+//    return switch (day.isSelected()) {
+//      case mon -> Day.MONDAY;
+//      case tue -> Day.TUESDAY;
+//      case wed -> Day.WEDNESDAY;
+//      case thu -> Day.THURSDAY;
+//      case fri -> Day.FRIDAY;
+//      case sat -> Day.SATURDAY;
+//      case sun -> Day.SUNDAY;
+//      default -> null;
+//    };
+//  }
+
+  private Day whatDay() {
+    if (mon.isSelected()) {
+      return Day.MONDAY;
+    } else if (tue.isSelected()) {
+      return Day.TUESDAY;
+    } else if (wed.isSelected()) {
+      return Day.WEDNESDAY;
+    } else if (thu.isSelected()) {
+      return Day.THURSDAY;
+    } else if (fri.isSelected()) {
+      return Day.FRIDAY;
+    } else if (sat.isSelected()) {
+      return Day.SATURDAY;
+    } else if (sun.isSelected()) {
+      return Day.SUNDAY;
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -301,19 +327,36 @@ public class GuiController {
    * @param description the description of the task
    * @return taskBox a box-like representaion of a task
    */
-  private VBox createTaskBox(String name, String description, boolean complete) {
+  private VBox createTaskBox(String name, String description) {
     VBox taskBox = new VBox(8);
     Text taskName = new Text(name);
     Text taskDescription = new Text(description);
-    Text taskCompletion;
-    if (complete) {
-      taskCompletion = new Text("Complete!");
-    } else {
-      taskCompletion = new Text("Not complete!");
-    }
+    CheckBox complete = new CheckBox();
     taskBox.getChildren()
-        .addAll(new Text("Task:"), taskName, taskDescription, taskCompletion);
+        .addAll(new Text("Task:"), taskName, taskDescription, complete);
     return taskBox;
+  }
+
+  public HBox createWeekRadios() {
+    HBox dayRow = new HBox(5);
+    ToggleGroup chosenDay = new ToggleGroup();
+    RadioButton sun = new RadioButton("Sun");
+    sun.setToggleGroup(chosenDay);
+    sun.setSelected(true);
+    RadioButton mon = new RadioButton("Mon");
+    mon.setToggleGroup(chosenDay);
+    RadioButton tue = new RadioButton("Tue");
+    tue.setToggleGroup(chosenDay);
+    RadioButton wed = new RadioButton("Wed");
+    wed.setToggleGroup(chosenDay);
+    RadioButton thu = new RadioButton("Thu");
+    thu.setToggleGroup(chosenDay);
+    RadioButton fri = new RadioButton("Fri");
+    fri.setToggleGroup(chosenDay);
+    RadioButton sat = new RadioButton("Sat");
+    sat.setToggleGroup(chosenDay);
+    dayRow.getChildren().addAll(sun, mon, tue, wed, thu, fri, sat);
+    return dayRow;
   }
 
   /**
@@ -324,17 +367,20 @@ public class GuiController {
     VBox vBox = new VBox(8);
     Rectangle padding = new Rectangle(180, 10);
     padding.setFill(Color.valueOf("#ffffff"));
-    eventName = new TextField("event name...");
-    TextField eventDescription = new TextField("description...");
-    eventDay = new TextField("day...");
+    Label nameLabel = new Label("name: ");
+    eventName = new TextField();
+    Label descripLabel = new Label("description: ");
+    TextField eventDescription = new TextField();
+    Label dayLabel = new Label("day: ");
+    HBox dayRow = createWeekRadios();
     Label startTime = new Label("start time...");
-    Label eventDuration = new Label("duration:");
+    Label eventDuration = new Label("duration: ");
     HBox startTimeRow = new HBox(5);
-    hourDigit = new TextField("___");
+    hourDigit = new TextField();
     Label colon = new Label(":");
     colon.setPrefWidth(10);
     hourDigit.setPrefWidth(30);
-    minDigit = new TextField("___");
+    minDigit = new TextField();
     minDigit.setPrefWidth(30);
     ToggleGroup amOrPm = new ToggleGroup();
     am = new RadioButton("AM");
@@ -344,15 +390,16 @@ public class GuiController {
     pm.setToggleGroup(amOrPm);
     startTimeRow.getChildren().addAll(hourDigit, colon, minDigit, am, pm);
     HBox hBox = new HBox(5);
-    hoursDigit = new TextField("___");
+    hoursDigit = new TextField();
     hoursDigit.setPrefWidth(30);
     hoursLabel = new Label("H");
-    minutesDigit = new TextField("___");
+    minutesDigit = new TextField();
     minutesDigit.setPrefWidth(30);
     minutesLabel = new Label("M");
     hBox.getChildren().addAll(hoursDigit, hoursLabel, minutesDigit, minutesLabel);
     vBox.getChildren()
-        .addAll(padding, eventName, eventDescription, eventDay, startTime, startTimeRow,
+        .addAll(padding, nameLabel, eventName, descripLabel, eventDescription, dayLabel, dayRow,
+            startTime, startTimeRow,
             eventDuration, hBox);
     HBox buttonRow = new HBox(5);
     Button finalizeEvent = new Button("add event");
@@ -379,10 +426,10 @@ public class GuiController {
         taskList.add(eventName.getText());
         VBox eventBox =
             createEventBox(eventName.getText(), eventDescription.getText(), time, duration);
-        if (translateStringToDay(eventDay.getText()) == null) {
+        if (whatDay() != null) {
           //TODO: get valid input from the user
+          addToGridPane(eventBox, whatDay());
         }
-        addToGridPane(eventBox, translateStringToDay(eventDay.getText()));
       }
     });
     cancel = new Button("cancel");
