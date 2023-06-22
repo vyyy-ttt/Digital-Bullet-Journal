@@ -197,16 +197,20 @@ public class GuiController {
           } else{
             completionLabel.setText("Incomplete!");
           }
-          taskQueueBox.getChildren()
-              .addAll(createTaskBox(task.name(), task.description(), invisCheck),completionLabel);
+          VBox taskQueueGui = createTaskBox(task.name(), task.description(), invisCheck);
+          taskQueueGui.getChildren().add(completionLabel);
+          taskQueueBox.getChildren().add(taskQueueGui);
           complete.setOnAction(event -> {
             if (complete.isSelected()) {
               tasks.put(new TaskJson(task.name(), task.description(), task.day(), true), taskGui);
               tasks.remove(task);
-
+              taskQueueGui.getChildren().remove(completionLabel);
+              taskQueueGui.getChildren().add(new Label("Completed!"));
             } else {
               tasks.put(new TaskJson(task.name(), task.description(), task.day(), false), taskGui);
               tasks.remove(task);
+              taskQueueGui.getChildren().remove(completionLabel);
+              taskQueueGui.getChildren().add(new Label("Incomplete!"));
             }
           });
         }
@@ -283,6 +287,7 @@ public class GuiController {
         //TODO: get valid input from the user
       }
       addToGridPane(taskBox, whatDay());
+      tasks.put(new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(), complete.isSelected()),taskBox);
       CheckBox invisCheck = new CheckBox();
       invisCheck.setVisible(false);
       Label completionLabel = new Label();
@@ -291,16 +296,15 @@ public class GuiController {
       } else{
         completionLabel.setText("Incomplete!");
       }
-      taskQueueBox.getChildren()
-          .addAll(createTaskBox(taskName.getText(), taskDescription.getText(), invisCheck),completionLabel);
+      VBox taskQGui = createTaskBox(taskName.getText(), taskDescription.getText(), invisCheck);
+      taskQGui.getChildren().add(completionLabel);
+      taskQueueBox.getChildren().add(taskQGui);
       complete.setOnAction(actionEvent -> {
         if (complete.isSelected()) {
+          taskBox.getChildren().add(new Label("Completed!"));
           tasks.put(new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(), true), taskBox);
-          tasks.remove(taskBox);
-
-        } else {
-          tasks.put(new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(), false), taskBox);
-          tasks.remove(taskBox);
+          tasks.remove(new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(), false));
+          completionLabel.setText("Completed!");
         }
       });
       userController.handleTask(
@@ -554,6 +558,7 @@ public class GuiController {
    * Adds a task or event to the week view's grid pane.
    *
    * @param event the event to display
+   * @param day
    */
   public void addToGridPane(VBox event, Day day) {
     switch (day) {
@@ -698,7 +703,7 @@ public class GuiController {
     sortByDurationTask.setOnAction(event -> handleSortTasksByDuration());
     sortByNameEvent.setOnAction(event -> handleSortEventsByName());
     sortByDurationEvent.setOnAction(event -> handleSortEventsByDuration());
-    edit.setOnAction(event -> );
+//    edit.setOnAction(event -> );
     makeFileNamePopup();
     showFileTitlePopUp();
   }
