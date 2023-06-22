@@ -18,6 +18,11 @@ public record TaskJson(@JsonProperty("name") String name,
 
   @Override
   public boolean equals(Object other){
-    return false;
+    if (!(other instanceof TaskJson)) {
+      return false;
+    } else return this.name().equals(((TaskJson) other).name())
+        && this.description().equals(((TaskJson) other).description())
+        && this.day().equals(((TaskJson) other).day())
+        && this.complete() == (((TaskJson) other).complete());
   }
 }

@@ -52,6 +52,12 @@ public record EventJson(@JsonProperty("name") String name,
 
   @Override
   public boolean equals(Object other){
-    return false;
+    if (!(other instanceof EventJson)) {
+      return false;
+    } else return this.name().equals(((EventJson) other).name())
+        && this.description().equals(((EventJson) other).description())
+        && this.day().equals(((EventJson) other).day())
+        && this.time().equals(((EventJson) other).time())
+        && this.duration().equals(((EventJson) other).duration());
   }
 }
