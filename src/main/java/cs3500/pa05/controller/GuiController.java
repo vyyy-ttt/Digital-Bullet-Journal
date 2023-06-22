@@ -85,8 +85,7 @@ public class GuiController {
   private Label friLabel;
   @FXML
   private Label satLabel;
-  private List<Label> weekLabels =
-      List.of(sunLabel, monLabel, tueLabel, wedLabel, thuLabel, friLabel, satLabel);
+  private List<Label> weekLabels;
   @FXML
   private Rectangle addTaskRect;
   @FXML
@@ -578,9 +577,13 @@ public class GuiController {
     weekNameText.setStyle(font);
     changeLabelTheme(quotesLabel, colorTwo, font);
     quotesArea.setStyle(font);
-    for (Label day : weekLabels) {
-      changeLabelTheme(day, colorTwo, font);
-    }
+    changeLabelTheme(monLabel, colorTwo, font);
+    changeLabelTheme(tueLabel, colorTwo, font);
+    changeLabelTheme(wedLabel, colorTwo, font);
+    changeLabelTheme(thuLabel, colorTwo, font);
+    changeLabelTheme(friLabel, colorTwo, font);
+    changeLabelTheme(satLabel, colorTwo, font);
+    changeLabelTheme(sunLabel, colorTwo, font);
     changeLabelTheme(sortTasksLabel, colorTwo, font);
     changeLabelTheme(sortEventsLabel, colorTwo, font);
     changeLabelTheme(taskQueueLabel, colorTwo, font);
