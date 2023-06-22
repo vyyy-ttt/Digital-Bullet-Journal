@@ -10,7 +10,6 @@ import cs3500.pa05.model.ThemeType;
 import cs3500.pa05.model.Time;
 import cs3500.pa05.view.PopupView;
 import java.util.HashMap;
-import java.util.ArrayList;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -182,24 +181,45 @@ public class GuiController {
       for (TaskJson task : dayJson.tasks()) {
         if (task != null) {
           CheckBox complete = new CheckBox();
+
           if (task.complete()) {
             complete.fire();
           }
           VBox taskGui = createTaskBox(task.name(), task.description(), complete);
           tasks.put(task, taskGui);
           addToGridPane(taskGui, task.day());
+          CheckBox invisCheck = new CheckBox();
+          invisCheck.setVisible(false);
+          Label completionLabel = new Label();
+          if(complete.isSelected()){
+            completionLabel.setText("Completed!");
+          } else{
+            completionLabel.setText("Incomplete!");
+          }
+          taskQueueBox.getChildren()
+              .addAll(createTaskBox(task.name(), task.description(), invisCheck),completionLabel);
+          complete.setOnAction(event -> {
+            if (complete.isSelected()) {
+              tasks.put(new TaskJson(task.name(), task.description(), task.day(), true), taskGui);
+              tasks.remove(task);
+
+            } else {
+              tasks.put(new TaskJson(task.name(), task.description(), task.day(), false), taskGui);
+              tasks.remove(task);
+            }
+          });
         }
       }
       for (EventJson event : dayJson.events()) {
         if (event != null) {
-          VBox eventGui = createEventBox(event.name(), event.description(), event.translateStartTime(true),
-              event.translateStartTime(false));
+          VBox eventGui =
+              createEventBox(event.name(), event.description(), event.translateStartTime(true),
+                  event.translateStartTime(false));
           events.put(event, eventGui);
           addToGridPane(eventGui, event.day());
         }
       }
     }
-
   }
 
   /**
@@ -262,6 +282,26 @@ public class GuiController {
         //TODO: get valid input from the user
       }
       addToGridPane(taskBox, whatDay());
+      CheckBox invisCheck = new CheckBox();
+      invisCheck.setVisible(false);
+      Label completionLabel = new Label();
+      if(complete.isSelected()){
+        completionLabel.setText("Completed!");
+      } else{
+        completionLabel.setText("Incomplete!");
+      }
+      taskQueueBox.getChildren()
+          .addAll(createTaskBox(taskName.getText(), taskDescription.getText(), invisCheck),completionLabel);
+      complete.setOnAction(actionEvent -> {
+        if (complete.isSelected()) {
+          tasks.put(new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(), true), taskBox);
+          tasks.remove(taskBox);
+
+        } else {
+          tasks.put(new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(), false), taskBox);
+          tasks.remove(taskBox);
+        }
+      });
       userController.handleTask(
           new TaskJson(taskName.getText(), taskDescription.getText(),
               whatDay(),
@@ -393,27 +433,27 @@ public class GuiController {
     finalizeEvent.setOnAction(event ->
     {
       //TODO work this out so events are not duplicated and added like a list
-        Time time;
-        try {
-          time =
-              new Time(Integer.parseInt(hourDigit.getText()), Integer.parseInt(minDigit.getText()));
-        } catch (NumberFormatException e) {
-          time = null;
-        }
-        Time duration;
-        try {
-          duration = new Time(Integer.parseInt(hoursDigit.getText()),
-              Integer.parseInt(minutesDigit.getText()));
-        } catch (NumberFormatException e) {
-          duration = null;
-        }
+      Time time;
+      try {
+        time =
+            new Time(Integer.parseInt(hourDigit.getText()), Integer.parseInt(minDigit.getText()));
+      } catch (NumberFormatException e) {
+        time = null;
+      }
+      Time duration;
+      try {
+        duration = new Time(Integer.parseInt(hoursDigit.getText()),
+            Integer.parseInt(minutesDigit.getText()));
+      } catch (NumberFormatException e) {
+        duration = null;
+      }
 
-        VBox eventBox =
-            createEventBox(eventName.getText(), eventDescription.getText(), time, duration);
-        if (whatDay() != null) {
-          //TODO: get valid input from the user
-          addToGridPane(eventBox, whatDay());
-        }
+      VBox eventBox =
+          createEventBox(eventName.getText(), eventDescription.getText(), time, duration);
+      if (whatDay() != null) {
+        //TODO: get valid input from the user
+        addToGridPane(eventBox, whatDay());
+      }
     });
     cancel = new Button("cancel");
     cancel.setOnAction(event -> eventPopup.hide());
@@ -454,7 +494,8 @@ public class GuiController {
 //    durationRow.getChildren().add(textDuration);
     eventBox.getChildren()
         .addAll(new Text("Event:"), textName, textDescription, textStartTime, textDuration);
-    events.put(new EventJson(textName.getText(),textDescription.getText(),whatDay(), textStartTime.getText(), textDuration.getText()),eventBox);
+    events.put(new EventJson(textName.getText(), textDescription.getText(), whatDay(),
+        textStartTime.getText(), textDuration.getText()), eventBox);
     return eventBox;
   }
 
@@ -526,6 +567,7 @@ public class GuiController {
    */
   private void handleSortTasksByName() {
     List<TaskJson> tasks = userController.sortTasks(true);
+
   }
 
   /**
@@ -603,18 +645,22 @@ public class GuiController {
     Button yellow = new Button("Yellow");
     Button blue = new Button("Blue");
     Button purple = new Button("Purple");
-    green.setOnAction(event ->{
+    green.setOnAction(event -> {
       theme.setThemeType(ThemeType.PINKGREEN);
-      changeTheme(theme.getColorOne(), theme.getColorTwo(), theme.getFont(), theme.getFace());});
+      changeTheme(theme.getColorOne(), theme.getColorTwo(), theme.getFont(), theme.getFace());
+    });
     yellow.setOnAction(event -> {
       theme.setThemeType(ThemeType.YELLOW);
-      changeTheme(theme.getColorOne(), theme.getColorOne(), theme.getFont(), theme.getFace());});
+      changeTheme(theme.getColorOne(), theme.getColorOne(), theme.getFont(), theme.getFace());
+    });
     blue.setOnAction(event -> {
       theme.setThemeType(ThemeType.BLUE);
-      changeTheme(theme.getColorOne(), theme.getColorTwo(), theme.getFont(), theme.getFace());});
+      changeTheme(theme.getColorOne(), theme.getColorTwo(), theme.getFont(), theme.getFace());
+    });
     purple.setOnAction(event -> {
       theme.setThemeType(ThemeType.PURPLE);
-      changeTheme(theme.getColorOne(), theme.getColorTwo(), theme.getFont(), theme.getFace());});
+      changeTheme(theme.getColorOne(), theme.getColorTwo(), theme.getFont(), theme.getFace());
+    });
     Button cancelChange = new Button("cancel");
     cancelChange.setOnAction(event -> changeThemePopup.hide());
     vbox.getChildren().addAll(green, yellow, purple, blue, cancelChange);
