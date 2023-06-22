@@ -268,18 +268,16 @@ public class GuiController {
    * Creates a popup for the user to enter details of a task.
    */
   private void makeTaskPopUp() {
-    Rectangle background = popupView.createPopupBackground(240, 360);
-    VBox vBox = new VBox(8);
+    VBox content = new VBox(8);
     Rectangle padding = new Rectangle(180, 10);
     padding.setFill(Color.valueOf("#ffffff"));
-    vBox.getChildren().add(padding);
+    content.getChildren().add(padding);
     Label nameLabel = new Label("name: ");
     TextField taskName = new TextField();
     Label descripLabel = new Label("description");
     TextField taskDescription = new TextField();
     HBox dayRow = createWeekRadios();
-    vBox.getChildren().addAll(nameLabel, taskName, descripLabel, taskDescription, dayLabel, dayRow);
-    HBox buttonRow = new HBox(5);
+    content.getChildren().addAll(nameLabel, taskName, descripLabel, taskDescription, dayLabel, dayRow);
     Button finalizeTask = new Button("add task");
     finalizeTask.setOnAction(event -> {
       CheckBox complete = new CheckBox();
@@ -322,11 +320,13 @@ public class GuiController {
     });
     cancel = new Button("cancel");
     cancel.setOnAction(event -> taskPopup.hide());
+    HBox buttonRow = new HBox(5);
     buttonRow.getChildren().add(finalizeTask);
     buttonRow.getChildren().add(cancel);
-    vBox.getChildren().add(buttonRow);
+    content.getChildren().add(buttonRow);
+    Rectangle background = popupView.createPopupBackground(240, 360);
     taskPopup.getContent().add(background);
-    taskPopup.getContent().add(vBox);
+    taskPopup.getContent().add(content);
   }
 
   /**
@@ -416,10 +416,7 @@ public class GuiController {
     Rectangle padding = new Rectangle(180, 10);
     padding.setFill(Color.valueOf("#ffffff"));
     Label nameLabel = new Label("name: ");
-    TextField eventName = new TextField();
     Label descripLabel = new Label("description: ");
-    TextField eventDescription = new TextField();
-    HBox dayRow = createWeekRadios();
     Label startTime = new Label("start time...");
     Label eventDuration = new Label("duration: ");
     HBox startTimeRow = new HBox(5);
@@ -445,6 +442,9 @@ public class GuiController {
     Label minutesLabel = new Label("M");
     hBox.getChildren().addAll(hoursDigit, hoursLabel, minutesDigit, minutesLabel);
     VBox content = new VBox(8);
+    TextField eventName = new TextField();
+    TextField eventDescription = new TextField();
+    HBox dayRow = createWeekRadios();
     content.getChildren()
         .addAll(padding, nameLabel, eventName, descripLabel, eventDescription, dayLabel, dayRow,
             startTime, startTimeRow,
@@ -588,6 +588,7 @@ public class GuiController {
       case SATURDAY -> satPane.getChildren().add(event);
       case THURSDAY -> thuPane.getChildren().add(event);
       case WEDNESDAY -> wedPane.getChildren().add(event);
+      default -> System.out.println("The day input is incorrect");
     }
   }
 
@@ -720,7 +721,6 @@ public class GuiController {
     eventDurRect.setFill(Color.valueOf(colorOne));
     eventNameRect.setFill(Color.valueOf(colorOne));
     editRect.setFill(Color.valueOf(colorOne));
-    taskQueueText.setStyle(font);
   }
 
   /**
