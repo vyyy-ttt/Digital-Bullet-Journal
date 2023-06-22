@@ -15,4 +15,9 @@ public record TaskJson(@JsonProperty("name") String name,
                        @JsonProperty("description") String description,
                        @JsonProperty("day") Day day,
                        @JsonProperty("completion") boolean complete) {
+
+  @Override
+  public boolean equals(Object other){
+    return false;
+  }
 }

@@ -369,12 +369,16 @@ public class GuiController {
     HBox hBox = new HBox(5);
     Button delete = new Button("X");
     delete.setStyle("-fx-background-color: transparent");
-    delete.setOnAction(event -> taskBox.getChildren().clear());
     Text taskName = new Text(name);
     hBox.getChildren().addAll(taskName, delete);
     Text taskDescription = new Text(description);
     taskBox.getChildren()
         .addAll(new Text("Task:"), hBox, taskDescription, complete);
+    TaskJson createdTask = new TaskJson(taskName.getText(),taskDescription.getText(),whatDay(),complete.isSelected());
+    delete.setOnAction(event ->{
+      taskBox.getChildren().clear();
+      userController.handleRemoveTask(createdTask);
+    });
     return taskBox;
   }
 
@@ -489,7 +493,6 @@ public class GuiController {
     HBox hBox = new HBox(5);
     Button delete = new Button("X");
     delete.setStyle("-fx-background-color: transparent");
-    delete.setOnAction(event -> eventBox.getChildren().clear());
     Text textName = new Text(name);
     hBox.getChildren().addAll(textName, delete);
     Text textDescription = new Text(description);
@@ -510,6 +513,12 @@ public class GuiController {
         .addAll(new Text("Event:"), eventBox, textDescription, textStartTime, textDuration);
     events.put(new EventJson(textName.getText(), textDescription.getText(), whatDay(),
         textStartTime.getText(), textDuration.getText()), eventBox);
+    EventJson createdEvent = new EventJson(textName.getText(), textDescription.getText(), whatDay(),
+        textStartTime.getText(), textDuration.getText());
+    delete.setOnAction(event -> {
+      eventBox.getChildren().clear();
+      userController.handleRemoveEvent(createdEvent);
+    });
     return eventBox;
   }
 

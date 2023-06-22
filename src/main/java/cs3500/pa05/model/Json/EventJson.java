@@ -49,4 +49,9 @@ public record EventJson(@JsonProperty("name") String name,
     }
     return new Time(Integer.parseInt(arrayTime[0]), Integer.parseInt(minuteAndMarker[0]));
   }
+
+  @Override
+  public boolean equals(Object other){
+    return false;
+  }
 }
