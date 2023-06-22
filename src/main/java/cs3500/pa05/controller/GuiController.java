@@ -5,6 +5,8 @@ import cs3500.pa05.model.Json.BujoJson;
 import cs3500.pa05.model.Json.DayJson;
 import cs3500.pa05.model.Json.EventJson;
 import cs3500.pa05.model.Json.TaskJson;
+import cs3500.pa05.model.Theme;
+import cs3500.pa05.model.ThemeType;
 import cs3500.pa05.model.Time;
 import cs3500.pa05.view.PopupView;
 import cs3500.pa05.view.ThemeView;
@@ -149,8 +151,8 @@ public class GuiController {
   private RadioButton sun;
   private ArrayList<String> taskList;
   private final PopupView popupView;
-  private final ThemeView themeView;
   private final UserController userController;
+  private final Theme theme;
 
   /**
    * Constructs a GUIController.
@@ -167,7 +169,7 @@ public class GuiController {
     this.fileTitlePopup = new Popup();
     this.warnPopup = new Popup();
     popupView = new PopupView();
-    themeView = new ThemeView();
+    theme = new Theme();
     monPane = new VBox(3);
     tuePane = new VBox(3);
     wedPane = new VBox(3);
@@ -196,7 +198,6 @@ public class GuiController {
         }
       }
     }
-
   }
 
   /**
@@ -627,18 +628,18 @@ public class GuiController {
     Button yellow = new Button("Yellow");
     Button blue = new Button("Blue");
     Button purple = new Button("Purple");
-    green.setOnAction(event -> changeTheme(
-        "#a9bc89", "#555e3a",
-        "-fx-font-family: 'BM JUA OTF'", "(O_O)"));
+    green.setOnAction(event -> changeTheme(theme.getColorOne(ThemeType.PINKGREEN),
+        theme.getColorTwo(ThemeType.PINKGREEN), theme.getFont(ThemeType.PINKGREEN),
+        theme.getFace(ThemeType.PINKGREEN)));
     yellow.setOnAction(event -> changeTheme(
-        "#f7dba1", "#a18570",
-        "-fx-font-family: 'Avenir Next'", "(-_- )"));
-    blue.setOnAction(event -> changeTheme(
-        "#e6f1fc", "#484e54",
-        "-fx-font-family: 'Apple Symbols'", "(^ - ^ )"));
-    purple.setOnAction(event -> changeTheme(
-        "#bdb5d0", "#323236",
-        "-fx-font-family: 'BM DoHyeon OTF'", "(; - ; )"));
+        theme.getColorOne(ThemeType.YELLOW), theme.getColorOne(ThemeType.YELLOW),
+        theme.getFont(ThemeType.YELLOW), theme.getFace(ThemeType.YELLOW)));
+    blue.setOnAction(event -> changeTheme(theme.getColorOne(ThemeType.BLUE),
+        theme.getColorTwo(ThemeType.BLUE), theme.getFont(ThemeType.BLUE),
+        theme.getFace(ThemeType.BLUE)));
+    purple.setOnAction(event -> changeTheme(theme.getColorOne(ThemeType.PURPLE),
+        theme.getColorTwo(ThemeType.PURPLE),
+        theme.getFont(ThemeType.PURPLE), theme.getFace(ThemeType.PURPLE)));
     Button cancelChange = new Button("cancel");
     cancelChange.setOnAction(event -> changeThemePopup.hide());
     vbox.getChildren().addAll(green, yellow, purple, blue, cancelChange);
