@@ -45,15 +45,6 @@ public interface IBulletJournal {
   List<TaskJson> sortTasksPriority();
 
   /**
-   * Given a string representing duration in an hours and minutes format, converts the duration to
-   * only minutes and returns the conversion as an integer.
-   *
-   * @param duration the duration in "-h-m" format, where the - are digits
-   * @return the conversion to minutes as an int
-   */
-  int convertToMinutes(String duration);
-
-  /**
    * Sorts all tasks by their name or duration.
    *
    * @param byName if wanting to sort by name, otherwise will be sorted by duration from shortest

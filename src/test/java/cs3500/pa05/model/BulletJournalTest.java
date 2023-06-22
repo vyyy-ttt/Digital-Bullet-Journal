@@ -100,7 +100,7 @@ class BulletJournalTest {
   }
 
   @Test
-  public void sortTasksNameDurationTest() {
+  public void sortTasksNameCompletionTest() {
     bujo.setTaskLimit(10);
 
     TaskJson getApples = new TaskJson("Apples",
@@ -122,12 +122,12 @@ class BulletJournalTest {
     assertEquals(expectedTasksName, bujo.sortTasksNameCompletion(true));
 
     // Sort by duration
-    ArrayList<TaskJson> expectedTasksDuration = new ArrayList<>();
-    expectedTasksDuration.add(getBananas);
-    expectedTasksDuration.add(getApples);
-    expectedTasksDuration.add(getPears);
+    ArrayList<TaskJson> expectedTasksCompletion = new ArrayList<>();
+    expectedTasksCompletion .add(getApples);
+    expectedTasksCompletion .add(getBananas);
+    expectedTasksCompletion .add(getPears);
 
-    assertEquals(expectedTasksDuration, bujo.sortTasksNameCompletion(false));
+    assertEquals(expectedTasksCompletion, bujo.sortTasksNameCompletion(false));
   }
 
   @Test

@@ -9,7 +9,6 @@ import cs3500.pa05.model.Json.TaskJson;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -25,7 +24,6 @@ public class BulletJournal implements IBulletJournal {
   private String weekName;
   private ThemeType theme;
   private String note;
-  static final int NUM_MINS_IN_HOUR = 60;
 
   /**
    * Instantiates a new bullet journal.
@@ -82,16 +80,6 @@ public class BulletJournal implements IBulletJournal {
       }
     }
     return sortedTasks;
-  }
-
-  @Override
-  public int convertToMinutes(String duration) {
-    int finalConversion = 0;
-    int indexOfHours = duration.indexOf('h');
-    int indexOfMinutes = duration.indexOf('m');
-    finalConversion += Integer.parseInt(duration.substring(0, indexOfHours)) * NUM_MINS_IN_HOUR;
-    finalConversion += Integer.parseInt(duration.substring(indexOfHours + 1, indexOfMinutes));
-    return finalConversion;
   }
 
   @Override
@@ -163,8 +151,8 @@ public class BulletJournal implements IBulletJournal {
           sortedEvents.add(currEvent);
         } else {
           for (EventJson currSortedEvent : sortedEvents) {
-            if (currEvent.duration().compareTo(currSortedEvent.duration()) <
-                0) {
+            if (currEvent.translateStartTime(false).
+                compareTo(currSortedEvent.translateStartTime(false)) <= 0) {
               sortedEvents.add(sortedEvents.indexOf(currSortedEvent), currEvent);
               break;
             }
