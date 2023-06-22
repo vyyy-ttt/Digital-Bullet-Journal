@@ -45,19 +45,19 @@ public class Time implements Comparable<Time> {
 
   @Override
   public String toString() {
-    String min_tens_place = "";
-    String hour_tens_place = "";
+    String minTensPlace = "";
+    String hourTensPlace = "";
     if (minute < 10) {
-      min_tens_place = "0";
+      minTensPlace = "0";
     }
     if (hour < 10) {
-      hour_tens_place = "0";
+      hourTensPlace = "0";
     }
     if (marker != null) {
-      return String.format("%d:%s%d %s", hour, min_tens_place, minute,
+      return String.format("%d:%s%d %s", hour, minTensPlace, minute,
           marker.toString().toLowerCase());
     }
-    return String.format("%s%d:%s%d", hour_tens_place, hour, min_tens_place, minute);
+    return String.format("%s%d:%s%d", hourTensPlace, hour, minTensPlace, minute);
   }
 
   public int getHour() {

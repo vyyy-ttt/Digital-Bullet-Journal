@@ -47,12 +47,12 @@ class BulletJournalTest {
   @Test
   public void addRemoveEventTest() {
     bujo.setEventLimit(10);
-    ArrayList<EventJson> expectedEvents = new ArrayList<>(List.of(events));
     bujo.addEvent(fruitConvention);
     bujo.saveBulletJournal();
 
     FileReader fr = new FileReader();
     fr.readFile(Path.of("bujoModelTest.bujo"));
+    ArrayList<EventJson> expectedEvents = new ArrayList<>(List.of(events));
     assertEquals(expectedEvents, fr.getEvents());
 
     bujo.removeEvent(fruitConvention);
@@ -64,7 +64,6 @@ class BulletJournalTest {
   @Test
   public void addRemoveTaskTest() {
     bujo.setTaskLimit(10);
-    ArrayList<TaskJson> expectedTasks = new ArrayList<>(List.of(tasks));
 
     TaskJson getApples = new TaskJson("Get Apples",
         "Buy those apples!", Day.FRIDAY, false);
@@ -73,6 +72,7 @@ class BulletJournalTest {
 
     FileReader fr = new FileReader();
     fr.readFile(Path.of("bujoModelTest.bujo"));
+    ArrayList<TaskJson> expectedTasks = new ArrayList<>(List.of(tasks));
     assertEquals(expectedTasks, fr.getTasks());
 
     bujo.removeTask(getApples);
@@ -196,12 +196,12 @@ class BulletJournalTest {
 
   @Test
   public void setTaskLimitTest() {
-    LimitJson expectedLimit = new LimitJson(-1, 10);
     bujo.setTaskLimit(10);
     bujo.saveBulletJournal();
 
     FileReader fr = new FileReader();
     fr.readFile(Path.of("bujoModelTest.bujo"));
+    LimitJson expectedLimit = new LimitJson(-1, 10);
     assertEquals(expectedLimit, fr.getBujo().limits());
 
     expectedLimit = new LimitJson(-1, 20);
@@ -213,12 +213,12 @@ class BulletJournalTest {
 
   @Test
   public void setEventLimitTest() {
-    LimitJson expectedLimit = new LimitJson(10, -1);
     bujo.setEventLimit(10);
     bujo.saveBulletJournal();
 
     FileReader fr = new FileReader();
     fr.readFile(Path.of("bujoModelTest.bujo"));
+    LimitJson expectedLimit = new LimitJson(10, -1);
     assertEquals(expectedLimit, fr.getBujo().limits());
 
     expectedLimit = new LimitJson(20, -1);

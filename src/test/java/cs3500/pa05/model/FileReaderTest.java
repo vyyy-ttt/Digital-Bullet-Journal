@@ -9,7 +9,6 @@ import cs3500.pa05.model.Json.DayJson;
 import cs3500.pa05.model.Json.EventJson;
 import cs3500.pa05.model.Json.JsonUtils;
 import cs3500.pa05.model.Json.TaskJson;
-
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;

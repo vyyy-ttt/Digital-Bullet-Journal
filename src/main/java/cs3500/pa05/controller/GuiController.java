@@ -231,13 +231,12 @@ public class GuiController {
    * Creates a popup for getting the user's specified file path, or lets them name a new one.
    */
   public void makeFileNamePopup() {
-    Rectangle background = popupView.createPopupBackground(907, 1290);
-    VBox vBox = new VBox(8);
-    vBox.setAlignment(Pos.CENTER);
-    vBox.setPrefWidth(1290);
-    vBox.setPrefHeight(907);
-    HBox hBox = new HBox(6);
-    hBox.setAlignment(Pos.CENTER);
+    VBox content = new VBox(8);
+    content.setAlignment(Pos.CENTER);
+    content.setPrefWidth(1290);
+    content.setPrefHeight(907);
+    HBox inputRow = new HBox(6);
+    inputRow.setAlignment(Pos.CENTER);
     Text welcome = new Text("Welcome! (^-^)" + System.lineSeparator()
         + "Please enter an existing bujo file path, or the name of a new one!");
     welcome.setTextAlignment(TextAlignment.CENTER);
@@ -254,12 +253,13 @@ public class GuiController {
         welcome.setText("Your file must end in \".bujo\" to be valid! (-o- )");
       }
     });
-    vBox.getChildren().add(welcome);
-    hBox.getChildren().add(fileName);
-    hBox.getChildren().add(goButton);
-    vBox.getChildren().add(hBox);
+    content.getChildren().add(welcome);
+    inputRow.getChildren().add(fileName);
+    inputRow.getChildren().add(goButton);
+    content.getChildren().add(inputRow);
+    Rectangle background = popupView.createPopupBackground(907, 1290);
     fileTitlePopup.getContent().add(background);
-    fileTitlePopup.getContent().add(vBox);
+    fileTitlePopup.getContent().add(content);
   }
 
   /**
@@ -297,9 +297,9 @@ public class GuiController {
       } else {
         completionLabel.setText("Incomplete!");
       }
-      VBox taskQGui = createTaskBox(taskName.getText(), taskDescription.getText(), invisCheck);
-      taskQGui.getChildren().add(completionLabel);
-      taskQueueBox.getChildren().add(taskQGui);
+      VBox taskQueueGui = createTaskBox(taskName.getText(), taskDescription.getText(), invisCheck);
+      taskQueueGui.getChildren().add(completionLabel);
+      taskQueueBox.getChildren().add(taskQueueGui);
       complete.setOnAction(actionEvent -> {
         if (complete.isSelected()) {
           taskBox.getChildren().add(new Label("Completed!"));
@@ -361,14 +361,14 @@ public class GuiController {
    */
   private VBox createTaskBox(String name, String description, CheckBox complete) {
     VBox taskBox = new VBox();
-    HBox hBox = new HBox(5);
+    HBox inputRow = new HBox(5);
     Button delete = new Button("X");
     delete.setStyle("-fx-background-color: transparent");
     Text taskName = new Text(name);
-    hBox.getChildren().addAll(taskName, delete);
+    inputRow.getChildren().addAll(taskName, delete);
     Text taskDescription = new Text(description);
     taskBox.getChildren()
-        .addAll(new Text("Task:"), hBox, taskDescription,
+        .addAll(new Text("Task:"), inputRow, taskDescription,
             complete); //TODO the broken thing is the complete being called from the param
     TaskJson createdTask = new TaskJson(taskName.getText(), taskDescription.getText(),
         translateToDay(),
@@ -386,7 +386,6 @@ public class GuiController {
    * @return dayRow a row of radio buttons for each day of the week.
    */
   public HBox createWeekRadios() {
-    HBox dayRow = new HBox(5);
     ToggleGroup chosenDay = new ToggleGroup();
     sun = new RadioButton("Sun");
     sun.setToggleGroup(chosenDay);
@@ -403,6 +402,7 @@ public class GuiController {
     fri.setToggleGroup(chosenDay);
     sat = new RadioButton("Sat");
     sat.setToggleGroup(chosenDay);
+    HBox dayRow = new HBox(5);
     dayRow.getChildren().addAll(sun, mon, tue, wed, thu, fri, sat);
     return dayRow;
   }
@@ -411,8 +411,6 @@ public class GuiController {
    * Creates a popup for a user to enter the details of an event.
    */
   private void makeEventPopUp() {
-    Rectangle background = popupView.createPopupBackground(320, 360);
-    VBox vBox = new VBox(8);
     Rectangle padding = new Rectangle(180, 10);
     padding.setFill(Color.valueOf("#ffffff"));
     Label nameLabel = new Label("name: ");
@@ -444,14 +442,14 @@ public class GuiController {
     minutesDigit.setPrefWidth(30);
     Label minutesLabel = new Label("M");
     hBox.getChildren().addAll(hoursDigit, hoursLabel, minutesDigit, minutesLabel);
-    vBox.getChildren()
+    VBox content = new VBox(8);
+    content.getChildren()
         .addAll(padding, nameLabel, eventName, descripLabel, eventDescription, dayLabel, dayRow,
             startTime, startTimeRow,
             eventDuration, hBox);
     HBox buttonRow = new HBox(5);
     Button finalizeEvent = new Button("add event");
-    finalizeEvent.setOnAction(event ->
-    {
+    finalizeEvent.setOnAction(event -> {
       Time time;
       try {
         time =
@@ -478,9 +476,10 @@ public class GuiController {
     cancel.setOnAction(event -> eventPopup.hide());
     buttonRow.getChildren().add(finalizeEvent);
     buttonRow.getChildren().add(cancel);
-    vBox.getChildren().add(buttonRow);
+    content.getChildren().add(buttonRow);
+    Rectangle background = popupView.createPopupBackground(320, 360);
     eventPopup.getContent().add(background);
-    eventPopup.getContent().add(vBox);
+    eventPopup.getContent().add(content);
   }
 
   /**
@@ -529,7 +528,6 @@ public class GuiController {
    * Creates a popup for the user to set a limit of tasks and/or events for a day.
    */
   private void makeLimitPopup() {
-    Rectangle background = popupView.createPopupBackground(180, 260);
     VBox vBox = new VBox(8);
     Rectangle padding = new Rectangle(180, 10);
     padding.setFill(Color.valueOf("ffffff"));
@@ -537,7 +535,6 @@ public class GuiController {
     Label limitPrompt = new Label("Please enter the limits you would like to set:");
     TextField taskLimit = new TextField("task limit...");
     TextField eventLimit = new TextField("event limit...");
-    HBox buttonRow = new HBox();
     Button saveLimit = new Button("save");
     saveLimit.setOnAction(
         event -> {
@@ -548,9 +545,11 @@ public class GuiController {
     vBox.getChildren().add(limitPrompt);
     vBox.getChildren().add(taskLimit);
     vBox.getChildren().add(eventLimit);
+    HBox buttonRow = new HBox();
     buttonRow.getChildren().add(saveLimit);
     buttonRow.getChildren().add(cancelLimit);
     vBox.getChildren().add(buttonRow);
+    Rectangle background = popupView.createPopupBackground(180, 260);
     limitPopup.getContent().add(background);
     limitPopup.getContent().add(vBox);
   }
@@ -559,23 +558,23 @@ public class GuiController {
    * Creates a popup that warns the user when they are going to pass their task/event limit.
    */
   private void makeLimitWarning() {
-    Rectangle background = popupView.createPopupBackground(50, 340);
-    HBox hBox = new HBox();
-    hBox.setAlignment(Pos.CENTER);
+    HBox content = new HBox();
+    content.setAlignment(Pos.CENTER);
     Text warning =
         new Text("You cannot add anymore tasks or events or else you will go over your limit!");
     Button okButton = new Button("ok");
     okButton.setOnAction(event -> warnPopup.hide());
-    hBox.getChildren().addAll(warning, okButton);
+    content.getChildren().addAll(warning, okButton);
+    Rectangle background = popupView.createPopupBackground(50, 340);
     warnPopup.getContent().add(background);
-    warnPopup.getContent().add(hBox);
+    warnPopup.getContent().add(content);
   }
 
   /**
    * Adds a task or event to the week view's grid pane.
    *
    * @param event the event to display
-   * @param day the day to display the event
+   * @param day   the day to display the event
    */
   public void addToGridPane(VBox event, Day day) {
     switch (day) {
@@ -692,8 +691,6 @@ public class GuiController {
    * @param font     font to use for text
    */
   private void changeTheme(String colorOne, String colorTwo, String font, String face) {
-    List<Label> weekLabels =
-        List.of(sunLabel, monLabel, tueLabel, wedLabel, thuLabel, friLabel, satLabel);
     headerRect.setFill(Color.valueOf(colorOne));
     headerLabel.setText(face);
     changeLabelTheme(headerLabel, colorTwo, font);
@@ -703,6 +700,8 @@ public class GuiController {
     weekNameText.setStyle(font);
     changeLabelTheme(quotesLabel, colorTwo, font);
     quotesArea.setStyle(font);
+    List<Label> weekLabels =
+        List.of(sunLabel, monLabel, tueLabel, wedLabel, thuLabel, friLabel, satLabel);
     for (Label day : weekLabels) {
       changeLabelTheme(day, colorTwo, font);
     }
@@ -726,21 +725,21 @@ public class GuiController {
    */
   private void makeThemePopup() {
     Button green = new Button("Green");
-    Button yellow = new Button("Yellow");
-    Button blue = new Button("Blue");
-    Button purple = new Button("Purple");
     green.setOnAction(event -> {
       theme.setThemeType(ThemeType.PINKGREEN);
       changeTheme(theme.getColorOne(), theme.getColorTwo(), theme.getFont(), theme.getFace());
     });
+    Button yellow = new Button("Yellow");
     yellow.setOnAction(event -> {
       theme.setThemeType(ThemeType.YELLOW);
       changeTheme(theme.getColorOne(), theme.getColorOne(), theme.getFont(), theme.getFace());
     });
+    Button blue = new Button("Blue");
     blue.setOnAction(event -> {
       theme.setThemeType(ThemeType.BLUE);
       changeTheme(theme.getColorOne(), theme.getColorTwo(), theme.getFont(), theme.getFace());
     });
+    Button purple = new Button("Purple");
     purple.setOnAction(event -> {
       theme.setThemeType(ThemeType.PURPLE);
       changeTheme(theme.getColorOne(), theme.getColorTwo(), theme.getFont(), theme.getFace());
