@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import cs3500.pa05.model.Json.BujoJson;
 import cs3500.pa05.model.Json.DayJson;
 import cs3500.pa05.model.Json.EventJson;
+import cs3500.pa05.model.Json.JsonUtils;
 import cs3500.pa05.model.Json.LimitJson;
 import cs3500.pa05.model.Json.TaskJson;
 import java.nio.file.Path;
@@ -249,6 +250,6 @@ class BulletJournalTest {
   public void getWeekTest() {
     FileReader fr = new FileReader();
     fr.readFile(Path.of("bujoModelTest.bujo"));
-    assertEquals(fr.getBujo(), bujo.getWeek());
+    assertEquals(JsonUtils.serializeRecord(fr.getBujo()).toString(), JsonUtils.serializeRecord(bujo.getWeek()).toString());
   }
 }

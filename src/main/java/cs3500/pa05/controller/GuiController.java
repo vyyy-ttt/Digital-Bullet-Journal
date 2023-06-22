@@ -613,9 +613,14 @@ public class GuiController {
     List<TaskJson> fileTasks = userController.sortTasks(false);
     clearWeekPanes();
     for(TaskJson task: fileTasks){
-      if(tasks.containsKey(task)){
-        addToGridPane(tasks.get(task),task.day());
+      for(TaskJson hashTask : tasks.keySet()){
+        if(task.equals(hashTask)){
+          addToGridPane(tasks.get(task), task.day());
+        }
       }
+    }
+    for(EventJson event : events.keySet()){
+      addToGridPane(events.get(event),event.day());
     }
   }
 
