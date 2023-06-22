@@ -1,18 +1,12 @@
 package cs3500.pa05.model;
 
+import cs3500.pa05.controller.GuiController;
+import java.lang.reflect.Array;
+
 /**
  * Represents a theme for the GUI.
  */
 public class Theme {
-  private final ThemeType GREEN = ThemeType.PINKGREEN;
-  private final ThemeType YELLOW = ThemeType.YELLOW;
-  private final ThemeType BLUE = ThemeType.BLUE;
-  private final ThemeType PURPLE = ThemeType.PURPLE;
-
-  public Theme(String colorOne, String colorTwo, String font, String face) {
-
-  }
-
   /**
    * Gets color one depending on which theme is active.
    *
@@ -20,13 +14,13 @@ public class Theme {
    * @return the value of the color
    */
   public String getColorOne(ThemeType theme) {
-    if (theme == GREEN) {
+    if (theme == ThemeType.PINKGREEN) {
       return "#a9bc89";
-    } else if (theme == YELLOW) {
+    } else if (theme == ThemeType.YELLOW) {
       return "#f7dba1";
-    } else if (theme == BLUE) {
+    } else if (theme == ThemeType.BLUE) {
       return "#e6f1fc";
-    } else if (theme == PURPLE) {
+    } else if (theme == ThemeType.PURPLE) {
       return "#bdb5d0";
     } else {
       return null;
@@ -40,13 +34,13 @@ public class Theme {
    * @return the value of the color
    */
   public String getColorTwo(ThemeType theme) {
-    if (theme == GREEN) {
+    if (theme == ThemeType.PINKGREEN) {
       return "#555e3a";
-    } else if (theme == YELLOW) {
+    } else if (theme == ThemeType.YELLOW) {
       return "#a18570";
-    } else if (theme == BLUE) {
+    } else if (theme == ThemeType.BLUE) {
       return "#484e54";
-    } else if (theme == PURPLE) {
+    } else if (theme == ThemeType.PURPLE) {
       return "#323236";
     } else {
       return null;
@@ -60,13 +54,13 @@ public class Theme {
    * @return the value of the color
    */
   public String getFont(ThemeType theme) {
-    if (theme == GREEN) {
+    if (theme == ThemeType.PINKGREEN) {
       return "-fx-font-family: 'BM JUA OTF'";
-    } else if (theme == YELLOW) {
+    } else if (theme == ThemeType.YELLOW) {
       return "-fx-font-family: 'Avenir Next'";
-    } else if (theme == BLUE) {
+    } else if (theme == ThemeType.BLUE) {
       return "-fx-font-family: 'Apple Symbols'";
-    } else if (theme == PURPLE) {
+    } else if (theme == ThemeType.PURPLE) {
       return "-fx-font-family: 'BM DoHyeon OTF'";
     } else {
       return null;
@@ -80,17 +74,16 @@ public class Theme {
    * @return the value of the color
    */
   public String getFace(ThemeType theme) {
-    if (theme == GREEN) {
+    if (theme == ThemeType.PINKGREEN) {
       return "(O_O)";
-    } else if (theme == YELLOW) {
+    } else if (theme == ThemeType.YELLOW) {
       return "(-_- )";
-    } else if (theme == BLUE) {
+    } else if (theme == ThemeType.BLUE) {
       return "(^ - ^ )";
-    } else if (theme == PURPLE) {
+    } else if (theme == ThemeType.PURPLE) {
       return "(; - ; )";
     } else {
       return null;
     }
   }
-
 }
