@@ -284,6 +284,7 @@ public class GuiController {
     HBox buttonRow = new HBox(5);
     Button finalizeTask = new Button("add task");
     finalizeTask.setOnAction(event -> {
+      taskCount++;
       CheckBox complete = new CheckBox();
       VBox taskBox =
           createTaskBox(taskName.getText(), taskDescription.getText(), complete);
@@ -441,7 +442,7 @@ public class GuiController {
     Button finalizeEvent = new Button("add event");
     finalizeEvent.setOnAction(event ->
     {
-      //TODO work this out so events are not duplicated and added like a list
+      eventCount++;
       Time time;
       try {
         time =
@@ -502,7 +503,7 @@ public class GuiController {
           new Text(String.format("%dhr and %dmin", duration.getHour(), duration.getMinute()));
     }
     eventBox.getChildren()
-        .addAll(new Text("Event:"), eventBox, textDescription, textStartTime, textDuration);
+        .addAll(new Text("Event:"), hBox, textDescription, textStartTime, textDuration);
     events.put(new EventJson(textName.getText(), textDescription.getText(), whatDay(),
         textStartTime.getText(), textDuration.getText()), eventBox);
     EventJson createdEvent = new EventJson(textName.getText(), textDescription.getText(), whatDay(),
@@ -551,11 +552,13 @@ public class GuiController {
   }
 
   private void makeLimitWarning() {
-    Rectangle background = popupView.createPopupBackground(50, 120);
+    Rectangle background = popupView.createPopupBackground(50, 340);
     HBox hBox = new HBox();
+    hBox.setAlignment(Pos.CENTER);
     Text warning =
         new Text("You cannot add anymore tasks or events or else you will go over your limit!");
     Button okButton = new Button("ok");
+    okButton.setOnAction(event -> warnPopup.hide());
     hBox.getChildren().addAll(warning, okButton);
     warnPopup.getContent().add(background);
     warnPopup.getContent().add(hBox);
@@ -730,27 +733,28 @@ public class GuiController {
    */
   public void run() {
     addTask.setOnAction(event -> {
-      if (taskCount <= taskLim) {
-        this.taskPopup.show(this.stage);
-      } else {
+      if (userController.checkLimit(true)) {
         this.warnPopup.show(this.stage);
+        makeLimitWarning();
+      } else {
+        this.taskPopup.show(this.stage);
       }
     });
     makeTaskPopUp();
-    addEvent.setOnAction(event -> {
-      if (eventCount <= eventLim) {
-        this.eventPopup.show(this.stage);
-      } else {
+    addEvent.setOnAction(event ->
+    {
+      if (userController.checkLimit(false)) {
         this.warnPopup.show(this.stage);
+        makeLimitWarning();
+      } else {
+        this.eventPopup.show(this.stage);
       }
     });
     makeEventPopUp();
     setLimit.setOnAction(event -> this.limitPopup.show(this.stage));
-    //TODO make it so that if they try to enter smt else but the limit is full, text is displayed
     makeLimitPopup();
     changeTheme.setOnAction(event -> this.changeThemePopup.show(this.stage));
     makeThemePopup();
-    //TODO:Make a label or popup to notify the user that their bujo has been saved
     save.setOnAction(event -> userController.handleSave());
     sortByNameTask.setOnAction(event -> handleSortTasksByName());
     sortByDurationTask.setOnAction(event -> handleSortTasksByDuration());
