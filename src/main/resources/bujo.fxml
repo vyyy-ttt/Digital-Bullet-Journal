@@ -16,7 +16,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <Scene xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="904.0" prefWidth="1280.0">
@@ -132,13 +131,15 @@
                      </HBox>
                      <HBox alignment="BOTTOM_RIGHT" layoutX="40.0" prefHeight="124.0" prefWidth="641.0">
                         <children>
-                           <Rectangle fx:id="addTaskRect" arcHeight="5.0" arcWidth="5.0" fill="#ffe6dd" height="29.0" stroke="#e5c1c100" strokeType="INSIDE" width="79.0" />
+                           <Rectangle fx:id="addTaskRect" arcHeight="5.0" arcWidth="5.0" fill="#ffe6dd" height="29.0" stroke="#e5c1c100" strokeType="INSIDE" width="84.0" />
                            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe6de00" height="22.0" stroke="#e5c1c100" strokeType="INSIDE" width="8.0" />
-                           <Rectangle fx:id="addEventRect" arcHeight="5.0" arcWidth="5.0" fill="#ffe6dd" height="29.0" stroke="#e5c1c100" strokeType="INSIDE" width="101.0" />
+                           <Rectangle fx:id="addEventRect" arcHeight="5.0" arcWidth="5.0" fill="#ffe6dd" height="29.0" stroke="#e5c1c100" strokeType="INSIDE" width="95.0" />
                            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe6de00" height="22.0" stroke="#e5c1c100" strokeType="INSIDE" width="8.0" />
-                           <Rectangle fx:id="setLimitRect" arcHeight="5.0" arcWidth="5.0" fill="#ffe6dd" height="29.0" stroke="#e5c1c100" strokeType="INSIDE" width="71.0" />
+                           <Rectangle fx:id="setLimitRect" arcHeight="5.0" arcWidth="5.0" fill="#ffe6dd" height="29.0" stroke="#e5c1c100" strokeType="INSIDE" width="82.0" />
                            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe6de00" height="22.0" stroke="#e5c1c100" strokeType="INSIDE" width="8.0" />
-                           <Rectangle fx:id="saveRect" arcHeight="5.0" arcWidth="5.0" fill="#ffe6dd" height="29.0" stroke="#e5c1c100" strokeType="INSIDE" width="66.0" />
+                           <Rectangle fx:id="saveRect" arcHeight="5.0" arcWidth="5.0" fill="#ffe6dd" height="29.0" stroke="#e5c1c100" strokeType="INSIDE" width="51.0" />
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffe6de00" height="22.0" stroke="#e5c1c100" strokeType="INSIDE" width="8.0" />
+                           <Rectangle fx:id="editRect" arcHeight="5.0" arcWidth="5.0" fill="#ffe6dd" height="29.0" stroke="#e5c1c100" strokeType="INSIDE" width="54.0" />
                         </children>
                      </HBox>
                      <HBox alignment="BOTTOM_RIGHT" layoutX="40.0" prefHeight="124.0" prefWidth="640.0">
@@ -158,7 +159,12 @@
                                  <Font name="BM JUA OTF" size="18.0" />
                               </font>
                            </Button>
-                           <Button fx:id="save" alignment="BOTTOM_RIGHT" blendMode="HARD_LIGHT" mnemonicParsing="false" prefHeight="24.0" prefWidth="64.0" style="-fx-background-color: transparent;" text="save" textFill="#4a3c2f">
+                           <Button fx:id="save" alignment="BOTTOM_RIGHT" blendMode="HARD_LIGHT" mnemonicParsing="false" prefHeight="33.0" prefWidth="63.0" style="-fx-background-color: transparent;" text="save" textFill="#4a3c2f">
+                              <font>
+                                 <Font name="BM JUA OTF" size="18.0" />
+                              </font>
+                           </Button>
+                           <Button fx:id="edit" blendMode="HARD_LIGHT" mnemonicParsing="false" style="-fx-background-color: transparent;" text="edit" textFill="#4a3c2f">
                               <font>
                                  <Font name="BM JUA OTF" size="18.0" />
                               </font>
@@ -211,15 +217,12 @@
                <Pane prefHeight="832.0" prefWidth="272.0" BorderPane.alignment="CENTER">
                   <children>
                      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="499.0" layoutX="62.0" layoutY="143.0" stroke="#d9baab" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="2.0" width="208.0" />
-                     <Text fx:id="taskQueueText" fill="#977959" layoutX="93.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="..." wrappingWidth="159.9675178527832">
-                        <font>
-                           <Font size="26.0" />
-                        </font></Text>
                      <Label fx:id="taskQueueLabel" layoutX="63.0" layoutY="84.0" prefHeight="40.0" prefWidth="242.0" text="Task Queue" textFill="#a1b58a">
                         <font>
                            <Font name="BM JUA OTF" size="28.0" />
                         </font>
                      </Label>
+                     <VBox fx:id="taskQueueBox" layoutX="66.0" layoutY="148.0" prefHeight="492.0" prefWidth="201.0" />
                   </children>
                </Pane>
             </left>
