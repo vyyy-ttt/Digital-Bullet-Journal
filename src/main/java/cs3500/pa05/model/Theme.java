@@ -1,17 +1,29 @@
 package cs3500.pa05.model;
 
-import cs3500.pa05.controller.GuiController;
-import java.lang.reflect.Array;
-
 /**
  * Represents a theme for the GUI.
  */
 public class Theme {
   private ThemeType theme;
 
+  /**
+   * Sets the current ThemeType with the given one.
+   *
+   * @param theme the new ThemeType
+   */
   public void setThemeType(ThemeType theme){
     this.theme = theme;
   }
+
+  /**
+   * Retrieves this theme's ThemeType.
+   *
+   * @return the ThemeType
+   */
+  public ThemeType getThemeType() {
+    return theme;
+  }
+
   /**
    * Gets color one depending on which theme is active.
    *

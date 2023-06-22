@@ -28,4 +28,14 @@ class TimeTest {
     assertEquals("1:00 am", new Time(1, 0, TimeMarkers.AM).toString());
     assertEquals("2:35 pm", new Time(2, 35, TimeMarkers.PM).toString());
   }
+
+  @Test
+  public void compareToTest() {
+    assertEquals(0, new Time(1, 1).compareTo(new Time(1, 1)));
+    assertEquals(1, new Time(2, 1).compareTo(new Time(1, 1)));
+    assertEquals(-1, new Time(1, 1).compareTo(new Time(2, 1)));
+    assertEquals(1, new Time(1, 2).compareTo(new Time(1, 1)));
+    assertEquals(-1, new Time(1, 1).compareTo(new Time(1, 2)));
+
+  }
 }
