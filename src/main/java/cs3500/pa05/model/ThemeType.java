@@ -8,5 +8,5 @@ public enum ThemeType {
   PINKGREEN,
   BLUE,
   YELLOW,
-  DARK
+  PURPLE
 }
