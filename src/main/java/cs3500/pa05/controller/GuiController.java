@@ -284,7 +284,6 @@ public class GuiController {
     HBox buttonRow = new HBox(5);
     Button finalizeTask = new Button("add task");
     finalizeTask.setOnAction(event -> {
-      taskCount++;
       CheckBox complete = new CheckBox();
       VBox taskBox =
           createTaskBox(taskName.getText(), taskDescription.getText(), complete);
@@ -365,7 +364,7 @@ public class GuiController {
     hBox.getChildren().addAll(taskName, delete);
     Text taskDescription = new Text(description);
     taskBox.getChildren()
-        .addAll(new Text("Task:"), hBox, taskDescription, complete);
+        .addAll(new Text("Task:"), hBox, taskDescription, complete); //TODO the broken thing is the complete being called from the param
     TaskJson createdTask = new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(),
         complete.isSelected());
     delete.setOnAction(event -> {
