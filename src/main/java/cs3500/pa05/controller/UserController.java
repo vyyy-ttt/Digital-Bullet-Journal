@@ -134,6 +134,10 @@ public class UserController {
     bujo.addTask(editedTask);
   }
 
+  protected boolean checkLimit(boolean isTask){
+    return bujo.checkLimitViolation(isTask);
+  }
+
   protected List<TaskJson> sortTasks(boolean name){
     return bujo.sortTasksNameCompletion(name);
   }
