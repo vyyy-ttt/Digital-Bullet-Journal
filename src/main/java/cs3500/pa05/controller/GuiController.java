@@ -507,7 +507,7 @@ public class GuiController {
           new Text(String.format("%dhr and %dmin", duration.getHour(), duration.getMinute()));
     }
     eventBox.getChildren()
-        .addAll(new Text("Event:"), textName, textDescription, textStartTime, textDuration);
+        .addAll(new Text("Event:"), eventBox, textDescription, textStartTime, textDuration);
     events.put(new EventJson(textName.getText(), textDescription.getText(), whatDay(),
         textStartTime.getText(), textDuration.getText()), eventBox);
     return eventBox;
