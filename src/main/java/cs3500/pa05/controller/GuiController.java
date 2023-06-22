@@ -119,8 +119,6 @@ public class GuiController {
   @FXML
   private TextArea quotesArea;
   @FXML
-  private Text taskQueueText;
-  @FXML
   private Button edit;
   private Button cancel;
   private final Stage stage;
@@ -226,9 +224,10 @@ public class GuiController {
           addToGridPane(eventGui, event.day());
         }
       }
-      theme.setThemeType(bujo.theme());
-      changeTheme(theme.getColorOne(), theme.getColorTwo(), theme.getFont(), theme.getFace());
     }
+    theme.setThemeType(bujo.theme());
+    changeTheme(theme.getColorOne(), theme.getColorTwo(), theme.getFont(), theme.getFace());
+    quotesArea.setText(bujo.note());
   }
 
   /**
@@ -613,9 +612,7 @@ public class GuiController {
     TextField eventLimit = new TextField("event limit...");
     Button saveLimit = new Button("save");
     saveLimit.setOnAction(
-        event -> {
-          userController.handleLimit(taskLimit.getText(), eventLimit.getText());
-        });
+        event -> userController.handleLimit(taskLimit.getText(), eventLimit.getText()));
     Button cancelLimit = new Button("cancel");
     cancelLimit.setOnAction(event -> limitPopup.hide());
     content.getChildren().add(limitPrompt);
@@ -804,21 +801,25 @@ public class GuiController {
     green.setOnAction(event -> {
       theme.setThemeType(ThemeType.PINKGREEN);
       changeTheme(theme.getColorOne(), theme.getColorTwo(), theme.getFont(), theme.getFace());
+      userController.handleTheme(ThemeType.PINKGREEN);
     });
     Button yellow = new Button("Yellow");
     yellow.setOnAction(event -> {
       theme.setThemeType(ThemeType.YELLOW);
       changeTheme(theme.getColorOne(), theme.getColorOne(), theme.getFont(), theme.getFace());
+      userController.handleTheme(ThemeType.YELLOW);
     });
     Button blue = new Button("Blue");
     blue.setOnAction(event -> {
       theme.setThemeType(ThemeType.BLUE);
       changeTheme(theme.getColorOne(), theme.getColorTwo(), theme.getFont(), theme.getFace());
+      userController.handleTheme(ThemeType.BLUE);
     });
     Button purple = new Button("Purple");
     purple.setOnAction(event -> {
       theme.setThemeType(ThemeType.PURPLE);
       changeTheme(theme.getColorOne(), theme.getColorTwo(), theme.getFont(), theme.getFace());
+      userController.handleTheme(ThemeType.PURPLE);
     });
     Button cancelChange = new Button("cancel");
     cancelChange.setOnAction(event -> changeThemePopup.hide());
@@ -854,7 +855,10 @@ public class GuiController {
     makeLimitPopup();
     changeTheme.setOnAction(event -> this.changeThemePopup.show(this.stage));
     makeThemePopup();
-    save.setOnAction(event -> userController.handleSave());
+    save.setOnAction(event -> {
+      userController.handleNote(quotesArea.getText());
+      userController.handleSave();
+    });
     sortByNameTask.setOnAction(event -> handleSortTasksByName());
     sortByDurationTask.setOnAction(event -> handleSortTasksByCompletion());
     sortByNameEvent.setOnAction(event -> handleSortEventsByName());

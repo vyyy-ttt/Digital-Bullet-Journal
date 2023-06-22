@@ -134,15 +134,42 @@ public class UserController {
     bujo.addTask(editedTask);
   }
 
+  /**
+   * Checks if the task/event limit will be violated.
+   *
+   * @param isTask true if checking task limit, else checking event limit
+   * @return true if the limit is violated
+   */
   protected boolean checkLimit(boolean isTask) {
     return bujo.checkLimitViolation(isTask);
   }
 
+  /**
+   * Sorts tasks either by name or completion.
+   *
+   * @param name true if sorting by name, else sorting by completion
+   * @return the sorted list of tasks
+   */
   protected List<TaskJson> sortTasks(boolean name) {
     return bujo.sortTasksNameCompletion(name);
   }
 
+  /**
+   * Sorts events by either name or duration.
+   *
+   * @param name true if sorting by name, else sorting by duration
+   * @return the sorted list of events
+   */
   protected List<EventJson> sortEvents(boolean name) {
     return bujo.sortEventsNameDuration(name);
+  }
+
+  /**
+   * Handles saving a note to the bullet journal.
+   *
+   * @param n the note to be saved
+   */
+  protected void handleNote(String n) {
+    bujo.saveNote(n);
   }
 }

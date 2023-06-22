@@ -264,6 +264,11 @@ public class BulletJournal implements IBulletJournal {
   }
 
   @Override
+  public void saveNote(String note) {
+    this.note = note;
+  }
+
+  @Override
   public BujoJson getWeek() {
     return week;
   }

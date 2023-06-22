@@ -104,6 +104,13 @@ public interface IBulletJournal {
   void saveBulletJournal();
 
   /**
+   * Saves the note to the bullet journal.
+   *
+   * @param note the note
+   */
+  void saveNote(String note);
+
+  /**
    * Retrieves the week.
    *
    * @return the week
