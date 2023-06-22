@@ -192,7 +192,7 @@ public class GuiController {
         fileTitlePopup.hide();
       } else {
         fileName.clear();
-        fileName.appendText("Please enter a file path ending with .bujo");
+        welcome.setText("Your file must end in \".bujo\" to be valid! (-o- )");
       }
     });
     vBox.getChildren().add(welcome);
