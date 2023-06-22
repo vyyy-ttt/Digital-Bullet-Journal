@@ -433,14 +433,14 @@ public class GuiController {
     am.setSelected(true);
     pm.setToggleGroup(amOrPm);
     startTimeRow.getChildren().addAll(hourDigit, colon, minDigit, am, pm);
-    HBox hBox = new HBox(5);
+    HBox timeRow = new HBox(5);
     TextField hoursDigit = new TextField();
     hoursDigit.setPrefWidth(30);
     Label hoursLabel = new Label("H");
     TextField minutesDigit = new TextField();
     minutesDigit.setPrefWidth(30);
     Label minutesLabel = new Label("M");
-    hBox.getChildren().addAll(hoursDigit, hoursLabel, minutesDigit, minutesLabel);
+    timeRow.getChildren().addAll(hoursDigit, hoursLabel, minutesDigit, minutesLabel);
     VBox content = new VBox(8);
     TextField eventName = new TextField();
     TextField eventDescription = new TextField();
@@ -448,8 +448,7 @@ public class GuiController {
     content.getChildren()
         .addAll(padding, nameLabel, eventName, descripLabel, eventDescription, dayLabel, dayRow,
             startTime, startTimeRow,
-            eventDuration, hBox);
-    HBox buttonRow = new HBox(5);
+            eventDuration, timeRow);
     Button finalizeEvent = new Button("add event");
     finalizeEvent.setOnAction(event -> {
       Time time;
@@ -476,6 +475,7 @@ public class GuiController {
     });
     cancel = new Button("cancel");
     cancel.setOnAction(event -> eventPopup.hide());
+    HBox buttonRow = new HBox(5);
     buttonRow.getChildren().add(finalizeEvent);
     buttonRow.getChildren().add(cancel);
     content.getChildren().add(buttonRow);
@@ -492,12 +492,11 @@ public class GuiController {
    * @return eventBox a box-like representation of an event
    */
   private VBox createEventBox(String name, String description, Time startTime, Time duration) {
-    VBox eventBox = new VBox(8);
-    HBox hBox = new HBox(5);
     Button delete = new Button("X");
     delete.setStyle("-fx-background-color: transparent");
     Text textName = new Text(name);
-    hBox.getChildren().addAll(textName, delete);
+    HBox inputRow = new HBox(5);
+    inputRow.getChildren().addAll(textName, delete);
     Text textDescription = new Text(description);
     Text textStartTime;
     if (startTime == null) {
@@ -512,8 +511,9 @@ public class GuiController {
       textDuration =
           new Text(String.format("%dhr and %dmin", duration.getHour(), duration.getMinute()));
     }
+    VBox eventBox = new VBox(8);
     eventBox.getChildren()
-        .addAll(new Text("Event:"), hBox, textDescription, textStartTime, textDuration);
+        .addAll(new Text("Event:"), inputRow, textDescription, textStartTime, textDuration);
     events.put(new EventJson(textName.getText(), textDescription.getText(), translateToDay(),
         textStartTime.getText(), textDuration.getText()), eventBox);
     EventJson createdEvent = new EventJson(textName.getText(), textDescription.getText(),
@@ -531,10 +531,10 @@ public class GuiController {
    * Creates a popup for the user to set a limit of tasks and/or events for a day.
    */
   private void makeLimitPopup() {
-    VBox vBox = new VBox(8);
+    VBox content = new VBox(8);
     Rectangle padding = new Rectangle(180, 10);
     padding.setFill(Color.valueOf("ffffff"));
-    vBox.getChildren().add(padding);
+    content.getChildren().add(padding);
     Label limitPrompt = new Label("Please enter the limits you would like to set:");
     TextField taskLimit = new TextField("task limit...");
     TextField eventLimit = new TextField("event limit...");
@@ -545,16 +545,16 @@ public class GuiController {
         });
     Button cancelLimit = new Button("cancel");
     cancelLimit.setOnAction(event -> limitPopup.hide());
-    vBox.getChildren().add(limitPrompt);
-    vBox.getChildren().add(taskLimit);
-    vBox.getChildren().add(eventLimit);
+    content.getChildren().add(limitPrompt);
+    content.getChildren().add(taskLimit);
+    content.getChildren().add(eventLimit);
     HBox buttonRow = new HBox();
     buttonRow.getChildren().add(saveLimit);
     buttonRow.getChildren().add(cancelLimit);
-    vBox.getChildren().add(buttonRow);
+    content.getChildren().add(buttonRow);
     Rectangle background = popupView.createPopupBackground(180, 260);
     limitPopup.getContent().add(background);
-    limitPopup.getContent().add(vBox);
+    limitPopup.getContent().add(content);
   }
 
   /**

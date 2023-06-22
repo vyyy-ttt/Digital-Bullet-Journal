@@ -53,8 +53,8 @@ public record EventJson(@JsonProperty("name") String name,
   /**
    * Checks if two EventJsons are equal.
    *
-   * @param other   the reference object with which to compare.
-   * @return
+   * @param other   the reference object with which to compare
+   * @return true if the EventJsons are equal, false if not
    */
   @Override
   public boolean equals(Object other) {
