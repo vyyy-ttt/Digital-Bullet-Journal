@@ -603,16 +603,21 @@ public class GuiController {
     List<TaskJson> fileTasks = userController.sortTasks(true);
     clearWeekPanes();
     for(TaskJson task: fileTasks){
-      if(tasks.containsKey(task)){
-        addToGridPane(tasks.get(task),task.day());
+      for(TaskJson hashTask : tasks.keySet()){
+        if(task.equals(hashTask)){
+          addToGridPane(tasks.get(task), task.day());
+        }
       }
+    }
+    for(EventJson event : events.keySet()){
+      addToGridPane(events.get(event),event.day());
     }
   }
 
   /**
    * Handles button that sorts tasks and events by duration.
    */
-  private void handleSortTasksByDuration() {
+  private void handleSortTasksByCompletion() {
     List<TaskJson> fileTasks = userController.sortTasks(false);
     clearWeekPanes();
     for(TaskJson task: fileTasks){
@@ -634,9 +639,14 @@ public class GuiController {
     List<EventJson> fileEvents = userController.sortEvents(true);
     clearWeekPanes();
     for(EventJson event: fileEvents){
-      if(events.containsKey(event)){
-        addToGridPane(events.get(event),event.day());
+      for(EventJson hashEvent : events.keySet()){
+        if(event.equals(hashEvent)){
+          addToGridPane(events.get(event), event.day());
+        }
       }
+    }
+    for(TaskJson taskJson : tasks.keySet()){
+      addToGridPane(tasks.get(taskJson),taskJson.day());
     }
   }
 
@@ -647,9 +657,14 @@ public class GuiController {
     List<EventJson> fileEvents = userController.sortEvents(false);
     clearWeekPanes();
     for(EventJson event: fileEvents){
-      if(events.containsKey(event)){
-        addToGridPane(events.get(event),event.day());
+      for(EventJson hashEvent : events.keySet()){
+        if(event.equals(hashEvent)){
+          addToGridPane(events.get(event), event.day());
+        }
       }
+    }
+    for(TaskJson taskJson : tasks.keySet()){
+      addToGridPane(tasks.get(taskJson),taskJson.day());
     }
   }
 
@@ -757,7 +772,7 @@ public class GuiController {
     makeThemePopup();
     save.setOnAction(event -> userController.handleSave());
     sortByNameTask.setOnAction(event -> handleSortTasksByName());
-    sortByDurationTask.setOnAction(event -> handleSortTasksByDuration());
+    sortByDurationTask.setOnAction(event -> handleSortTasksByCompletion());
     sortByNameEvent.setOnAction(event -> handleSortEventsByName());
     sortByDurationEvent.setOnAction(event -> handleSortEventsByDuration());
     makeFileNamePopup();
