@@ -43,8 +43,6 @@ public class GuiController {
   @FXML
   private Button save;
   @FXML
-  private Button edit;
-  @FXML
   private Button changeTheme;
   @FXML
   private Button sortByNameTask;
@@ -128,12 +126,11 @@ public class GuiController {
   private final Popup eventPopup;
   private final Popup limitPopup;
   private final Popup changeThemePopup;
-  private final Popup splashScreen;
   private final Popup fileTitlePopup;
   private final Popup warnPopup;
   private final Label dayLabel = new Label("day: ");
-  private HashMap<EventJson, VBox> events;
-  private HashMap<TaskJson, VBox> tasks;
+  private final HashMap<EventJson, VBox> events;
+  private final HashMap<TaskJson, VBox> tasks;
   private RadioButton mon;
   private RadioButton tue;
   private RadioButton wed;
@@ -141,11 +138,6 @@ public class GuiController {
   private RadioButton fri;
   private RadioButton sat;
   private RadioButton sun;
-  private int taskLim;
-  private int eventLim;
-  private int taskCount;
-  private int eventCount;
-  private Button delete;
   private final PopupView popupView;
   private final Theme theme;
   private final UserController userController;
@@ -163,7 +155,6 @@ public class GuiController {
     this.eventPopup = new Popup();
     this.limitPopup = new Popup();
     this.changeThemePopup = new Popup();
-    this.splashScreen = new Popup();
     this.fileTitlePopup = new Popup();
     this.warnPopup = new Popup();
     popupView = new PopupView();
@@ -292,11 +283,11 @@ public class GuiController {
       CheckBox complete = new CheckBox();
       VBox taskBox =
           createTaskBox(taskName.getText(), taskDescription.getText(), complete);
-      if (whatDay() == null) {
+      if (translateToDay() == null) {
         //TODO: get valid input from the user
       }
-      addToGridPane(taskBox, whatDay());
-      tasks.put(new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(),
+      addToGridPane(taskBox, translateToDay());
+      tasks.put(new TaskJson(taskName.getText(), taskDescription.getText(), translateToDay(),
           complete.isSelected()), taskBox);
       CheckBox invisCheck = new CheckBox();
       invisCheck.setVisible(false);
@@ -313,18 +304,18 @@ public class GuiController {
         if (complete.isSelected()) {
           taskBox.getChildren().add(new Label("Completed!"));
           tasks.put(new TaskJson(
-              taskName.getText(), taskDescription.getText(), whatDay(), true), taskBox);
+              taskName.getText(), taskDescription.getText(), translateToDay(), true), taskBox);
           tasks.remove(new TaskJson(
-              taskName.getText(), taskDescription.getText(), whatDay(), false));
+              taskName.getText(), taskDescription.getText(), translateToDay(), false));
           completionLabel.setText("Completed!");
           userController.handleRemoveTask(new TaskJson(
-              taskName.getText(), taskDescription.getText(), whatDay(), false));
+              taskName.getText(), taskDescription.getText(), translateToDay(), false));
           userController.handleTask(new TaskJson(
-              taskName.getText(), taskDescription.getText(), whatDay(), true));
+              taskName.getText(), taskDescription.getText(), translateToDay(), true));
         }
       });
       userController.handleTask(
-          new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(),
+          new TaskJson(taskName.getText(), taskDescription.getText(), translateToDay(),
               complete.isSelected()));
     });
     cancel = new Button("cancel");
@@ -336,7 +327,12 @@ public class GuiController {
     taskPopup.getContent().add(vBox);
   }
 
-  private Day whatDay() {
+  /**
+   * Returns the Day corresponding to which button is being pressed.
+   *
+   * @return the Day that is selected
+   */
+  private Day translateToDay() {
     if (mon.isSelected()) {
       return Day.MONDAY;
     } else if (tue.isSelected()) {
@@ -374,7 +370,8 @@ public class GuiController {
     taskBox.getChildren()
         .addAll(new Text("Task:"), hBox, taskDescription,
             complete); //TODO the broken thing is the complete being called from the param
-    TaskJson createdTask = new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(),
+    TaskJson createdTask = new TaskJson(taskName.getText(), taskDescription.getText(),
+        translateToDay(),
         complete.isSelected());
     delete.setOnAction(event -> {
       taskBox.getChildren().clear();
@@ -383,6 +380,11 @@ public class GuiController {
     return taskBox;
   }
 
+  /**
+   * Creates an HBox row of radio buttons that represent the days of the week.
+   *
+   * @return dayRow a row of radio buttons for each day of the week.
+   */
   public HBox createWeekRadios() {
     HBox dayRow = new HBox(5);
     ToggleGroup chosenDay = new ToggleGroup();
@@ -450,7 +452,6 @@ public class GuiController {
     Button finalizeEvent = new Button("add event");
     finalizeEvent.setOnAction(event ->
     {
-      eventCount++;
       Time time;
       try {
         time =
@@ -468,9 +469,9 @@ public class GuiController {
 
       VBox eventBox =
           createEventBox(eventName.getText(), eventDescription.getText(), time, duration);
-      if (whatDay() != null) {
+      if (translateToDay() != null) {
         //TODO: get valid input from the user
-        addToGridPane(eventBox, whatDay());
+        addToGridPane(eventBox, translateToDay());
       }
     });
     cancel = new Button("cancel");
@@ -512,9 +513,10 @@ public class GuiController {
     }
     eventBox.getChildren()
         .addAll(new Text("Event:"), hBox, textDescription, textStartTime, textDuration);
-    events.put(new EventJson(textName.getText(), textDescription.getText(), whatDay(),
+    events.put(new EventJson(textName.getText(), textDescription.getText(), translateToDay(),
         textStartTime.getText(), textDuration.getText()), eventBox);
-    EventJson createdEvent = new EventJson(textName.getText(), textDescription.getText(), whatDay(),
+    EventJson createdEvent = new EventJson(textName.getText(), textDescription.getText(),
+        translateToDay(),
         textStartTime.getText(), textDuration.getText());
     delete.setOnAction(event -> {
       eventBox.getChildren().clear();
@@ -539,12 +541,6 @@ public class GuiController {
     Button saveLimit = new Button("save");
     saveLimit.setOnAction(
         event -> {
-          try {
-            this.eventLim = Integer.parseInt(eventLimit.getText());
-            this.taskLim = Integer.parseInt(taskLimit.getText());
-          } catch (NumberFormatException e) {
-            System.out.println("it's ok");
-          }
           userController.handleLimit(taskLimit.getText(), eventLimit.getText());
         });
     Button cancelLimit = new Button("cancel");
@@ -559,6 +555,9 @@ public class GuiController {
     limitPopup.getContent().add(vBox);
   }
 
+  /**
+   * Creates a popup that warns the user when they are going to pass their task/event limit.
+   */
   private void makeLimitWarning() {
     Rectangle background = popupView.createPopupBackground(50, 340);
     HBox hBox = new HBox();
@@ -591,12 +590,15 @@ public class GuiController {
   }
 
   /**
-   *
+   * Shows the welcome screen where the user enters their bujo file name.
    */
   public void showFileTitlePopUp() {
     this.fileTitlePopup.show(this.stage);
   }
 
+  /**
+   * Clears the week panes of any tasks and or events.
+   */
   private void clearWeekPanes() {
     List<VBox> panes = List.of(friPane, monPane, satPane, sunPane, thuPane, tuePane, wedPane);
     for (VBox pane : panes) {
