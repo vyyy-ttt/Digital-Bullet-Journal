@@ -312,12 +312,12 @@ public class GuiController {
           tasks.remove(
               new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(), false));
           completionLabel.setText("Completed!");
+          userController.handleRemoveTask(new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(), false));
+          userController.handleTask(new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(), true));
         }
       });
       userController.handleTask(
-          new TaskJson(taskName.getText(), taskDescription.getText(),
-              whatDay(),
-              complete.isSelected()));
+          new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(), complete.isSelected()));
     });
     cancel = new Button("cancel");
     cancel.setOnAction(event -> taskPopup.hide());
@@ -327,19 +327,6 @@ public class GuiController {
     taskPopup.getContent().add(background);
     taskPopup.getContent().add(vBox);
   }
-
-//  private Day translateStringToDay(RadioButton day) {
-//    return switch (day.isSelected()) {
-//      case mon -> Day.MONDAY;
-//      case tue -> Day.TUESDAY;
-//      case wed -> Day.WEDNESDAY;
-//      case thu -> Day.THURSDAY;
-//      case fri -> Day.FRIDAY;
-//      case sat -> Day.SATURDAY;
-//      case sun -> Day.SUNDAY;
-//      default -> null;
-//    };
-//  }
 
   private Day whatDay() {
     if (mon.isSelected()) {
@@ -599,34 +586,63 @@ public class GuiController {
     this.fileTitlePopup.show(this.stage);
   }
 
+  private void clearWeekPanes(){
+    List<VBox> panes = List.of(friPane,monPane,satPane,sunPane,thuPane,tuePane,wedPane);
+    for(VBox pane : panes){
+      pane.getChildren().clear();
+    }
+  }
+
   /**
    * Handles button that sorts tasks and events by name.
    */
   private void handleSortTasksByName() {
-    List<TaskJson> tasks = userController.sortTasks(true);
-
+    List<TaskJson> fileTasks = userController.sortTasks(true);
+    clearWeekPanes();
+    for(TaskJson task: fileTasks){
+      if(tasks.containsKey(task)){
+        addToGridPane(tasks.get(task),task.day());
+      }
+    }
   }
 
   /**
    * Handles button that sorts tasks and events by duration.
    */
   private void handleSortTasksByDuration() {
-    List<TaskJson> tasks = userController.sortTasks(false);
-
+    List<TaskJson> fileTasks = userController.sortTasks(false);
+    clearWeekPanes();
+    for(TaskJson task: fileTasks){
+      if(tasks.containsKey(task)){
+        addToGridPane(tasks.get(task),task.day());
+      }
+    }
   }
 
   /**
    * Handles button that sorts tasks and events by name.
    */
   private void handleSortEventsByName() {
-    List<EventJson> events = userController.sortEvents(true);
+    List<EventJson> fileEvents = userController.sortEvents(true);
+    clearWeekPanes();
+    for(EventJson event: fileEvents){
+      if(events.containsKey(event)){
+        addToGridPane(events.get(event),event.day());
+      }
+    }
   }
 
   /**
    * Handles button that sorts tasks and events by duration.
    */
   private void handleSortEventsByDuration() {
-    List<EventJson> events = userController.sortEvents(false);
+    List<EventJson> fileEvents = userController.sortEvents(false);
+    clearWeekPanes();
+    for(EventJson event: fileEvents){
+      if(events.containsKey(event)){
+        addToGridPane(events.get(event),event.day());
+      }
+    }
   }
 
   private void changeLabelTheme(Label label, String textFill, String font) {
