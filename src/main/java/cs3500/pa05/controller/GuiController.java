@@ -180,15 +180,23 @@ public class GuiController {
 
   public void makeFileGui(BujoJson bujo) {
     for (DayJson dayJson : bujo.week()) {
+      if (dayJson == null) {
+        continue;
+      }
       for (TaskJson task : dayJson.tasks()) {
-        addToGridPane(createTaskBox(task.name(), task.description()), task.day());
+        if (task != null) {
+          addToGridPane(createTaskBox(task.name(), task.description()), task.day());
+        }
       }
       for (EventJson event : dayJson.events()) {
-        addToGridPane(
-            createEventBox(event.name(), event.description(), event.time(), event.duration()),
-            event.day());
+        if (event != null) {
+          addToGridPane(
+              createEventBox(event.name(), event.description(), event.translateStartTime(true),
+                  event.translateStartTime(false)), event.day());
+        }
       }
     }
+
   }
 
   /**

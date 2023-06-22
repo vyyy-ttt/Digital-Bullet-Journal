@@ -19,16 +19,17 @@ class BulletJournalTest {
   TaskJson[] tasks;
   EventJson[] events;
   DayJson[] days;
+  EventJson fruitConvention;
 
   @BeforeEach
   public void setup() {
     tasks =
         new TaskJson[] {new TaskJson("Get Apples", "Buy those apples!", Day.FRIDAY,
             false)};
+    fruitConvention = new EventJson("Fruit Convention", "All my homies love fruit.",
+        Day.SATURDAY, "2:30", "4:00");
     events =
-        new EventJson[] {new EventJson("Fruit Convention",
-            "All my homies love fruit.", Day.SATURDAY,
-            new Time(2, 30), new Time(4,0))};
+        new EventJson[] {fruitConvention};
     DayJson day = new DayJson(new TaskJson[2], new EventJson[2]);
     days = new DayJson[] {day, day, day, day, day, new DayJson(tasks, new EventJson[3]),
         new DayJson(new TaskJson[1], events)};
@@ -43,10 +44,6 @@ class BulletJournalTest {
   public void addRemoveEventTest() {
     bujo.setEventLimit(10);
     ArrayList<EventJson> expectedEvents = new ArrayList<>(List.of(events));
-
-    EventJson fruitConvention = new EventJson("Fruit Convention",
-        "All my homies love fruit.", Day.SATURDAY, new Time(2, 30),
-        new Time(4,0));
     bujo.addEvent(fruitConvention);
     bujo.saveBulletJournal();
 
@@ -137,15 +134,12 @@ class BulletJournalTest {
   public void sortEventsNameDurationTest() {
     bujo.setEventLimit(10);
 
-    EventJson fruitConvention = new EventJson("Fruit Convention",
-        "All my homies love fruit.", Day.SATURDAY, new Time(2, 30),
-        new Time(4,0));
     EventJson veggieConvention = new EventJson("Veggie Convention",
         "All my homies love veggies.", Day.WEDNESDAY,
-        new Time(4, 44), new Time(5,55));
+        "4:44", "5:55");
     EventJson meatConvention = new EventJson("Meat Convention",
         "All my homies love meat.", Day.THURSDAY,
-        new Time(10, 0), new Time(1,23));
+        "10:00", "1:23");
     bujo.addEvent(fruitConvention);
     bujo.addEvent(veggieConvention);
     bujo.addEvent(meatConvention);
@@ -188,13 +182,9 @@ class BulletJournalTest {
     // Check event limit
     bujo.setEventLimit(2);
     assertFalse(bujo.checkLimitViolation(false));
-
-    EventJson fruitConvention = new EventJson("Fruit Convention",
-        "All my homies love fruit.", Day.SATURDAY, new Time(2, 30),
-        new Time(4,0));
     EventJson veggieConvention = new EventJson("Veggie Convention",
         "All my homies love veggies.", Day.WEDNESDAY,
-        new Time(4, 44), new Time(5,55));
+        "4:44", "5:55");
     bujo.addEvent(fruitConvention);
     bujo.addEvent(veggieConvention);
     assertTrue(bujo.checkLimitViolation(false));
