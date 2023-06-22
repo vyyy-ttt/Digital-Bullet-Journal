@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import cs3500.pa05.model.Day;
 import cs3500.pa05.model.Time;
 import cs3500.pa05.model.TimeMarkers;
+import java.util.Arrays;
 
 /**
  * Represents an event created for a certain day.
@@ -36,6 +37,7 @@ public record EventJson(@JsonProperty("name") String name,
       toTranslate = duration;
     }
     String[] arrayTime = toTranslate.split(":");
+    System.out.println(Arrays.toString(arrayTime));
     String[] minuteAndMarker = arrayTime[1].split(" ");
 
     if (minuteAndMarker.length == 2) {

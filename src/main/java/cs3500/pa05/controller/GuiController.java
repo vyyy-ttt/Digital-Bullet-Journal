@@ -120,6 +120,8 @@ public class GuiController {
   private TextArea quotesArea;
   @FXML
   private Text taskQueueText;
+  @FXML
+  private Button edit;
   private Button cancel;
   private final Stage stage;
   private final Popup taskPopup;
@@ -284,9 +286,6 @@ public class GuiController {
       CheckBox complete = new CheckBox();
       VBox taskBox =
           createTaskBox(taskName.getText(), taskDescription.getText(), complete);
-      if (translateToDay() == null) {
-        //TODO: get valid input from the user
-      }
       addToGridPane(taskBox, translateToDay());
       tasks.put(new TaskJson(taskName.getText(), taskDescription.getText(), translateToDay(),
           complete.isSelected()), taskBox);
@@ -348,10 +347,8 @@ public class GuiController {
       return Day.FRIDAY;
     } else if (sat.isSelected()) {
       return Day.SATURDAY;
-    } else if (sun.isSelected()) {
-      return Day.SUNDAY;
     } else {
-      return null;
+      return Day.SUNDAY;
     }
   }
 
@@ -364,15 +361,13 @@ public class GuiController {
    */
   private VBox createTaskBox(String name, String description, CheckBox complete) {
     VBox taskBox = new VBox();
-    HBox inputRow = new HBox(5);
     Button delete = new Button("X");
     delete.setStyle("-fx-background-color: transparent");
     Text taskName = new Text(name);
-    inputRow.getChildren().addAll(taskName, delete);
     Text taskDescription = new Text(description);
     taskBox.getChildren()
-        .addAll(new Text("Task:"), inputRow, taskDescription,
-            complete); //TODO the broken thing is the complete being called from the param
+        .addAll(new Text("Task:"), taskName, taskDescription,
+            complete, delete);
     TaskJson createdTask = new TaskJson(taskName.getText(), taskDescription.getText(),
         translateToDay(),
         complete.isSelected());
@@ -469,6 +464,79 @@ public class GuiController {
 
       VBox eventBox =
           createEventBox(eventName.getText(), eventDescription.getText(), time, duration);
+        addToGridPane(eventBox, translateToDay());
+    });
+    cancel = new Button("cancel");
+    cancel.setOnAction(event -> eventPopup.hide());
+    HBox buttonRow = new HBox(5);
+    buttonRow.getChildren().add(finalizeEvent);
+    buttonRow.getChildren().add(cancel);
+    content.getChildren().add(buttonRow);
+    Rectangle background = popupView.createPopupBackground(320, 360);
+    eventPopup.getContent().add(background);
+    eventPopup.getContent().add(content);
+  }
+
+  private void makeEventEditPopup(EventJson eventEdit) {
+    Rectangle padding = new Rectangle(180, 10);
+    padding.setFill(Color.valueOf("#ffffff"));
+    Label nameLabel = new Label("name: ");
+    Label descripLabel = new Label("description: ");
+    Label startTime = new Label("start time...");
+    Label eventDuration = new Label("duration: ");
+    HBox startTimeRow = new HBox(5);
+    TextField hourDigit = new TextField(
+        String.valueOf(eventEdit.translateStartTime(true).getHour()));
+    Label colon = new Label(":");
+    colon.setPrefWidth(10);
+    hourDigit.setPrefWidth(30);
+    TextField minDigit = new TextField(
+        String.valueOf(eventEdit.translateStartTime(true).getMinute()));
+    minDigit.setPrefWidth(30);
+    ToggleGroup amOrPm = new ToggleGroup();
+    RadioButton am = new RadioButton("AM");
+    RadioButton pm = new RadioButton("PM");
+    am.setToggleGroup(amOrPm);
+    am.setSelected(true);
+    pm.setToggleGroup(amOrPm);
+    startTimeRow.getChildren().addAll(hourDigit, colon, minDigit, am, pm);
+    HBox timeRow = new HBox(5);
+    TextField hoursDigit = new TextField(
+        String.valueOf(eventEdit.translateStartTime(false).getHour()));
+    hoursDigit.setPrefWidth(30);
+    Label hoursLabel = new Label("H");
+    TextField minutesDigit = new TextField(
+        String.valueOf(eventEdit.translateStartTime(false).getMinute()));
+    minutesDigit.setPrefWidth(30);
+    Label minutesLabel = new Label("M");
+    timeRow.getChildren().addAll(hoursDigit, hoursLabel, minutesDigit, minutesLabel);
+    VBox content = new VBox(8);
+    TextField eventName = new TextField(eventEdit.name());
+    TextField eventDescription = new TextField(eventEdit.description());
+    HBox dayRow = createWeekRadios();
+    content.getChildren()
+        .addAll(padding, nameLabel, eventName, descripLabel, eventDescription, dayLabel, dayRow,
+            startTime, startTimeRow,
+            eventDuration, timeRow);
+    Button finalizeEvent = new Button("add event");
+    finalizeEvent.setOnAction(event -> {
+      Time time;
+      try {
+        time =
+            new Time(Integer.parseInt(hourDigit.getText()), Integer.parseInt(minDigit.getText()));
+      } catch (NumberFormatException e) {
+        time = null;
+      }
+      Time duration;
+      try {
+        duration = new Time(Integer.parseInt(hoursDigit.getText()),
+            Integer.parseInt(minutesDigit.getText()));
+      } catch (NumberFormatException e) {
+        duration = null;
+      }
+
+      VBox eventBox =
+          createEventBox(eventName.getText(), eventDescription.getText(), time, duration);
       if (translateToDay() != null) {
         //TODO: get valid input from the user
         addToGridPane(eventBox, translateToDay());
@@ -496,8 +564,6 @@ public class GuiController {
     Button delete = new Button("X");
     delete.setStyle("-fx-background-color: transparent");
     Text textName = new Text(name);
-    HBox inputRow = new HBox(5);
-    inputRow.getChildren().addAll(textName, delete);
     Text textDescription = new Text(description);
     Text textStartTime;
     if (startTime == null) {
@@ -513,13 +579,19 @@ public class GuiController {
           new Text(String.format("%dhr and %dmin", duration.getHour(), duration.getMinute()));
     }
     VBox eventBox = new VBox(8);
-    eventBox.getChildren()
-        .addAll(new Text("Event:"), inputRow, textDescription, textStartTime, textDuration);
     events.put(new EventJson(textName.getText(), textDescription.getText(), translateToDay(),
         textStartTime.getText(), textDuration.getText()), eventBox);
     EventJson createdEvent = new EventJson(textName.getText(), textDescription.getText(),
         translateToDay(),
         textStartTime.getText(), textDuration.getText());
+    Button edit = new Button("E");
+    edit.setStyle("-fx-background-color: transparent");
+    edit.setOnAction(event -> makeEventEditPopup(createdEvent));
+    HBox buttonRow = new HBox(5);
+    buttonRow.getChildren().addAll(edit, delete);
+    eventBox.getChildren()
+        .addAll(new Text("Event:"), textName, textDescription,
+            textStartTime, textDuration, buttonRow);
     userController.handleEvent(createdEvent);
     delete.setOnAction(event -> {
       eventBox.getChildren().clear();
