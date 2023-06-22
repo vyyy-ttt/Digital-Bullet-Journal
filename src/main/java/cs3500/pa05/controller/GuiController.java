@@ -192,9 +192,9 @@ public class GuiController {
           CheckBox invisCheck = new CheckBox();
           invisCheck.setVisible(false);
           Label completionLabel = new Label();
-          if(complete.isSelected()){
+          if (complete.isSelected()) {
             completionLabel.setText("Completed!");
-          } else{
+          } else {
             completionLabel.setText("Incomplete!");
           }
           VBox taskQueueGui = createTaskBox(task.name(), task.description(), invisCheck);
@@ -287,13 +287,14 @@ public class GuiController {
         //TODO: get valid input from the user
       }
       addToGridPane(taskBox, whatDay());
-      tasks.put(new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(), complete.isSelected()),taskBox);
+      tasks.put(new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(),
+          complete.isSelected()), taskBox);
       CheckBox invisCheck = new CheckBox();
       invisCheck.setVisible(false);
       Label completionLabel = new Label();
-      if(complete.isSelected()){
+      if (complete.isSelected()) {
         completionLabel.setText("Completed!");
-      } else{
+      } else {
         completionLabel.setText("Incomplete!");
       }
       VBox taskQGui = createTaskBox(taskName.getText(), taskDescription.getText(), invisCheck);
@@ -302,8 +303,10 @@ public class GuiController {
       complete.setOnAction(actionEvent -> {
         if (complete.isSelected()) {
           taskBox.getChildren().add(new Label("Completed!"));
-          tasks.put(new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(), true), taskBox);
-          tasks.remove(new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(), false));
+          tasks.put(new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(), true),
+              taskBox);
+          tasks.remove(
+              new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(), false));
           completionLabel.setText("Completed!");
         }
       });
@@ -364,9 +367,9 @@ public class GuiController {
   private VBox createTaskBox(String name, String description, CheckBox complete) {
     VBox taskBox = new VBox();
     HBox hBox = new HBox(5);
-    delete = new Button("delete");
-    delete.setVisible(false);
-//    delete.setOnAction(event -> ); //TODO make this hide
+    Button delete = new Button("X");
+    delete.setStyle("-fx-background-color: transparent");
+    delete.setOnAction(event -> taskBox.getChildren().clear());
     Text taskName = new Text(name);
     hBox.getChildren().addAll(taskName, delete);
     Text taskDescription = new Text(description);
@@ -484,9 +487,9 @@ public class GuiController {
   private VBox createEventBox(String name, String description, Time startTime, Time duration) {
     VBox eventBox = new VBox(8);
     HBox hBox = new HBox(5);
-    delete = new Button("delete");
-    delete.setVisible(false);
-//    delete.setOnAction(event -> ); //TODO make it so that this is deleted
+    Button delete = new Button("X");
+    delete.setStyle("-fx-background-color: transparent");
+    delete.setOnAction(event -> eventBox.getChildren().clear());
     Text textName = new Text(name);
     hBox.getChildren().addAll(textName, delete);
     Text textDescription = new Text(description);
@@ -503,11 +506,6 @@ public class GuiController {
       textDuration =
           new Text(String.format("%dhr and %dmin", duration.getHour(), duration.getMinute()));
     }
-
-//    HBox timeRow = new HBox();
-//    timeRow.getChildren().add(textStartTime);
-//    HBox durationRow = new HBox();
-//    durationRow.getChildren().add(textDuration);
     eventBox.getChildren()
         .addAll(new Text("Event:"), textName, textDescription, textStartTime, textDuration);
     events.put(new EventJson(textName.getText(), textDescription.getText(), whatDay(),
