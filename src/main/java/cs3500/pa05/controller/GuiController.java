@@ -224,6 +224,8 @@ public class GuiController {
           addToGridPane(eventGui, event.day());
         }
       }
+      theme.setThemeType(bujo.theme());
+      changeTheme(theme.getColorOne(), theme.getColorTwo(), theme.getFont(), theme.getFace());
     }
   }
 
