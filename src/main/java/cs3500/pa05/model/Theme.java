@@ -11,7 +11,7 @@ public class Theme {
    *
    * @param theme the new ThemeType
    */
-  public void setThemeType(ThemeType theme){
+  public void setThemeType(ThemeType theme) {
     this.theme = theme;
   }
 

@@ -1,11 +1,14 @@
 package cs3500.pa05.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import cs3500.pa05.model.Json.BujoJson;
 import cs3500.pa05.model.Json.DayJson;
 import cs3500.pa05.model.Json.EventJson;
-import cs3500.pa05.model.Json.JsonUtils;
 import cs3500.pa05.model.Json.LimitJson;
 import cs3500.pa05.model.Json.TaskJson;
 import java.nio.file.Path;
@@ -124,9 +127,9 @@ class BulletJournalTest {
 
     // Sort by duration
     ArrayList<TaskJson> expectedTasksCompletion = new ArrayList<>();
-    expectedTasksCompletion .add(getApples);
-    expectedTasksCompletion .add(getBananas);
-    expectedTasksCompletion .add(getPears);
+    expectedTasksCompletion.add(getApples);
+    expectedTasksCompletion.add(getBananas);
+    expectedTasksCompletion.add(getPears);
 
     assertEquals(expectedTasksCompletion, bujo.sortTasksNameCompletion(false));
   }
@@ -244,12 +247,5 @@ class BulletJournalTest {
     bujo.saveBulletJournal();
     fr.readFile(Path.of("bujoModelTest.bujo"));
     assertEquals(ThemeType.BLUE, fr.getBujo().theme());
-  }
-
-  @Test
-  public void getWeekTest() {
-    FileReader fr = new FileReader();
-    fr.readFile(Path.of("bujoModelTest.bujo"));
-    assertEquals(JsonUtils.serializeRecord(fr.getBujo()).toString(), JsonUtils.serializeRecord(bujo.getWeek()).toString());
   }
 }

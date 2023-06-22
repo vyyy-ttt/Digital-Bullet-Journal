@@ -151,8 +151,8 @@ public class BulletJournal implements IBulletJournal {
           sortedEvents.add(currEvent);
         } else {
           for (EventJson currSortedEvent : sortedEvents) {
-            if (currEvent.translateStartTime(false).
-                compareTo(currSortedEvent.translateStartTime(false)) <= 0) {
+            if (currEvent.translateStartTime(false)
+                .compareTo(currSortedEvent.translateStartTime(false)) <= 0) {
               sortedEvents.add(sortedEvents.indexOf(currSortedEvent), currEvent);
               break;
             }
@@ -170,9 +170,9 @@ public class BulletJournal implements IBulletJournal {
 
   @Override
   public boolean checkLimitViolation(boolean isTask) {
-    if (isTask && limits!=null) {
+    if (isTask && limits != null) {
       return tasks.size() + 1 > limits.maxTasks();
-    } else if(limits != null){
+    } else if (limits != null) {
       return events.size() + 1 > limits.maxEvents();
     }
     return false;

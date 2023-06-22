@@ -34,7 +34,7 @@ public class FileReader implements BujoReader {
       } catch (IOException e) {
         return false;
       }
-    } else{
+    } else {
       return false;
     }
   }

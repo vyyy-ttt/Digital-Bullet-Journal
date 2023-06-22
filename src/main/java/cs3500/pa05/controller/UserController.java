@@ -115,10 +115,10 @@ public class UserController {
   /**
    * Replaces an event with another event.
    *
-   * @param oldEvent the event to be replaced
+   * @param oldEvent    the event to be replaced
    * @param editedEvent the new event
    */
-  protected void editEvent(EventJson oldEvent, EventJson editedEvent){
+  protected void editEvent(EventJson oldEvent, EventJson editedEvent) {
     bujo.removeEvent(oldEvent);
     bujo.addEvent(editedEvent);
   }
@@ -126,23 +126,23 @@ public class UserController {
   /**
    * Replaces a task with another task.
    *
-   * @param oldTask the task to be replaced
+   * @param oldTask    the task to be replaced
    * @param editedTask the new task
    */
-  protected void editTask(TaskJson oldTask, TaskJson editedTask){
+  protected void editTask(TaskJson oldTask, TaskJson editedTask) {
     bujo.removeTask(oldTask);
     bujo.addTask(editedTask);
   }
 
-  protected boolean checkLimit(boolean isTask){
+  protected boolean checkLimit(boolean isTask) {
     return bujo.checkLimitViolation(isTask);
   }
 
-  protected List<TaskJson> sortTasks(boolean name){
+  protected List<TaskJson> sortTasks(boolean name) {
     return bujo.sortTasksNameCompletion(name);
   }
 
-  protected List<EventJson> sortEvents(boolean name){
+  protected List<EventJson> sortEvents(boolean name) {
     return bujo.sortEventsNameDuration(name);
   }
 }

@@ -178,6 +178,11 @@ public class GuiController {
     userController = new UserController();
   }
 
+  /**
+   * Loads an existing bujo file's data onto the GUI.
+   *
+   * @param bujo a bujo path
+   */
   public void makeFileGui(BujoJson bujo) {
     for (DayJson dayJson : bujo.week()) {
       if (dayJson == null) {
@@ -307,17 +312,20 @@ public class GuiController {
       complete.setOnAction(actionEvent -> {
         if (complete.isSelected()) {
           taskBox.getChildren().add(new Label("Completed!"));
-          tasks.put(new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(), true),
-              taskBox);
-          tasks.remove(
-              new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(), false));
+          tasks.put(new TaskJson(
+              taskName.getText(), taskDescription.getText(), whatDay(), true), taskBox);
+          tasks.remove(new TaskJson(
+              taskName.getText(), taskDescription.getText(), whatDay(), false));
           completionLabel.setText("Completed!");
-          userController.handleRemoveTask(new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(), false));
-          userController.handleTask(new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(), true));
+          userController.handleRemoveTask(new TaskJson(
+              taskName.getText(), taskDescription.getText(), whatDay(), false));
+          userController.handleTask(new TaskJson(
+              taskName.getText(), taskDescription.getText(), whatDay(), true));
         }
       });
       userController.handleTask(
-          new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(), complete.isSelected()));
+          new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(),
+              complete.isSelected()));
     });
     cancel = new Button("cancel");
     cancel.setOnAction(event -> taskPopup.hide());
@@ -364,7 +372,8 @@ public class GuiController {
     hBox.getChildren().addAll(taskName, delete);
     Text taskDescription = new Text(description);
     taskBox.getChildren()
-        .addAll(new Text("Task:"), hBox, taskDescription, complete); //TODO the broken thing is the complete being called from the param
+        .addAll(new Text("Task:"), hBox, taskDescription,
+            complete); //TODO the broken thing is the complete being called from the param
     TaskJson createdTask = new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(),
         complete.isSelected());
     delete.setOnAction(event -> {
@@ -567,7 +576,7 @@ public class GuiController {
    * Adds a task or event to the week view's grid pane.
    *
    * @param event the event to display
-   * @param day
+   * @param day the day to display the event
    */
   public void addToGridPane(VBox event, Day day) {
     switch (day) {
@@ -588,9 +597,9 @@ public class GuiController {
     this.fileTitlePopup.show(this.stage);
   }
 
-  private void clearWeekPanes(){
-    List<VBox> panes = List.of(friPane,monPane,satPane,sunPane,thuPane,tuePane,wedPane);
-    for(VBox pane : panes){
+  private void clearWeekPanes() {
+    List<VBox> panes = List.of(friPane, monPane, satPane, sunPane, thuPane, tuePane, wedPane);
+    for (VBox pane : panes) {
       pane.getChildren().clear();
     }
   }
@@ -601,15 +610,15 @@ public class GuiController {
   private void handleSortTasksByName() {
     List<TaskJson> fileTasks = userController.sortTasks(true);
     clearWeekPanes();
-    for(TaskJson task: fileTasks){
-      for(TaskJson hashTask : tasks.keySet()){
-        if(task.equals(hashTask)){
+    for (TaskJson task : fileTasks) {
+      for (TaskJson hashTask : tasks.keySet()) {
+        if (task.equals(hashTask)) {
           addToGridPane(tasks.get(task), task.day());
         }
       }
     }
-    for(EventJson event : events.keySet()){
-      addToGridPane(events.get(event),event.day());
+    for (EventJson event : events.keySet()) {
+      addToGridPane(events.get(event), event.day());
     }
   }
 
@@ -619,15 +628,15 @@ public class GuiController {
   private void handleSortTasksByCompletion() {
     List<TaskJson> fileTasks = userController.sortTasks(false);
     clearWeekPanes();
-    for(TaskJson task: fileTasks){
-      for(TaskJson hashTask : tasks.keySet()){
-        if(task.equals(hashTask)){
+    for (TaskJson task : fileTasks) {
+      for (TaskJson hashTask : tasks.keySet()) {
+        if (task.equals(hashTask)) {
           addToGridPane(tasks.get(task), task.day());
         }
       }
     }
-    for(EventJson event : events.keySet()){
-      addToGridPane(events.get(event),event.day());
+    for (EventJson event : events.keySet()) {
+      addToGridPane(events.get(event), event.day());
     }
   }
 
@@ -637,15 +646,15 @@ public class GuiController {
   private void handleSortEventsByName() {
     List<EventJson> fileEvents = userController.sortEvents(true);
     clearWeekPanes();
-    for(EventJson event: fileEvents){
-      for(EventJson hashEvent : events.keySet()){
-        if(event.equals(hashEvent)){
+    for (EventJson event : fileEvents) {
+      for (EventJson hashEvent : events.keySet()) {
+        if (event.equals(hashEvent)) {
           addToGridPane(events.get(event), event.day());
         }
       }
     }
-    for(TaskJson taskJson : tasks.keySet()){
-      addToGridPane(tasks.get(taskJson),taskJson.day());
+    for (TaskJson taskJson : tasks.keySet()) {
+      addToGridPane(tasks.get(taskJson), taskJson.day());
     }
   }
 
@@ -655,15 +664,15 @@ public class GuiController {
   private void handleSortEventsByDuration() {
     List<EventJson> fileEvents = userController.sortEvents(false);
     clearWeekPanes();
-    for(EventJson event: fileEvents){
-      for(EventJson hashEvent : events.keySet()){
-        if(event.equals(hashEvent)){
+    for (EventJson event : fileEvents) {
+      for (EventJson hashEvent : events.keySet()) {
+        if (event.equals(hashEvent)) {
           addToGridPane(events.get(event), event.day());
         }
       }
     }
-    for(TaskJson taskJson : tasks.keySet()){
-      addToGridPane(tasks.get(taskJson),taskJson.day());
+    for (TaskJson taskJson : tasks.keySet()) {
+      addToGridPane(tasks.get(taskJson), taskJson.day());
     }
   }
 
@@ -714,8 +723,6 @@ public class GuiController {
    * Makes a popup for the user to change the theme of the bullet journal spread.
    */
   private void makeThemePopup() {
-    Rectangle background = popupView.createPopupBackground(180, 100);
-    VBox vbox = new VBox(8);
     Button green = new Button("Green");
     Button yellow = new Button("Yellow");
     Button blue = new Button("Blue");
@@ -738,6 +745,8 @@ public class GuiController {
     });
     Button cancelChange = new Button("cancel");
     cancelChange.setOnAction(event -> changeThemePopup.hide());
+    Rectangle background = popupView.createPopupBackground(180, 100);
+    VBox vbox = new VBox(8);
     vbox.getChildren().addAll(green, yellow, purple, blue, cancelChange);
     changeThemePopup.getContent().addAll(background, vbox);
   }
@@ -755,8 +764,7 @@ public class GuiController {
       }
     });
     makeTaskPopUp();
-    addEvent.setOnAction(event ->
-    {
+    addEvent.setOnAction(event -> {
       if (userController.checkLimit(false)) {
         this.warnPopup.show(this.stage);
         makeLimitWarning();

@@ -8,11 +8,11 @@ import cs3500.pa05.model.TimeMarkers;
 /**
  * Represents an event created for a certain day.
  *
- * @param name name of the event
+ * @param name        name of the event
  * @param description description of what the event is
- * @param day the day of the week the event is on
- * @param time the start time for the event
- * @param duration how long the event will last
+ * @param day         the day of the week the event is on
+ * @param time        the start time for the event
+ * @param duration    how long the event will last
  */
 public record EventJson(@JsonProperty("name") String name,
                         @JsonProperty("description") String description,
@@ -28,21 +28,21 @@ public record EventJson(@JsonProperty("name") String name,
    * @param isStartTime chooses whether to translate the start time or the duration property.
    * @return a time
    */
-  public Time translateStartTime(boolean isStartTime){
+  public Time translateStartTime(boolean isStartTime) {
     String toTranslate;
-    if(isStartTime){
+    if (isStartTime) {
       toTranslate = time;
-    } else{
+    } else {
       toTranslate = duration;
     }
     String[] arrayTime = toTranslate.split(":");
     String[] minuteAndMarker = arrayTime[1].split(" ");
 
-    if(minuteAndMarker.length == 2){
+    if (minuteAndMarker.length == 2) {
       TimeMarkers marker;
-      if(minuteAndMarker[1].equals("am")){
+      if (minuteAndMarker[1].equals("am")) {
         marker = TimeMarkers.AM;
-      } else{
+      } else {
         marker = TimeMarkers.PM;
       }
       return new Time(Integer.parseInt(arrayTime[0]), Integer.parseInt(minuteAndMarker[0]), marker);
@@ -51,13 +51,15 @@ public record EventJson(@JsonProperty("name") String name,
   }
 
   @Override
-  public boolean equals(Object other){
+  public boolean equals(Object other) {
     if (!(other instanceof EventJson)) {
       return false;
-    } else return this.name().equals(((EventJson) other).name())
-        && this.description().equals(((EventJson) other).description())
-        && this.day().equals(((EventJson) other).day())
-        && this.time().equals(((EventJson) other).time())
-        && this.duration().equals(((EventJson) other).duration());
+    } else {
+      return this.name().equals(((EventJson) other).name())
+          && this.description().equals(((EventJson) other).description())
+          && this.day().equals(((EventJson) other).day())
+          && this.time().equals(((EventJson) other).time())
+          && this.duration().equals(((EventJson) other).duration());
+    }
   }
 }

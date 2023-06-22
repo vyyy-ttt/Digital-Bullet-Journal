@@ -29,7 +29,7 @@ public class FileReaderTest {
   DayJson[] days = new DayJson[] {day, day, day, day, day, new DayJson(tasks, new EventJson[3]),
       new DayJson(new TaskJson[1], events)};
 
-  BujoJson test = new BujoJson(days, null,null, ThemeType.PINKGREEN, null);
+  BujoJson test = new BujoJson(days, null, null, ThemeType.PINKGREEN, null);
   FileReader reader;
 
   @BeforeEach
@@ -39,7 +39,7 @@ public class FileReaderTest {
   }
 
   @Test
-  public void readFileTest(){
+  public void readFileTest() {
     assertTrue(reader.readFile(Path.of("practice.bujo")));
     assertFalse(reader.readFile(Path.of("bjjbasf")));
   }
