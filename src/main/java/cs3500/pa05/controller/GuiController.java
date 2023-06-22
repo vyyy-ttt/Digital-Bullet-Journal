@@ -44,6 +44,8 @@ public class GuiController {
   @FXML
   private Button save;
   @FXML
+  private Button edit;
+  @FXML
   private Button changeTheme;
   @FXML
   private Button sortByNameTask;
@@ -53,6 +55,8 @@ public class GuiController {
   private Button sortByNameEvent;
   @FXML
   private Button sortByDurationEvent;
+  @FXML
+  private VBox taskQueueBox;
   @FXML
   private VBox sunPane;
   @FXML
@@ -93,6 +97,8 @@ public class GuiController {
   private Rectangle setLimitRect;
   @FXML
   private Rectangle saveRect;
+  @FXML
+  private Rectangle editRect;
   @FXML
   private Label quotesLabel;
   @FXML
@@ -230,27 +236,6 @@ public class GuiController {
     fileTitlePopup.getContent().add(background);
     fileTitlePopup.getContent().add(vBox);
   }
-
-
-//  /**
-//   * Makes a splash screen.
-//   */
-//  public void makeSplashScreen() {
-//    Rectangle background = popupView.createPopupBackground(907,1290);
-//    HBox hbox = new HBox();
-//    Text welcome = new Text("Ready to Journal? (^-^)");
-//    welcome.setStyle("-fx-font-family: 'BM DoHyeon OTF'");
-//    hbox.getChildren().add(welcome);
-//    hbox.setAlignment(Pos.CENTER);
-//    splashScreen.getContent().add(background);
-//    splashScreen.getContent().add(welcome);
-//  }
-//
-//  public void showSplashScreen() {
-//    this.splashScreen.show(this.stage);
-//    PauseTransition pause = new PauseTransition(Duration.seconds(3));
-//    pause.setOnFinished(event -> splashScreen.hide());
-//  }
 
   /**
    * Creates a popup for the user to enter details of a task.
@@ -604,6 +589,7 @@ public class GuiController {
     tasksDurRect.setFill(Color.valueOf(colorOne));
     eventDurRect.setFill(Color.valueOf(colorOne));
     eventNameRect.setFill(Color.valueOf(colorOne));
+    editRect.setFill(Color.valueOf(colorOne));
     taskQueueText.setStyle(font);
   }
 
