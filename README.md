@@ -2,7 +2,21 @@
 # 3500 PA05 Project Repo
 
 [PA Write Up](https://markefontenot.notion.site/PA-05-8263d28a81a7473d8372c6579abd6481)
-![screenshot of week view](WEEK_SCREENSHOT.png)
+
+# Plan Your Life <3
+
+![picture of week view](WEEKVIEW.PNG)
+
+With plenty of spaces to choose from, display your plans and thoughts as you please! Whether it's your grocery list, 
+course schedule or to-do list, we have got you covered!
+
+![picture of blue bujo](BLUEBUJO.png)
+![picture of yellow bujo](YELLOWBUJO.png)
+![picture of purple bujo](PURPLEBUJO.png)
+
+![picture of welcome screen](WELCOMEVIEW.png)
+
+You can even load existing .bujo files!
 
 # SOLID Principles' Applications in our Program
 
