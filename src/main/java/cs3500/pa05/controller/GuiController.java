@@ -703,7 +703,6 @@ public class GuiController {
     sortByDurationTask.setOnAction(event -> handleSortTasksByDuration());
     sortByNameEvent.setOnAction(event -> handleSortEventsByName());
     sortByDurationEvent.setOnAction(event -> handleSortEventsByDuration());
-//    edit.setOnAction(event -> );
     makeFileNamePopup();
     showFileTitlePopUp();
   }
