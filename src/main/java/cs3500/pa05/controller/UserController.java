@@ -54,10 +54,19 @@ public class UserController {
 
   /**
    * Handles when the user enters a new limit.
-   *
    */
   protected void handleLimit(String taskLimit, String eventLimit) {
-   //TODO
+    try {
+      bujo.setTaskLimit(Integer.parseInt(taskLimit));
+    } catch (NumberFormatException e) {
+      System.err.println("Invalid limit input.");
+    }
+
+    try {
+      bujo.setEventLimit(Integer.parseInt(eventLimit));
+    } catch (NumberFormatException e) {
+      System.err.println("Invalid limit input.");
+    }
   }
 
   /**
