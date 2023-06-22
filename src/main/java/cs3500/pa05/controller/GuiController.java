@@ -141,6 +141,10 @@ public class GuiController {
   private RadioButton fri;
   private RadioButton sat;
   private RadioButton sun;
+  private int taskLim;
+  private int eventLim;
+  private int taskCount;
+  private int eventCount;
   private Button delete;
   private final PopupView popupView;
   private final Theme theme;
@@ -374,8 +378,9 @@ public class GuiController {
     Text taskDescription = new Text(description);
     taskBox.getChildren()
         .addAll(new Text("Task:"), hBox, taskDescription, complete);
-    TaskJson createdTask = new TaskJson(taskName.getText(),taskDescription.getText(),whatDay(),complete.isSelected());
-    delete.setOnAction(event ->{
+    TaskJson createdTask = new TaskJson(taskName.getText(), taskDescription.getText(), whatDay(),
+        complete.isSelected());
+    delete.setOnAction(event -> {
       taskBox.getChildren().clear();
       userController.handleRemoveTask(createdTask);
     });
@@ -537,7 +542,15 @@ public class GuiController {
     HBox buttonRow = new HBox();
     Button saveLimit = new Button("save");
     saveLimit.setOnAction(
-        event -> userController.handleLimit(taskLimit.getText(), eventLimit.getText()));
+        event -> {
+          try {
+            this.eventLim = Integer.parseInt(eventLimit.getText());
+            this.taskLim = Integer.parseInt(taskLimit.getText());
+          } catch (NumberFormatException e) {
+            System.out.println("it's ok");
+          }
+          userController.handleLimit(taskLimit.getText(), eventLimit.getText());
+        });
     Button cancelLimit = new Button("cancel");
     cancelLimit.setOnAction(event -> limitPopup.hide());
     vBox.getChildren().add(limitPrompt);
@@ -695,9 +708,21 @@ public class GuiController {
    * Initializes controls of the GUI.
    */
   public void run() {
-    addTask.setOnAction(event -> this.taskPopup.show(this.stage));
+    addTask.setOnAction(event -> {
+      if (taskCount <= taskLim) {
+        this.taskPopup.show(this.stage);
+      } else {
+        this.warnPopup.show(this.stage);
+      }
+    });
     makeTaskPopUp();
-    addEvent.setOnAction(event -> this.eventPopup.show(this.stage));
+    addEvent.setOnAction(event -> {
+      if (eventCount <= eventLim) {
+        this.eventPopup.show(this.stage);
+      } else {
+        this.warnPopup.show(this.stage);
+      }
+    });
     makeEventPopUp();
     setLimit.setOnAction(event -> this.limitPopup.show(this.stage));
     //TODO make it so that if they try to enter smt else but the limit is full, text is displayed
