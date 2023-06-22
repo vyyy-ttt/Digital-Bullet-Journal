@@ -141,6 +141,7 @@ public class GuiController {
   private RadioButton fri;
   private RadioButton sat;
   private RadioButton sun;
+  private Button delete;
   private final PopupView popupView;
   private final Theme theme;
   private final UserController userController;
@@ -357,11 +358,16 @@ public class GuiController {
    * @return taskBox a box-like representaion of a task
    */
   private VBox createTaskBox(String name, String description, CheckBox complete) {
-    VBox taskBox = new VBox(8);
+    VBox taskBox = new VBox();
+    HBox hBox = new HBox(5);
+    delete = new Button("delete");
+    delete.setVisible(false);
+//    delete.setOnAction(event -> ); //TODO make this hide
     Text taskName = new Text(name);
+    hBox.getChildren().addAll(taskName, delete);
     Text taskDescription = new Text(description);
     taskBox.getChildren()
-        .addAll(new Text("Task:"), taskName, taskDescription, complete);
+        .addAll(new Text("Task:"), hBox, taskDescription, complete);
     return taskBox;
   }
 
@@ -473,7 +479,12 @@ public class GuiController {
    */
   private VBox createEventBox(String name, String description, Time startTime, Time duration) {
     VBox eventBox = new VBox(8);
+    HBox hBox = new HBox(5);
+    delete = new Button("delete");
+    delete.setVisible(false);
+//    delete.setOnAction(event -> ); //TODO make it so that this is deleted
     Text textName = new Text(name);
+    hBox.getChildren().addAll(textName, delete);
     Text textDescription = new Text(description);
     Text textStartTime;
     if (startTime == null) {
@@ -488,6 +499,7 @@ public class GuiController {
       textDuration =
           new Text(String.format("%dhr and %dmin", duration.getHour(), duration.getMinute()));
     }
+
 //    HBox timeRow = new HBox();
 //    timeRow.getChildren().add(textStartTime);
 //    HBox durationRow = new HBox();
@@ -686,6 +698,7 @@ public class GuiController {
     sortByDurationTask.setOnAction(event -> handleSortTasksByDuration());
     sortByNameEvent.setOnAction(event -> handleSortEventsByName());
     sortByDurationEvent.setOnAction(event -> handleSortEventsByDuration());
+    edit.setOnAction(event -> );
     makeFileNamePopup();
     showFileTitlePopUp();
   }
