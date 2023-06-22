@@ -410,11 +410,6 @@ public class GuiController {
   private void makeEventPopUp() {
     Rectangle padding = new Rectangle(180, 10);
     padding.setFill(Color.valueOf("#ffffff"));
-    Label nameLabel = new Label("name: ");
-    Label descripLabel = new Label("description: ");
-    Label startTime = new Label("start time...");
-    Label eventDuration = new Label("duration: ");
-    HBox startTimeRow = new HBox(5);
     TextField hourDigit = new TextField();
     Label colon = new Label(":");
     colon.setPrefWidth(10);
@@ -427,6 +422,7 @@ public class GuiController {
     am.setToggleGroup(amOrPm);
     am.setSelected(true);
     pm.setToggleGroup(amOrPm);
+    HBox startTimeRow = new HBox(5);
     startTimeRow.getChildren().addAll(hourDigit, colon, minDigit, am, pm);
     HBox timeRow = new HBox(5);
     TextField hoursDigit = new TextField();
@@ -440,6 +436,10 @@ public class GuiController {
     TextField eventName = new TextField();
     TextField eventDescription = new TextField();
     HBox dayRow = createWeekRadios();
+    Label nameLabel = new Label("name: ");
+    Label descripLabel = new Label("description: ");
+    Label startTime = new Label("start time...");
+    Label eventDuration = new Label("duration: ");
     content.getChildren()
         .addAll(padding, nameLabel, eventName, descripLabel, eventDescription, dayLabel, dayRow,
             startTime, startTimeRow,
@@ -463,7 +463,7 @@ public class GuiController {
 
       VBox eventBox =
           createEventBox(eventName.getText(), eventDescription.getText(), time, duration);
-        addToGridPane(eventBox, translateToDay());
+      addToGridPane(eventBox, translateToDay());
     });
     cancel = new Button("cancel");
     cancel.setOnAction(event -> eventPopup.hide());
@@ -479,10 +479,6 @@ public class GuiController {
   private void makeEventEditPopup(EventJson eventEdit) {
     Rectangle padding = new Rectangle(180, 10);
     padding.setFill(Color.valueOf("#ffffff"));
-    Label nameLabel = new Label("name: ");
-    Label descripLabel = new Label("description: ");
-    Label startTime = new Label("start time...");
-    Label eventDuration = new Label("duration: ");
     HBox startTimeRow = new HBox(5);
     TextField hourDigit = new TextField(
         String.valueOf(eventEdit.translateStartTime(true).getHour()));
@@ -513,6 +509,10 @@ public class GuiController {
     TextField eventName = new TextField(eventEdit.name());
     TextField eventDescription = new TextField(eventEdit.description());
     HBox dayRow = createWeekRadios();
+    Label nameLabel = new Label("name: ");
+    Label descripLabel = new Label("description: ");
+    Label startTime = new Label("start time...");
+    Label eventDuration = new Label("duration: ");
     content.getChildren()
         .addAll(padding, nameLabel, eventName, descripLabel, eventDescription, dayLabel, dayRow,
             startTime, startTimeRow,
