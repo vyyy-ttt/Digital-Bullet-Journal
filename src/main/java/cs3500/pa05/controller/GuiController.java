@@ -277,7 +277,8 @@ public class GuiController {
     Label descripLabel = new Label("description");
     TextField taskDescription = new TextField();
     HBox dayRow = createWeekRadios();
-    content.getChildren().addAll(nameLabel, taskName, descripLabel, taskDescription, dayLabel, dayRow);
+    content.getChildren().addAll(
+        nameLabel, taskName, descripLabel, taskDescription, dayLabel, dayRow);
     Button finalizeTask = new Button("add task");
     finalizeTask.setOnAction(event -> {
       CheckBox complete = new CheckBox();
