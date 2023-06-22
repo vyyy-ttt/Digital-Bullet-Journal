@@ -7,13 +7,17 @@ import java.lang.reflect.Array;
  * Represents a theme for the GUI.
  */
 public class Theme {
+  private ThemeType theme;
+
+  public void setThemeType(ThemeType theme){
+    this.theme = theme;
+  }
   /**
    * Gets color one depending on which theme is active.
    *
-   * @param theme the current theme
    * @return the value of the color
    */
-  public String getColorOne(ThemeType theme) {
+  public String getColorOne() {
     if (theme == ThemeType.PINKGREEN) {
       return "#a9bc89";
     } else if (theme == ThemeType.YELLOW) {
@@ -30,10 +34,9 @@ public class Theme {
   /**
    * Gets color two depending on which theme is active.
    *
-   * @param theme the current theme
    * @return the value of the color
    */
-  public String getColorTwo(ThemeType theme) {
+  public String getColorTwo() {
     if (theme == ThemeType.PINKGREEN) {
       return "#555e3a";
     } else if (theme == ThemeType.YELLOW) {
@@ -50,10 +53,9 @@ public class Theme {
   /**
    * Gets font depending on which theme is active.
    *
-   * @param theme the current theme
    * @return the value of the color
    */
-  public String getFont(ThemeType theme) {
+  public String getFont() {
     if (theme == ThemeType.PINKGREEN) {
       return "-fx-font-family: 'BM JUA OTF'";
     } else if (theme == ThemeType.YELLOW) {
@@ -70,10 +72,9 @@ public class Theme {
   /**
    * Gets face depending on which theme is active.
    *
-   * @param theme the current theme
    * @return the value of the color
    */
-  public String getFace(ThemeType theme) {
+  public String getFace() {
     if (theme == ThemeType.PINKGREEN) {
       return "(O_O)";
     } else if (theme == ThemeType.YELLOW) {

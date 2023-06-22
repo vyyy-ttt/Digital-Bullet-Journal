@@ -9,7 +9,7 @@ import cs3500.pa05.model.Theme;
 import cs3500.pa05.model.ThemeType;
 import cs3500.pa05.model.Time;
 import cs3500.pa05.view.PopupView;
-import cs3500.pa05.view.ThemeView;
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.fxml.FXML;
@@ -85,7 +85,6 @@ public class GuiController {
   private Label friLabel;
   @FXML
   private Label satLabel;
-  private List<Label> weekLabels;
   @FXML
   private Rectangle addTaskRect;
   @FXML
@@ -117,10 +116,6 @@ public class GuiController {
   @FXML
   private TextArea quotesArea;
   @FXML
-  private RadioButton am;
-  @FXML
-  private RadioButton pm;
-  @FXML
   private Text taskQueueText;
   private Button cancel;
   private final Stage stage;
@@ -131,17 +126,9 @@ public class GuiController {
   private final Popup splashScreen;
   private final Popup fileTitlePopup;
   private final Popup warnPopup;
-  private TextField taskName;
-  private TextField taskDay;
-  private TextField hoursDigit;
-  private TextField minutesDigit;
-  private Label hoursLabel;
-  private Label minutesLabel;
-  private TextField eventName;
-  private Button finalizeTask;
-  private TextField hourDigit;
-  private TextField minDigit;
-  private CheckBox complete;
+  private final Label dayLabel = new Label("day: ");
+  private HashMap<EventJson, VBox> events;
+  private HashMap<TaskJson, VBox> tasks;
   private RadioButton mon;
   private RadioButton tue;
   private RadioButton wed;
@@ -149,10 +136,9 @@ public class GuiController {
   private RadioButton fri;
   private RadioButton sat;
   private RadioButton sun;
-  private ArrayList<String> taskList;
   private final PopupView popupView;
-  private final UserController userController;
   private final Theme theme;
+  private final UserController userController;
 
   /**
    * Constructs a GUIController.
@@ -161,6 +147,8 @@ public class GuiController {
    */
   public GuiController(Stage stage) {
     this.stage = stage;
+    events = new HashMap<>();
+    tasks = new HashMap<>();
     this.taskPopup = new Popup();
     this.eventPopup = new Popup();
     this.limitPopup = new Popup();
@@ -169,7 +157,6 @@ public class GuiController {
     this.fileTitlePopup = new Popup();
     this.warnPopup = new Popup();
     popupView = new PopupView();
-    theme = new Theme();
     monPane = new VBox(3);
     tuePane = new VBox(3);
     wedPane = new VBox(3);
@@ -177,6 +164,7 @@ public class GuiController {
     friPane = new VBox(3);
     satPane = new VBox(3);
     sunPane = new VBox(3);
+    theme = new Theme();
     userController = new UserController();
   }
 
@@ -187,17 +175,25 @@ public class GuiController {
       }
       for (TaskJson task : dayJson.tasks()) {
         if (task != null) {
-          addToGridPane(createTaskBox(task.name(), task.description()), task.day());
+          CheckBox complete = new CheckBox();
+          if (task.complete()) {
+            complete.fire();
+          }
+          VBox taskGui = createTaskBox(task.name(), task.description(), complete);
+          tasks.put(task, taskGui);
+          addToGridPane(taskGui, task.day());
         }
       }
       for (EventJson event : dayJson.events()) {
         if (event != null) {
-          addToGridPane(
-              createEventBox(event.name(), event.description(), event.translateStartTime(true),
-                  event.translateStartTime(false)), event.day());
+          VBox eventGui = createEventBox(event.name(), event.description(), event.translateStartTime(true),
+              event.translateStartTime(false));
+          events.put(event, eventGui);
+          addToGridPane(eventGui, event.day());
         }
       }
     }
+
   }
 
   /**
@@ -266,17 +262,17 @@ public class GuiController {
     padding.setFill(Color.valueOf("#ffffff"));
     vBox.getChildren().add(padding);
     Label nameLabel = new Label("name: ");
-    taskName = new TextField();
+    TextField taskName = new TextField();
     Label descripLabel = new Label("description");
     TextField taskDescription = new TextField();
-    Label dayLabel = new Label("day: ");
     HBox dayRow = createWeekRadios();
     vBox.getChildren().addAll(nameLabel, taskName, descripLabel, taskDescription, dayLabel, dayRow);
     HBox buttonRow = new HBox(5);
-    finalizeTask = new Button("add task");
+    Button finalizeTask = new Button("add task");
     finalizeTask.setOnAction(event -> {
+      CheckBox complete = new CheckBox();
       VBox taskBox =
-          createTaskBox(taskName.getText(), taskDescription.getText());
+          createTaskBox(taskName.getText(), taskDescription.getText(), complete);
       if (whatDay() == null) {
         //TODO: get valid input from the user
       }
@@ -335,11 +331,10 @@ public class GuiController {
    * @param description the description of the task
    * @return taskBox a box-like representaion of a task
    */
-  private VBox createTaskBox(String name, String description) {
+  private VBox createTaskBox(String name, String description, CheckBox complete) {
     VBox taskBox = new VBox(8);
     Text taskName = new Text(name);
     Text taskDescription = new Text(description);
-    CheckBox complete = new CheckBox();
     taskBox.getChildren()
         .addAll(new Text("Task:"), taskName, taskDescription, complete);
     return taskBox;
@@ -348,20 +343,20 @@ public class GuiController {
   public HBox createWeekRadios() {
     HBox dayRow = new HBox(5);
     ToggleGroup chosenDay = new ToggleGroup();
-    RadioButton sun = new RadioButton("Sun");
+    sun = new RadioButton("Sun");
     sun.setToggleGroup(chosenDay);
     sun.setSelected(true);
-    RadioButton mon = new RadioButton("Mon");
+    mon = new RadioButton("Mon");
     mon.setToggleGroup(chosenDay);
-    RadioButton tue = new RadioButton("Tue");
+    tue = new RadioButton("Tue");
     tue.setToggleGroup(chosenDay);
-    RadioButton wed = new RadioButton("Wed");
+    wed = new RadioButton("Wed");
     wed.setToggleGroup(chosenDay);
-    RadioButton thu = new RadioButton("Thu");
+    thu = new RadioButton("Thu");
     thu.setToggleGroup(chosenDay);
-    RadioButton fri = new RadioButton("Fri");
+    fri = new RadioButton("Fri");
     fri.setToggleGroup(chosenDay);
-    RadioButton sat = new RadioButton("Sat");
+    sat = new RadioButton("Sat");
     sat.setToggleGroup(chosenDay);
     dayRow.getChildren().addAll(sun, mon, tue, wed, thu, fri, sat);
     return dayRow;
@@ -376,34 +371,33 @@ public class GuiController {
     Rectangle padding = new Rectangle(180, 10);
     padding.setFill(Color.valueOf("#ffffff"));
     Label nameLabel = new Label("name: ");
-    eventName = new TextField();
+    TextField eventName = new TextField();
     Label descripLabel = new Label("description: ");
     TextField eventDescription = new TextField();
-    Label dayLabel = new Label("day: ");
     HBox dayRow = createWeekRadios();
     Label startTime = new Label("start time...");
     Label eventDuration = new Label("duration: ");
     HBox startTimeRow = new HBox(5);
-    hourDigit = new TextField();
+    TextField hourDigit = new TextField();
     Label colon = new Label(":");
     colon.setPrefWidth(10);
     hourDigit.setPrefWidth(30);
-    minDigit = new TextField();
+    TextField minDigit = new TextField();
     minDigit.setPrefWidth(30);
     ToggleGroup amOrPm = new ToggleGroup();
-    am = new RadioButton("AM");
-    pm = new RadioButton("PM");
+    RadioButton am = new RadioButton("AM");
+    RadioButton pm = new RadioButton("PM");
     am.setToggleGroup(amOrPm);
     am.setSelected(true);
     pm.setToggleGroup(amOrPm);
     startTimeRow.getChildren().addAll(hourDigit, colon, minDigit, am, pm);
     HBox hBox = new HBox(5);
-    hoursDigit = new TextField();
+    TextField hoursDigit = new TextField();
     hoursDigit.setPrefWidth(30);
-    hoursLabel = new Label("H");
-    minutesDigit = new TextField();
+    Label hoursLabel = new Label("H");
+    TextField minutesDigit = new TextField();
     minutesDigit.setPrefWidth(30);
-    minutesLabel = new Label("M");
+    Label minutesLabel = new Label("M");
     hBox.getChildren().addAll(hoursDigit, hoursLabel, minutesDigit, minutesLabel);
     vBox.getChildren()
         .addAll(padding, nameLabel, eventName, descripLabel, eventDescription, dayLabel, dayRow,
@@ -414,8 +408,6 @@ public class GuiController {
     finalizeEvent.setOnAction(event ->
     {
       //TODO work this out so events are not duplicated and added like a list
-      taskList = new ArrayList<>();
-      if (!taskList.contains(eventName.getText()) || !eventName.getText().equals("event name...")) {
         Time time;
         try {
           time =
@@ -431,14 +423,12 @@ public class GuiController {
           duration = null;
         }
 
-        taskList.add(eventName.getText());
         VBox eventBox =
             createEventBox(eventName.getText(), eventDescription.getText(), time, duration);
         if (whatDay() != null) {
           //TODO: get valid input from the user
           addToGridPane(eventBox, whatDay());
         }
-      }
     });
     cancel = new Button("cancel");
     cancel.setOnAction(event -> eventPopup.hide());
@@ -479,6 +469,7 @@ public class GuiController {
 //    durationRow.getChildren().add(textDuration);
     eventBox.getChildren()
         .addAll(new Text("Event:"), textName, textDescription, textStartTime, textDuration);
+    events.put(new EventJson(textName.getText(),textDescription.getText(),whatDay(), textStartTime.getText(), textDuration.getText()),eventBox);
     return eventBox;
   }
 
@@ -588,6 +579,8 @@ public class GuiController {
    * @param font     font to use for text
    */
   private void changeTheme(String colorOne, String colorTwo, String font, String face) {
+    List<Label> weekLabels =
+        List.of(sunLabel, monLabel, tueLabel, wedLabel, thuLabel, friLabel, satLabel);
     headerRect.setFill(Color.valueOf(colorOne));
     headerLabel.setText(face);
     changeLabelTheme(headerLabel, colorTwo, font);
@@ -597,13 +590,9 @@ public class GuiController {
     weekNameText.setStyle(font);
     changeLabelTheme(quotesLabel, colorTwo, font);
     quotesArea.setStyle(font);
-    changeLabelTheme(monLabel, colorTwo, font);
-    changeLabelTheme(tueLabel, colorTwo, font);
-    changeLabelTheme(wedLabel, colorTwo, font);
-    changeLabelTheme(thuLabel, colorTwo, font);
-    changeLabelTheme(friLabel, colorTwo, font);
-    changeLabelTheme(satLabel, colorTwo, font);
-    changeLabelTheme(sunLabel, colorTwo, font);
+    for (Label day : weekLabels) {
+      changeLabelTheme(day, colorTwo, font);
+    }
     changeLabelTheme(sortTasksLabel, colorTwo, font);
     changeLabelTheme(sortEventsLabel, colorTwo, font);
     changeLabelTheme(taskQueueLabel, colorTwo, font);
@@ -628,18 +617,18 @@ public class GuiController {
     Button yellow = new Button("Yellow");
     Button blue = new Button("Blue");
     Button purple = new Button("Purple");
-    green.setOnAction(event -> changeTheme(theme.getColorOne(ThemeType.PINKGREEN),
-        theme.getColorTwo(ThemeType.PINKGREEN), theme.getFont(ThemeType.PINKGREEN),
-        theme.getFace(ThemeType.PINKGREEN)));
-    yellow.setOnAction(event -> changeTheme(
-        theme.getColorOne(ThemeType.YELLOW), theme.getColorOne(ThemeType.YELLOW),
-        theme.getFont(ThemeType.YELLOW), theme.getFace(ThemeType.YELLOW)));
-    blue.setOnAction(event -> changeTheme(theme.getColorOne(ThemeType.BLUE),
-        theme.getColorTwo(ThemeType.BLUE), theme.getFont(ThemeType.BLUE),
-        theme.getFace(ThemeType.BLUE)));
-    purple.setOnAction(event -> changeTheme(theme.getColorOne(ThemeType.PURPLE),
-        theme.getColorTwo(ThemeType.PURPLE),
-        theme.getFont(ThemeType.PURPLE), theme.getFace(ThemeType.PURPLE)));
+    green.setOnAction(event ->{
+      theme.setThemeType(ThemeType.PINKGREEN);
+      changeTheme(theme.getColorOne(), theme.getColorTwo(), theme.getFont(), theme.getFace());});
+    yellow.setOnAction(event -> {
+      theme.setThemeType(ThemeType.YELLOW);
+      changeTheme(theme.getColorOne(), theme.getColorOne(), theme.getFont(), theme.getFace());});
+    blue.setOnAction(event -> {
+      theme.setThemeType(ThemeType.BLUE);
+      changeTheme(theme.getColorOne(), theme.getColorTwo(), theme.getFont(), theme.getFace());});
+    purple.setOnAction(event -> {
+      theme.setThemeType(ThemeType.PURPLE);
+      changeTheme(theme.getColorOne(), theme.getColorTwo(), theme.getFont(), theme.getFace());});
     Button cancelChange = new Button("cancel");
     cancelChange.setOnAction(event -> changeThemePopup.hide());
     vbox.getChildren().addAll(green, yellow, purple, blue, cancelChange);
