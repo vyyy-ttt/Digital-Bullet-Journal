@@ -1,7 +1,5 @@
 package cs3500.pa05.controller;
 
-import static java.lang.Thread.sleep;
-
 import cs3500.pa05.model.Day;
 import cs3500.pa05.model.Json.BujoJson;
 import cs3500.pa05.model.Json.DayJson;
@@ -130,6 +128,7 @@ public class GuiController {
   private final Popup changeThemePopup;
   private final Popup splashScreen;
   private final Popup fileTitlePopup;
+  private final Popup warnPopup;
   private TextField taskName;
   private TextField taskDay;
   private TextField hoursDigit;
@@ -166,6 +165,7 @@ public class GuiController {
     this.changeThemePopup = new Popup();
     this.splashScreen = new Popup();
     this.fileTitlePopup = new Popup();
+    this.warnPopup = new Popup();
     popupView = new PopupView();
     themeView = new ThemeView();
     monPane = new VBox(3);
@@ -211,7 +211,7 @@ public class GuiController {
     HBox hBox = new HBox(6);
     hBox.setAlignment(Pos.CENTER);
     Text welcome = new Text("Welcome! (^-^)" + System.lineSeparator()
-        + "Please enter an existing bujo file path, or name a new one!");
+        + "Please enter an existing bujo file path, or the name of a new one!");
     welcome.setTextAlignment(TextAlignment.CENTER);
     welcome.setStyle("-fx-font-family: 'BM Jua'");
     welcome.setFill(Color.valueOf("#555e3a"));
@@ -259,7 +259,7 @@ public class GuiController {
    * Creates a popup for the user to enter details of a task.
    */
   private void makeTaskPopUp() {
-    Rectangle background = popupView.createPopupBackground(240, 180);
+    Rectangle background = popupView.createPopupBackground(240, 360);
     VBox vBox = new VBox(8);
     Rectangle padding = new Rectangle(180, 10);
     padding.setFill(Color.valueOf("#ffffff"));
@@ -370,7 +370,7 @@ public class GuiController {
    * Creates a popup for a user to enter the details of an event.
    */
   private void makeEventPopUp() {
-    Rectangle background = popupView.createPopupBackground(260, 180);
+    Rectangle background = popupView.createPopupBackground(320, 360);
     VBox vBox = new VBox(8);
     Rectangle padding = new Rectangle(180, 10);
     padding.setFill(Color.valueOf("#ffffff"));
@@ -509,6 +509,17 @@ public class GuiController {
     limitPopup.getContent().add(vBox);
   }
 
+  private void makeLimitWarning() {
+    Rectangle background = popupView.createPopupBackground(50, 120);
+    HBox hBox = new HBox();
+    Text warning =
+        new Text("You cannot add anymore tasks or events or else you will go over your limit!");
+    Button okButton = new Button("ok");
+    hBox.getChildren().addAll(warning, okButton);
+    warnPopup.getContent().add(background);
+    warnPopup.getContent().add(hBox);
+  }
+
   /**
    * Adds a task or event to the week view's grid pane.
    *
@@ -643,6 +654,7 @@ public class GuiController {
     addEvent.setOnAction(event -> this.eventPopup.show(this.stage));
     makeEventPopUp();
     setLimit.setOnAction(event -> this.limitPopup.show(this.stage));
+    //TODO make it so that if they try to enter smt else but the limit is full, text is displayed
     makeLimitPopup();
     changeTheme.setOnAction(event -> this.changeThemePopup.show(this.stage));
     makeThemePopup();
