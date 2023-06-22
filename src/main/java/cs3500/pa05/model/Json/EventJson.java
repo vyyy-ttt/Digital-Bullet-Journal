@@ -50,6 +50,12 @@ public record EventJson(@JsonProperty("name") String name,
     return new Time(Integer.parseInt(arrayTime[0]), Integer.parseInt(minuteAndMarker[0]));
   }
 
+  /**
+   * Checks if two EventJsons are equal.
+   *
+   * @param other   the reference object with which to compare.
+   * @return
+   */
   @Override
   public boolean equals(Object other) {
     if (!(other instanceof EventJson)) {

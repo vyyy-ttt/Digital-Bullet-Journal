@@ -517,6 +517,7 @@ public class GuiController {
     EventJson createdEvent = new EventJson(textName.getText(), textDescription.getText(),
         translateToDay(),
         textStartTime.getText(), textDuration.getText());
+    userController.handleEvent(createdEvent);
     delete.setOnAction(event -> {
       eventBox.getChildren().clear();
       userController.handleRemoveEvent(createdEvent);
