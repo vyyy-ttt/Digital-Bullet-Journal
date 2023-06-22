@@ -6,13 +6,12 @@
 # Plan Your Life <3
 
 ![picture of week view](WEEKVIEW.PNG)
-
-With plenty of spaces to choose from, display your plans and thoughts as you please! Whether it's your grocery list, 
-course schedule or to-do list, we have got you covered!
-
 ![picture of blue bujo](BLUEBUJO.png)
 ![picture of yellow bujo](YELLOWBUJO.png)
 ![picture of purple bujo](PURPLEBUJO.png)
+
+With plenty of spaces to choose from, display your plans and thoughts as you please! Whether it's your grocery list,
+course schedule or to-do list, we have got you covered!
 
 ![picture of welcome screen](WELCOMEVIEW.png)
 
